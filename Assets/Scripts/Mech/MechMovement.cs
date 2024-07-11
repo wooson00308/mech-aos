@@ -8,14 +8,40 @@ public class MechMovement : MonoBehaviour
     public Animator Animator;
     public NavMeshAgent Agent;
     public Joystick Joystick;
+    public ParticleSystem MoveParticle; // 파티클 시스템 필드 추가
 
     private Vector3 _currentMoveDir;
     public Vector3 CurrentMoveDir => _currentMoveDir;
 
+    public AudioClip moveClip;
+    private bool isMoving = false;
+
+    private float sfxPlayIntervalBase = 0.55f; // SFX 기본 재생 간격
+    private float moveAnimationMultiplierBase = 0.7f; // 기본 애니메이션 속도
+    private float moveSpeedMultiplierBase = 10f; // 기본 이동 속도
+
+    private float sfxPlayInterval;
+    private float moveAnimationMultiplier;
+    private float moveSpeedMultiplier;
+
     public void OnUpdate(Mech mech)
     {
+        UpdateMultipliers(mech.MoveSpeed);
+        Animator.SetFloat("MoveSpeed", mech.MoveSpeed * moveAnimationMultiplier);
         Move(mech);
-        
+
+        if (!isMoving && _currentMoveDir != Vector3.zero)
+        {
+            isMoving = true;
+            StartCoroutine(PlayMoveSfx(mech));
+        }
+
+        if (isMoving && _currentMoveDir == Vector3.zero)
+        {
+            AudioManager.Instance.StopSfx(moveClip);
+            isMoving = false;
+        }
+
         if (mech.Attack.TargetHandle != 0)
         {
             var target = mech.Map.GetEnemy(mech.Attack.TargetHandle);
@@ -65,7 +91,7 @@ public class MechMovement : MonoBehaviour
         Vector3 moveDir = new(Joystick.Horizontal(), 0, Joystick.Vertical());
         _currentMoveDir = moveDir.normalized;
 
-        var offset = _currentMoveDir * mech.MoveSpeed * Time.fixedDeltaTime;
+        var offset = _currentMoveDir * (mech.MoveSpeed * moveSpeedMultiplier) * Time.fixedDeltaTime;
 
         Agent.Move(offset);
     }
@@ -86,5 +112,22 @@ public class MechMovement : MonoBehaviour
         var lookDir = Quaternion.LookRotation(moveDir);
         var t = Mathf.Clamp01(mech.RotationSpeed * Time.fixedDeltaTime * mech.MoveSpeed);
         transform.rotation = Quaternion.Lerp(transform.rotation, lookDir, t);
+    }
+
+    private IEnumerator PlayMoveSfx(Mech mech)
+    {
+        while (isMoving)
+        {
+            if (MoveParticle != null) MoveParticle.Play(); // 파티클 재생
+            AudioManager.Instance.PlaySfx(moveClip, false, mech.MoveSpeed, .3f);
+            yield return new WaitForSeconds(sfxPlayInterval);
+        }
+    }
+
+    private void UpdateMultipliers(float moveSpeed)
+    {
+        sfxPlayInterval = sfxPlayIntervalBase / moveSpeed;
+        moveAnimationMultiplier = moveAnimationMultiplierBase * moveSpeed;
+        moveSpeedMultiplier = moveSpeedMultiplierBase * moveSpeed;
     }
 }

@@ -24,11 +24,14 @@ public class Mech : MonoBehaviour
     public MechMovement Move;
     public MechAttack Attack;
 
+    public bool IsDummy;
+
     Map _map;
     public Map Map => _map;
 
     private void Awake()
     {
+        if (IsDummy) return;
         _map = Map.GetMap();
 
         Attack.Initialized(this);
@@ -36,6 +39,7 @@ public class Mech : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (IsDummy) return;
         Attack.OnUpdate();
         Move.OnUpdate(this);
     }
@@ -43,6 +47,7 @@ public class Mech : MonoBehaviour
 
     private void Update()
     {
+        if (IsDummy) return;
         Attack.OnUpdateTarget(this);
     }
 }
