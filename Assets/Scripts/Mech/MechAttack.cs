@@ -6,8 +6,12 @@ using UnityEngine.UI;
 public class MechAttack : MonoBehaviour
 {
     public Animator Aniamtor;
-    public Button AttackButton;
-    public Weapon Weapon;
+
+    public Button MainAttackButton;
+    public Weapon MainWeapon;
+
+    public Button SubAttackButton;
+    public Weapon SubWeapon;
 
     int _targetHandle;
     public int TargetHandle => _targetHandle;
@@ -15,9 +19,7 @@ public class MechAttack : MonoBehaviour
     static int playerHandle = 0;
     public int Handle { get; private set; }
 
-    private bool _isAttack;
-    
-    public bool IsAttack => _isAttack;
+    private Dictionary<Weapon, bool> _weaponDelayDic = new();
 
     private void OnEnable()
     {
@@ -27,13 +29,25 @@ public class MechAttack : MonoBehaviour
 
     public void Initialized(Mech mech)
     {
-        if (AttackButton != null)
+        if (MainAttackButton != null)
         {
-            AttackButton.onClick.AddListener(() =>
+            _weaponDelayDic.Add(MainWeapon, false);
+            MainAttackButton.onClick.AddListener(() =>
             {
-                if (Weapon != null && !_isAttack)
+                if (MainWeapon != null && !_weaponDelayDic[MainWeapon])
                 {
-                    StartCoroutine(ProcessAttack(mech));
+                    StartCoroutine(ProcessAttack(mech, MainWeapon));
+                }
+            });
+        }
+        if (SubAttackButton != null)
+        {
+            _weaponDelayDic.Add(SubWeapon, false);
+            SubAttackButton.onClick.AddListener(() =>
+            {
+                if (SubWeapon != null && !_weaponDelayDic[SubWeapon])
+                {
+                    StartCoroutine(ProcessAttack(mech, SubWeapon));
                 }
             });
         }
@@ -41,11 +55,12 @@ public class MechAttack : MonoBehaviour
 
     public void OnUpdate()
     {
-        Aniamtor.SetBool("IsAttack", _isAttack);
+        Aniamtor.SetBool("IsAttack", _weaponDelayDic[MainWeapon]);
 
-        if (AttackButton != null)
+        if (MainAttackButton != null)
         {
-            AttackButton.interactable = _targetHandle != 0;
+            MainAttackButton.interactable = _targetHandle != 0;
+            SubAttackButton.interactable = _targetHandle != 0;
         }
     }
 
@@ -90,17 +105,19 @@ public class MechAttack : MonoBehaviour
         }
     }
 
-    IEnumerator ProcessAttack(Mech mech)
+    IEnumerator ProcessAttack(Mech mech, Weapon weapon)
     {
-        if (_isAttack) yield break;
-        _isAttack = true;
+        if (_weaponDelayDic[weapon]) yield break;
+        _weaponDelayDic[weapon] = true;
 
-        yield return new WaitForSeconds(mech.AttackInitDelay);
+        yield return new WaitForSeconds(weapon.AttackInitDelay);
 
-        Weapon.OnAttack();
+        weapon.OnAttack();
 
-        yield return new WaitForSeconds(mech.AttackSpeed);
+        yield return new WaitForSeconds(weapon.AttackCooltime);
 
-        _isAttack = false;
+        weapon.OnReadyAttack(true);
+
+        _weaponDelayDic[weapon] = false;
     }
 }
