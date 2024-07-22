@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Mech : MonoBehaviour
 {
+    [SerializeField] float _maxHealth;
 	[SerializeField] float _moveSpeed;
 	[SerializeField] float _rotationSpeed;
     [SerializeField] float _attackInitDelay;
@@ -13,6 +14,7 @@ public class Mech : MonoBehaviour
     [SerializeField] float _attackDir;
     [SerializeField] float _attackSpeed;
 
+    public float MaxHealth => _maxHealth;
     public float MoveSpeed => _moveSpeed;
     public float RotationSpeed => _rotationSpeed;
     public float AttackInitDelay => _attackInitDelay;
@@ -23,7 +25,7 @@ public class Mech : MonoBehaviour
     [Header("Services")]
     public MechMovement Move;
     public MechAttack Attack;
-    public Animator Animator;
+    public MechHealth Health;
 
     public bool IsDummy;
 
@@ -36,6 +38,7 @@ public class Mech : MonoBehaviour
         _map = Map.GetMap();
 
         Attack.Initialized(this);
+        Health.Initialized(this);
     }
 
     private void FixedUpdate()
@@ -50,10 +53,5 @@ public class Mech : MonoBehaviour
     {
         if (IsDummy) return;
         Attack.OnUpdateTarget(this);
-    }
-
-    private void OnParticleCollision(GameObject other)
-    {
-        Animator.SetTrigger("Hit");
     }
 }
