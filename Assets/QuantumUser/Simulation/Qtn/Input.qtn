@@ -1,0 +1,24 @@
+input {
+	button Left;
+	button Right;
+	button Up;
+	button Down;
+	button MainWeaponFire;
+	button SubWeaponFire;
+}
+enum EWeaponType 
+{
+    MainWeapon,
+    SubWeapon,
+}
+event Movement
+{ 
+    EntityRef Owner; 
+    FP Velocity;
+}
+
+event WeaponFire
+{
+    EntityRef Owner;
+    EWeaponType Type;
+}

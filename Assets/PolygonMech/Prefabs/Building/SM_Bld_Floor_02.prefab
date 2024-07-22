@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5932692626825305028}
   - component: {fileID: 8480805636514295566}
   - component: {fileID: 4471330731439463768}
+  - component: {fileID: 572275623828513271}
   m_Layer: 0
   m_Name: SM_Bld_Floor_02
   m_TagString: Untagged
@@ -105,3 +106,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 0.2120361, z: 5.000001}
   m_Center: {x: -2.5, y: -0.07676259, z: 2.4999995}
+--- !u!114 &572275623828513271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976195702109703899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SourceCollider: {fileID: 4471330731439463768}
+  Size:
+    X:
+      RawValue: 327680
+    Y:
+      RawValue: 13895
+    Z:
+      RawValue: 327680
+  PositionOffset:
+    X:
+      RawValue: -163840
+    Y:
+      RawValue: -5030
+    Z:
+      RawValue: 163839
+  RotationOffset:
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
+  Settings:
+    MutableMode: 0
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Asset:
+      Id:
+        Value: 0
+    Trigger: 0

@@ -131,16 +131,77 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
+    public Button Fire;
     public Button Left;
     public Button Right;
     public Button Up;
-    public Button Fire;
+    public Button Down;
+    public Button MainWeaponFire;
+    public Button SubWeaponFire;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
+        result.Fire = this.Fire;
         result.Left = this.Left;
         result.Right = this.Right;
         result.Up = this.Up;
-        result.Fire = this.Fire;
+        result.Down = this.Down;
+        result.MainWeaponFire = this.MainWeaponFire;
+        result.SubWeaponFire = this.SubWeaponFire;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.PlayableMechanic))]
+  public unsafe partial class PlayableMechanicPrototype : ComponentPrototype<Quantum.PlayableMechanic> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.PlayableMechanic result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.PlayableMechanic component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.PlayableMechanic result, in PrototypeMaterializationContext context = default) {
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.PlayerLink))]
+  public unsafe partial class PlayerLinkPrototype : ComponentPrototype<Quantum.PlayerLink> {
+    public PlayerRef PlayerRef;
+    partial void MaterializeUser(Frame frame, ref Quantum.PlayerLink result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.PlayerLink component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.PlayerLink result, in PrototypeMaterializationContext context = default) {
+        result.PlayerRef = this.PlayerRef;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.Status))]
+  public unsafe partial class StatusPrototype : ComponentPrototype<Quantum.Status> {
+    public FP CurrentHealth;
+    public QBoolean IsDead;
+    public FP RespawnTimer;
+    public FP RegenTimer;
+    public FP InvincibleTimer;
+    public Int32 DisconnectedTicks;
+    partial void MaterializeUser(Frame frame, ref Quantum.Status result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.Status component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.Status result, in PrototypeMaterializationContext context = default) {
+        result.CurrentHealth = this.CurrentHealth;
+        result.IsDead = this.IsDead;
+        result.RespawnTimer = this.RespawnTimer;
+        result.RegenTimer = this.RegenTimer;
+        result.InvincibleTimer = this.InvincibleTimer;
+        result.DisconnectedTicks = this.DisconnectedTicks;
         MaterializeUser(frame, ref result, in context);
     }
   }

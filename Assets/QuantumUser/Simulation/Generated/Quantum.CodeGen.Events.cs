@@ -52,7 +52,7 @@ namespace Quantum {
   public unsafe partial class Frame {
     public unsafe partial struct FrameEvents {
       static partial void GetEventTypeCountCodeGen(ref Int32 eventCount) {
-        eventCount = 1;
+        eventCount = 3;
       }
       static partial void GetParentEventIDCodeGen(Int32 eventID, ref Int32 parentEventID) {
         switch (eventID) {
@@ -61,8 +61,78 @@ namespace Quantum {
       }
       static partial void GetEventTypeCodeGen(Int32 eventID, ref System.Type result) {
         switch (eventID) {
+          case EventMovement.ID: result = typeof(EventMovement); return;
+          case EventWeaponFire.ID: result = typeof(EventWeaponFire); return;
           default: break;
         }
+      }
+      public EventMovement Movement(EntityRef Owner, FP Velocity) {
+        var ev = _f.Context.AcquireEvent<EventMovement>(EventMovement.ID);
+        ev.Owner = Owner;
+        ev.Velocity = Velocity;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventWeaponFire WeaponFire(EntityRef Owner, EWeaponType Type) {
+        var ev = _f.Context.AcquireEvent<EventWeaponFire>(EventWeaponFire.ID);
+        ev.Owner = Owner;
+        ev.Type = Type;
+        _f.AddEvent(ev);
+        return ev;
+      }
+    }
+  }
+  public unsafe partial class EventMovement : EventBase {
+    public new const Int32 ID = 1;
+    public EntityRef Owner;
+    public FP Velocity;
+    protected EventMovement(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventMovement() : 
+        base(1, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 41;
+        hash = hash * 31 + Owner.GetHashCode();
+        hash = hash * 31 + Velocity.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventWeaponFire : EventBase {
+    public new const Int32 ID = 2;
+    public EntityRef Owner;
+    public EWeaponType Type;
+    protected EventWeaponFire(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventWeaponFire() : 
+        base(2, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 43;
+        hash = hash * 31 + Owner.GetHashCode();
+        hash = hash * 31 + Type.GetHashCode();
+        return hash;
       }
     }
   }

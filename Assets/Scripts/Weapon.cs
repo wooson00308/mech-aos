@@ -20,6 +20,14 @@ public class Weapon : MonoBehaviour
         _weaponFxs = transform.GetComponentsInChildren<ParticleSystem>().ToList();
     }
 
+    public void SetIgnoreCollision(LayerMask mask)
+    {
+        foreach (var fx in _weaponFxs)
+        {
+            var collision = fx.collision;
+            collision.collidesWith = ~mask;
+        }
+    }
     public void OnAttack()
     {
         // if (WeaponFx.isPlaying) return;

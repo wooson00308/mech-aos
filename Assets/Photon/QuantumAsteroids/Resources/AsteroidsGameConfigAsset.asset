@@ -41,7 +41,7 @@ MonoBehaviour:
     Id:
       Value: 1457783063926260860
   AsteroidInitialSpeed:
-    RawValue: 524288
+    RawValue: 196608
   AsteroidInitialTorqueMin:
     RawValue: 458752
   AsteroidInitialTorqueMax:

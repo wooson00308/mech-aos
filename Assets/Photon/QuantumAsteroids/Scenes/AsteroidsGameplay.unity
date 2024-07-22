@@ -289,6 +289,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ViewParentTransform: {fileID: 0}
   AutoFindMapData: 1
+  SnapshotInterpolation:
+    TimeDilationPercentage: 2
+    SnapshotReferenceLatencyTicks: 4
+    ElasticWindowTicks: 0.5
+    CurrentFrom: 0
+    Alpha: 0
 --- !u!4 &333665995
 Transform:
   m_ObjectHideFlags: 0
@@ -479,6 +485,7 @@ MonoBehaviour:
     OnInitialDynamicAssetsRequested:
       m_PersistentCalls:
         m_Calls: []
+    IsLegacyModeEnabled: 0
   IsTaskProfilerEnabled: 0
 --- !u!4 &703703406
 Transform:
@@ -1002,7 +1009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224456887264927910, guid: 9e5addbaa78b7264889bf147e593db91, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24.00003
+      value: -24
       objectReference: {fileID: 0}
     - target: {fileID: 224473766198086110, guid: 9e5addbaa78b7264889bf147e593db91, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1206,7 +1213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224898763699037404, guid: 9e5addbaa78b7264889bf147e593db91, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -24.00003
+      value: -24
       objectReference: {fileID: 0}
     - target: {fileID: 224984888091992450, guid: 9e5addbaa78b7264889bf147e593db91, type: 3}
       propertyPath: m_AnchorMax.y

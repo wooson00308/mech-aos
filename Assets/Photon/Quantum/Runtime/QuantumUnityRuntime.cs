@@ -17204,7 +17204,7 @@ namespace Quantum {
     /// Find a property at a relative path to the parent property
     /// </summary>
     /// <param name="property">Serialized property to start searching from</param>
-    /// <param name="relativePath">¥Relative path from the parent</param>
+    /// <param name="relativePath">ÌÅÉelative path from the parent</param>
     /// <returns>Found property or null</returns>
     public static SerializedProperty FindPropertyRelativeToParent(this SerializedProperty property, string relativePath) {
       SerializedProperty otherProperty;
@@ -17236,7 +17236,7 @@ namespace Quantum {
     /// Find a property at a relative path to the parent property or throw an exception if not found.
     /// </summary>
     /// <param name="property">Serialized property to start searching from</param>
-    /// <param name="relativePath">¥Relative path from the parent</param>
+    /// <param name="relativePath">ÌÅÉelative path from the parent</param>
     /// <returns>Found property or null</returns>
     /// <exception cref="ArgumentOutOfRangeException">Is raised when not found</exception>
     public static SerializedProperty FindPropertyRelativeToParentOrThrow(this SerializedProperty property, string relativePath) {

@@ -1,0 +1,5 @@
+global
+{
+    Int32 MechWaveCount;
+    FP DisconnectTime;
+}

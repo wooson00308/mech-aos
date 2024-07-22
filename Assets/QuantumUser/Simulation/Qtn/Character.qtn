@@ -1,0 +1,5 @@
+component PlayerLink
+{
+    player_ref PlayerRef;
+}
+signal SpawnMechanic(EntityRef mechanic, bool isLocal);

@@ -78,10 +78,10 @@ public class MechAttack : MonoBehaviour
             enemyHandle = enemy.Attack.Handle;
         }
 
-        // Å¸°ÙÀÌ º¯ÇßÀ½
+        // íƒ€ê²Ÿì´ ë³€í–ˆìŒ
         if (_targetHandle != enemyHandle)
         {
-            // ÀÌÀü Å¸°ÙÀÇ ¾Æ¿ô¶óÀÎÀ» Á¦°Å
+            // ì´ì „ íƒ€ê²Ÿì˜ ì•„ì›ƒë¼ì¸ì„ ì œê±°
             var prevTarget = mech.Map.GetEnemy(_targetHandle);
             if (prevTarget != null)
             {
@@ -91,7 +91,7 @@ public class MechAttack : MonoBehaviour
                     outline.enabled = false;
                 }
             }
-            // »õ·Î¿î Å¸°ÙÀÇ ¾Æ¿ô¶óÀÎÀ» Ç¥½Ã
+            // ìƒˆë¡œìš´ íƒ€ê²Ÿì˜ ì•„ì›ƒë¼ì¸ì„ í‘œì‹œ
             if (enemy != null)
             {
                 var outline = enemy.GetComponent<Outline>();
