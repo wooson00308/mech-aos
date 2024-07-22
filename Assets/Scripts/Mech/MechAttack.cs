@@ -13,6 +13,9 @@ public class MechAttack : MonoBehaviour
     public Button SubAttackButton;
     public Weapon SubWeapon;
 
+    public Button Sub2SkillButton;
+    public Weapon Sub2Weapon;
+
     int _targetHandle;
     public int TargetHandle => _targetHandle;
 
@@ -48,6 +51,17 @@ public class MechAttack : MonoBehaviour
                 if (SubWeapon != null && !_weaponDelayDic[SubWeapon])
                 {
                     StartCoroutine(ProcessAttack(mech, SubWeapon));
+                }
+            });
+        }
+        if (Sub2SkillButton != null)
+        {
+            _weaponDelayDic.Add(Sub2Weapon, false);
+            Sub2SkillButton.onClick.AddListener(() =>
+            {
+                if (Sub2Weapon != null && !_weaponDelayDic[Sub2Weapon])
+                {
+                    StartCoroutine(ProcessAttack(mech, Sub2Weapon));
                 }
             });
         }
@@ -112,11 +126,11 @@ public class MechAttack : MonoBehaviour
 
         yield return new WaitForSeconds(weapon.AttackInitDelay);
 
-        weapon.OnAttack();
+        weapon.OnAttack(mech);
 
         yield return new WaitForSeconds(weapon.AttackCooltime);
 
-        weapon.OnReadyAttack(true);
+        weapon.OnReadyAttack(mech, true);
 
         _weaponDelayDic[weapon] = false;
     }
