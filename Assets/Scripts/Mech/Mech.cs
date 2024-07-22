@@ -23,6 +23,7 @@ public class Mech : MonoBehaviour
     [Header("Services")]
     public MechMovement Move;
     public MechAttack Attack;
+    public Animator Animator;
 
     public bool IsDummy;
 
@@ -49,5 +50,10 @@ public class Mech : MonoBehaviour
     {
         if (IsDummy) return;
         Attack.OnUpdateTarget(this);
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Animator.SetTrigger("Hit");
     }
 }
