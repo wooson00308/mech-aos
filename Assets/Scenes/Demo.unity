@@ -26281,6 +26281,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5129609079952680579, guid: 405c56c90ba610e458645e6ad9eb79f8, type: 3}
+      propertyPath: RadiusUpper
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129609079952680579, guid: 405c56c90ba610e458645e6ad9eb79f8, type: 3}
       propertyPath: PastTexCount
       value: 12
       objectReference: {fileID: 0}
@@ -26292,6 +26296,14 @@ PrefabInstance:
       propertyPath: Centers.Array.data[0]
       value: 
       objectReference: {fileID: 5476646097326813832}
+    - target: {fileID: 5129609079952680579, guid: 405c56c90ba610e458645e6ad9eb79f8, type: 3}
+      propertyPath: AnotherPlayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5129609079952680579, guid: 405c56c90ba610e458645e6ad9eb79f8, type: 3}
+      propertyPath: AnotherPlayers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1636368446}
     - target: {fileID: 5129609079952680580, guid: 405c56c90ba610e458645e6ad9eb79f8, type: 3}
       propertyPath: m_AspectRatio
       value: 1
