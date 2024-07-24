@@ -84,8 +84,11 @@ namespace Quantum.Mech
 
             _weaponDelayDic[weapon] = false;
         }
-        
 
+        public void OnDestroy()
+        {
+            QuantumEvent.UnsubscribeListener(this);
+        }
     }
 
 }

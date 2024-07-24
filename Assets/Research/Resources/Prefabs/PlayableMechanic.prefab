@@ -10045,9 +10045,12 @@ GameObject:
   - component: {fileID: 978252250710935834}
   - component: {fileID: 242966732740469966}
   - component: {fileID: 8764092169919143836}
+  - component: {fileID: 6696619510866150947}
   - component: {fileID: -8836313948891344494}
   - component: {fileID: 6919952459937619032}
   - component: {fileID: -4665663476530734917}
+  - component: {fileID: 6775000513088193351}
+  - component: {fileID: 9159139297732475708}
   m_Layer: 0
   m_Name: PlayableMechanic
   m_TagString: Untagged
@@ -10094,8 +10097,8 @@ MonoBehaviour:
     IsTrigger: 0
     Material:
       Id:
-        Value: 0
-    SourceCollider: {fileID: 6046956968269677326}
+        Value: 1993865274312761165
+    SourceCollider: {fileID: 0}
     IsEnabled: 1
     Shape2D:
       ShapeType: 0
@@ -10127,13 +10130,13 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
     Shape3D:
-      ShapeType: 2
+      ShapeType: 32
       SphereRadius:
         RawValue: 0
       CapsuleRadius:
-        RawValue: 0
+        RawValue: 76677
       CapsuleHeight:
-        RawValue: 0
+        RawValue: 393216
       PositionOffset:
         X:
           RawValue: 0
@@ -10188,13 +10191,13 @@ MonoBehaviour:
       IsPersistent: 1
       CompoundShapes: []
     ScaledShape3D:
-      ShapeType: 2
+      ShapeType: 32
       SphereRadius:
         RawValue: 0
       CapsuleRadius:
-        RawValue: 0
+        RawValue: 76677
       CapsuleHeight:
-        RawValue: 0
+        RawValue: 393216
       PositionOffset:
         X:
           RawValue: 0
@@ -10224,7 +10227,7 @@ MonoBehaviour:
     CallbackFlags:
       Value: 0
   PhysicsBody:
-    IsEnabled: 1
+    IsEnabled: 0
     Config2D: 116
     Config3D: 58
     RotationFreeze: 255
@@ -10298,7 +10301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BindBehaviour: 0
+  BindBehaviour: 1
   ManualDisposal: 0
   ViewFlags: 0
   InterpolationMode: 0
@@ -10331,6 +10334,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prototype:
     _empty_prototype_dummy_field_: 0
+--- !u!114 &6696619510866150947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3886287574398689050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40818ad888adc3439499bab0a827f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Config:
+      Id:
+        Value: 346772831293918014
 --- !u!114 &-8836313948891344494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10384,6 +10403,35 @@ MonoBehaviour:
     InvincibleTimer:
       RawValue: 0
     DisconnectedTicks: 0
+--- !u!114 &6775000513088193351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3886287574398689050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a95edb15f9d1865489d048027d23308b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    PlayerRef:
+      _index: 0
+--- !u!114 &9159139297732475708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3886287574398689050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ffe0f14f0de0b4ea0bdfcab3be1d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Body: {fileID: 5293896108239647298}
+  CharacterAnimator: {fileID: 4310478064254187992}
 --- !u!1 &3917550182542229095
 GameObject:
   m_ObjectHideFlags: 0
@@ -15724,7 +15772,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5293896108239647298}
   - component: {fileID: 4310478064254187992}
-  - component: {fileID: 6046956968269677326}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -15763,7 +15810,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ce24883e602e386479f85e2c21fa586a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -15771,27 +15818,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &6046956968269677326
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6027836996348931192}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.75, y: 6, z: 1.75}
-  m_Center: {x: 0, y: 3, z: 0}
 --- !u!1 &6029864173318552885
 GameObject:
   m_ObjectHideFlags: 0
@@ -21431,6 +21457,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2192230966125599817, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2192616395639325877, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2686887895839928389, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -21442,6 +21476,10 @@ PrefabInstance:
     - target: {fileID: 3709065766741818879, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4743800964283187682, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4744073820652568080, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
       propertyPath: m_Name
@@ -21506,6 +21544,10 @@ PrefabInstance:
     - target: {fileID: 4832868863623014316, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119936983449215121, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7734548298106185334, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
       propertyPath: playOnAwake

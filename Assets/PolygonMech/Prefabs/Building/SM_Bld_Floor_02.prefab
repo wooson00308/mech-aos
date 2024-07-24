@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8480805636514295566}
   - component: {fileID: 4471330731439463768}
   - component: {fileID: 572275623828513271}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SM_Bld_Floor_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
     MutableMode: 0
     PhysicsMaterial:
       Id:
-        Value: 0
+        Value: 1993865274312761165
     Asset:
       Id:
         Value: 0

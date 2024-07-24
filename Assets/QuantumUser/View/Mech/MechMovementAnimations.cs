@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Quantum.Mech
 {
-    public class MechMovementAnimations : QuantumCallbacks
+    public class MechMovementAnimations : QuantumEntityViewComponent<CustomViewContext>
     {
         private QuantumEntityView _entityView;
         private Animator _animator;
@@ -22,31 +22,26 @@ namespace Quantum.Mech
 
         public AudioClip moveClip;
         private bool isMoving = false;
-        // Start is called before the first frame update
-        void Awake()
+
+        private MechGameConfig _config;
+        public override void OnActivate(Frame frame)
         {
             _entityView = GetComponent<QuantumEntityView>();
             _animator = GetComponentInChildren<Animator>();
-
-            // TODO 파괴시 삭제해야하나?
-            // QuantumEvent.Subscribe<EventInput>(this, OnInput);
-
+            _config = frame.FindAsset(frame.RuntimeConfig.MechGameConfig);
         }
 
-        public override void OnUpdateView(QuantumGame game) {
+        public override void OnUpdateView() {
             
-            var frame = game.Frames.Predicted;
-            // TODO 캐싱하는게 좋지 않을까?
-            var config = frame.FindAsset(frame.RuntimeConfig.MechGameConfig);
-            var body = frame.Get<PhysicsBody3D>(_entityView.EntityRef);
-
+     
+            var body = ViewContext.LocalPlayerView.PredictedFrame.Get<CharacterController3D>(_entityView.EntityRef);
             // TODO 무브 스피드 이상함 쏜과 대화 해봐야함.
-            var moveSpeed = config.MechMovementSpeed.AsFloat * 0.001f;
+            var moveSpeed = _config.MechMovementSpeed.AsFloat * 0.001f;
             UpdateMultipliers(moveSpeed);
             _animator.SetFloat("MoveSpeed", moveSpeed * moveAnimationMultiplier);
             
             var normalized = body.Velocity.Normalized;
-
+            Debug.Log(normalized);
             if (!isMoving && normalized != FPVector3.Zero)
             {
                 isMoving = true;
