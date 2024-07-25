@@ -291,6 +291,21 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.MechProjectile))]
+  public unsafe class MechProjectilePrototype : ComponentPrototype<Quantum.MechProjectile> {
+    public FP TTL;
+    public MapEntityId Owner;
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.MechProjectile component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.MechProjectile result, in PrototypeMaterializationContext context = default) {
+        result.TTL = this.TTL;
+        PrototypeValidator.FindMapEntity(this.Owner, in context, out result.Owner);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.PlayableMechanic))]
   public unsafe partial class PlayableMechanicPrototype : ComponentPrototype<Quantum.PlayableMechanic> {
     [HideInInspector()]

@@ -12,13 +12,13 @@ namespace Quantum.Mech.Projectile
     {
         public override void Update(Frame f, ref MechSystem.Filter filter)
         {
-            filter.Transform->Position += new FPVector3(0, 0, 1);
+            //filter.Transform->Position += new FPVector3(0, 0, 1);
         }
         
         public struct Filter
         {
             public EntityRef Entity;
-            public Transform3D* Transform;
+            public MechProjectile* Projectile;
         }
     }
 }

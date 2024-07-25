@@ -1,0 +1,4 @@
+component MechProjectile {
+    FP TTL;
+    EntityRef Owner;
+}

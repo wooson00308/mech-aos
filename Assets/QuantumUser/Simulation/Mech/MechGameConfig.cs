@@ -14,6 +14,9 @@ namespace Quantum.Mech
         [Tooltip("메카의 움직임 스피드")] 
         public FP MechMovementSpeed;
 
+        [Header("Projectile configuration")]
+        public AssetRef<EntityPrototype> ProjectilePrototype;
+
 
         [Header("Map configuration")] 
         [Tooltip("스폰 위치")]

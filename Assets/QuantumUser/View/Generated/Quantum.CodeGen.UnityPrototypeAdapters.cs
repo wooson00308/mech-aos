@@ -114,6 +114,19 @@ namespace Quantum.Prototypes.Unity {
       return result;
     }
   }
+  [System.SerializableAttribute()]
+  public unsafe partial class MechProjectilePrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.MechProjectilePrototype> {
+    public FP TTL;
+    public Quantum.QuantumEntityPrototype Owner;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.MechProjectilePrototype prototype);
+    public override Quantum.Prototypes.MechProjectilePrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.MechProjectilePrototype();
+      converter.Convert(this.TTL, out result.TTL);
+      converter.Convert(this.Owner, out result.Owner);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
 }
 #pragma warning restore 0109
 #pragma warning restore 1591
