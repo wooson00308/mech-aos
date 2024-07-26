@@ -724,6 +724,48 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct Weapon {
+    public const Int32 SIZE = 48;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(4)]
+    public QBoolean IsRecharging;
+    [FieldOffset(0)]
+    public Int32 CurrentAmmo;
+    [FieldOffset(32)]
+    public FP FireRateTimer;
+    [FieldOffset(24)]
+    public FP DelayToStartRechargeTimer;
+    [FieldOffset(40)]
+    public FP RechargeRate;
+    [FieldOffset(16)]
+    public FP ChargeTime;
+    [FieldOffset(8)]
+    public AssetRef<WeaponData> WeaponData;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 8713;
+        hash = hash * 31 + IsRecharging.GetHashCode();
+        hash = hash * 31 + CurrentAmmo.GetHashCode();
+        hash = hash * 31 + FireRateTimer.GetHashCode();
+        hash = hash * 31 + DelayToStartRechargeTimer.GetHashCode();
+        hash = hash * 31 + RechargeRate.GetHashCode();
+        hash = hash * 31 + ChargeTime.GetHashCode();
+        hash = hash * 31 + WeaponData.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (Weapon*)ptr;
+        serializer.Stream.Serialize(&p->CurrentAmmo);
+        QBoolean.Serialize(&p->IsRecharging, serializer);
+        AssetRef.Serialize(&p->WeaponData, serializer);
+        FP.Serialize(&p->ChargeTime, serializer);
+        FP.Serialize(&p->DelayToStartRechargeTimer, serializer);
+        FP.Serialize(&p->FireRateTimer, serializer);
+        FP.Serialize(&p->RechargeRate, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
     public const Int32 SIZE = 1072;
     public const Int32 ALIGNMENT = 8;
@@ -1103,6 +1145,34 @@ namespace Quantum {
         FP.Serialize(&p->RespawnTimer, serializer);
     }
   }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct WeaponInventory : Quantum.IComponent {
+    public const Int32 SIZE = 56;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public Int32 CurrentWeaponIndex;
+    [FieldOffset(8)]
+    [FramePrinter.FixedArrayAttribute(typeof(Weapon), 1)]
+    private fixed Byte _Weapons_[48];
+    public FixedArray<Weapon> Weapons {
+      get {
+        fixed (byte* p = _Weapons_) { return new FixedArray<Weapon>(p, 48, 1); }
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 4513;
+        hash = hash * 31 + CurrentWeaponIndex.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Weapons);
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (WeaponInventory*)ptr;
+        serializer.Stream.Serialize(&p->CurrentWeaponIndex);
+        FixedArray.Serialize(p->Weapons, serializer, Statics.SerializeWeapon);
+    }
+  }
   public unsafe partial interface ISignalAsteroidsSpawnShip : ISignal {
     void AsteroidsSpawnShip(Frame f, EntityRef ship);
   }
@@ -1226,6 +1296,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Transform3D>();
       BuildSignalsArrayOnComponentAdded<View>();
       BuildSignalsArrayOnComponentRemoved<View>();
+      BuildSignalsArrayOnComponentAdded<Quantum.WeaponInventory>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.WeaponInventory>();
     }
     partial void SetPlayerInputCodeGen(PlayerRef player, Input input) {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -1339,11 +1411,13 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeKCCCollision;
     public static FrameSerializer.Delegate SerializeKCCIgnore;
     public static FrameSerializer.Delegate SerializeKCCModifier;
+    public static FrameSerializer.Delegate SerializeWeapon;
     public static FrameSerializer.Delegate SerializeInput;
     static partial void InitStaticDelegatesGen() {
       SerializeKCCCollision = Quantum.KCCCollision.Serialize;
       SerializeKCCIgnore = Quantum.KCCIgnore.Serialize;
       SerializeKCCModifier = Quantum.KCCModifier.Serialize;
+      SerializeWeapon = Quantum.Weapon.Serialize;
       SerializeInput = Quantum.Input.Serialize;
     }
     static partial void RegisterSimulationTypesGen(TypeRegistry typeRegistry) {
@@ -1441,10 +1515,12 @@ namespace Quantum {
       typeRegistry.Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       typeRegistry.Register(typeof(Transform3D), Transform3D.SIZE);
       typeRegistry.Register(typeof(View), View.SIZE);
+      typeRegistry.Register(typeof(Quantum.Weapon), Quantum.Weapon.SIZE);
+      typeRegistry.Register(typeof(Quantum.WeaponInventory), Quantum.WeaponInventory.SIZE);
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 11)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 13)
         .AddBuiltInComponents()
         .Add<Quantum.AsteroidsAsteroid>(Quantum.AsteroidsAsteroid.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsPlayerLink>(Quantum.AsteroidsPlayerLink.Serialize, null, null, ComponentFlags.None)
@@ -1458,6 +1534,7 @@ namespace Quantum {
         .Add<Quantum.PlayableMechanic>(Quantum.PlayableMechanic.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.Status>(Quantum.Status.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.WeaponInventory>(Quantum.WeaponInventory.Serialize, null, null, ComponentFlags.None)
         .Finish();
     }
     [Preserve()]

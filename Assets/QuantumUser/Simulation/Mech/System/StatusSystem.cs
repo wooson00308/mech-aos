@@ -80,19 +80,18 @@ namespace Quantum.Mech
         
         private static void KillMechanic(Frame frame, EntityRef killer, EntityRef mechanic, Status* mechanicStatus, FP respawnTime)
         {
-            // CharacterController3D* characterController = frame.Unsafe.GetPointer<CharacterController3D>(mechanic);
-            // PhysicsCollider3D* collider = frame.Unsafe.GetPointer<PhysicsCollider3D>(mechanic);
-            //
-            // mechanicStatus->CurrentHealth = FP._0;
-            // mechanicStatus->IsDead = true;
-            // mechanicStatus->RespawnTimer = respawnTime;
-            // characterController->Velocity = FPVector2.Zero;
-            // collider->IsTrigger = true;
+            CharacterController3D* characterController = frame.Unsafe.GetPointer<CharacterController3D>(mechanic);
+            PhysicsCollider3D* collider = frame.Unsafe.GetPointer<PhysicsCollider3D>(mechanic);
+            
+            mechanicStatus->CurrentHealth = FP._0;
+            mechanicStatus->IsDead = true;
+            mechanicStatus->RespawnTimer = respawnTime;
+            characterController->Velocity = FPVector3.Zero;
+            collider->IsTrigger = true;
 
             Debug.Log("파괴");
-
-            // frame.Signals.OnMechanicDeath(mechanic, killer);
-            // frame.Events.OnMechanicDeath(mechanic, killer);
+            frame.Signals.OnMechanicDeath(mechanic, killer);
+            frame.Events.OnMechanicDeath(mechanic, killer);
 
         }
     }

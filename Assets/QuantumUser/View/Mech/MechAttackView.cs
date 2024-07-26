@@ -30,17 +30,18 @@ namespace Quantum.Mech
         {
             _entityView = GetComponent<QuantumEntityView>();
             
-            _weaponDelayDic.Add(MainWeapon, false);
-            _weaponDelayDic.Add(SubWeapon, false);
+            // _weaponDelayDic.Add(MainWeapon, false);
+            // _weaponDelayDic.Add(SubWeapon, false);
             
             playerHandle++;
             Handle = playerHandle;
 
-            QuantumEvent.Subscribe<EventWeaponFire>(this, WeaponFire);
+            //QuantumEvent.Subscribe<EventWeaponFire>(this, WeaponFire);
         }
 
         public override void OnUpdateView(QuantumGame game)
         {
+            return;
             Aniamtor.SetBool("IsAttack", _weaponDelayDic[MainWeapon]);
             
             MainAttackInteractable = _targetHandle != 0;
@@ -50,6 +51,7 @@ namespace Quantum.Mech
 
         public void WeaponFire(EventWeaponFire weaponFire)
         {
+            
             if (weaponFire.Owner != _entityView.EntityRef) return;
                 
             if (weaponFire.Type == EWeaponType.MainWeapon)

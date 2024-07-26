@@ -10,6 +10,7 @@ namespace Quantum.Mech.Projectile
     [Preserve]
     public unsafe class ProjectileSystem : SystemMainThreadFilter<MechSystem.Filter>
     {
+        
         public override void Update(Frame f, ref MechSystem.Filter filter)
         {
             //filter.Transform->Position += new FPVector3(0, 0, 1);

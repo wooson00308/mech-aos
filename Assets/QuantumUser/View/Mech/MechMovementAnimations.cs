@@ -65,17 +65,8 @@ namespace Quantum.Mech
             {
                 _animator.SetFloat("X", 0); 
                 _animator.SetFloat("Y", 1);
-                RotateToDir(normalized.ToUnityVector3());
-                
             }
 
-        }
-
-        private void RotateToDir(Vector3 moveDir)
-        {
-            var lookDir = Quaternion.LookRotation(moveDir);
-            var t = Mathf.Clamp01(11f * Time.fixedDeltaTime * 1.2f);
-            _animator.transform.rotation = Quaternion.Lerp(_animator.transform.rotation, lookDir, t);
         }
         private void UpdateMultipliers(float moveSpeed)
         {

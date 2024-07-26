@@ -43,7 +43,7 @@ namespace Quantum.Mech
             filter.Transform->Position += newPosition;
             
             UpdateFire(f, ref filter, input, config);
-            //UpdateRotate(f, ref filter, velocity);
+            UpdateRotate(f, ref filter, newPosition);
 
         }
         private FPVector3 UpdateMovement(Frame frame, ref Filter filter, Input* input, MechGameConfig config)
@@ -99,7 +99,17 @@ namespace Quantum.Mech
             
             return movement;
         }
- 
+
+        private void UpdateRotate(Frame frame, ref Filter filter, FPVector3 velocity)
+        {
+            if (velocity.Normalized.XZ.SqrMagnitude == FP._0) return;
+            var dir = velocity.Normalized;
+            
+            
+            var lookDir = FPQuaternion.LookRotation(dir);
+            var t = FPMath.Clamp01(FP.FromFloat_UNSAFE(11f) * frame.DeltaTime * FP.FromFloat_UNSAFE(1.2f));
+            filter.Transform->Rotation = FPQuaternion.Lerp(filter.Transform->Rotation, lookDir, t);
+        }
         private void UpdateFire(Frame f, ref Filter filter, Input* input, MechGameConfig config)
         {
             if (input->MainWeaponFire)

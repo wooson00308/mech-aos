@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3255408355225605723}
   - component: {fileID: 402259891067456410}
   - component: {fileID: 1972383993867968692}
-  - component: {fileID: -208540286545750927}
+  - component: {fileID: 7252940262878529513}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -60,7 +60,7 @@ MonoBehaviour:
       Id:
         Value: 0
     SourceCollider: {fileID: 0}
-    IsEnabled: 1
+    IsEnabled: 0
     Shape2D:
       ShapeType: 0
       PolygonCollider:
@@ -211,7 +211,7 @@ MonoBehaviour:
       Z:
         RawValue: 0
     GravityScale:
-      _hasValue: 0
+      _hasValue: 1
       _value:
         RawValue: 0
   NavMeshPathfinder:
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BindBehaviour: 0
+  BindBehaviour: 1
   ManualDisposal: 0
   ViewFlags: 0
   InterpolationMode: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-208540286545750927
+--- !u!114 &7252940262878529513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,13 +290,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8708059872935924287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a586826b903c14d47b29cfa5364ae44b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8943335e5d2e7e143850003430a7c070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    TTL:
+    Time:
       RawValue: 0
-    Owner: {fileID: 0}
+    Source: {fileID: 0}
+    Direction:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    BulletData:
+      Id:
+        Value: 382308930789291948
 --- !u!1 &9149963252820561159
 GameObject:
   m_ObjectHideFlags: 0

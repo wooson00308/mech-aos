@@ -1996,7 +1996,6 @@ GameObject:
   - component: {fileID: 2311495015420177580}
   - component: {fileID: 8028657303161450001}
   - component: {fileID: 1369059050963423435}
-  - component: {fileID: 4235544290692473976}
   m_Layer: 0
   m_Name: SM_Wep_Shotgun_01
   m_TagString: Untagged
@@ -2073,59 +2072,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4235544290692473976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561481614611771603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e30f20165224046b9d3852a07f09f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullets:
-  - {fileID: 4453189729950925388}
-  Model: {fileID: 0}
-  EmptyModel: {fileID: 0}
-  AttackCooltime: 1
-  AttackInitDelay: 0.2
-  attackSound: {fileID: 8300000, guid: 9db176e1ad4d89647a0bbcbd8b28693b, type: 3}
-  readySound: {fileID: 8300000, guid: 8f268095f67575b44b10ea19a4482b2c, type: 3}
-  Config:
-    ShapeType: 1
-    SphereRadius:
-      RawValue: 32768
-    CapsuleRadius:
-      RawValue: 0
-    CapsuleHeight:
-      RawValue: 0
-    PositionOffset:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    BoxExtents:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    RotationOffset:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    UserTag: 0
-    IsPersistent: 1
-    CompoundShapes: []
-  BulletData: {fileID: 0}
 --- !u!1 &608724298026776934
 GameObject:
   m_ObjectHideFlags: 0
@@ -5226,10 +5172,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6047407299409351463}
-  - component: {fileID: 2505815063573310430}
-  - component: {fileID: 472824230175383139}
-  - component: {fileID: 4757984649725526952}
-  - component: {fileID: 5043585363628251538}
   m_Layer: 0
   m_Name: Missile Weapon
   m_TagString: Untagged
@@ -5254,334 +5196,6 @@ Transform:
   - {fileID: 7161736879585354782}
   m_Father: {fileID: 7600886813754023611}
   m_LocalEulerAnglesHint: {x: 0, y: -35, z: 0}
---- !u!114 &2505815063573310430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604462642963666088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836dcb7e0f6259748b850a10912ce727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransformMode: 1
-  Transform2DVertical:
-    IsEnabled: 0
-    Height:
-      RawValue: 0
-    PositionOffset:
-      RawValue: 0
-  PhysicsCollider:
-    IsTrigger: 0
-    Material:
-      Id:
-        Value: 0
-    SourceCollider: {fileID: 0}
-    IsEnabled: 0
-    Shape2D:
-      ShapeType: 0
-      PolygonCollider:
-        Id:
-          Value: 0
-      CircleRadius:
-        RawValue: 0
-      CapsuleSize:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      EdgeExtent:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      RotationOffset:
-        RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-    Shape3D:
-      ShapeType: 0
-      SphereRadius:
-        RawValue: 0
-      CapsuleRadius:
-        RawValue: 0
-      CapsuleHeight:
-        RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      RotationOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-    ScaledShape2D:
-      ShapeType: 0
-      PolygonCollider:
-        Id:
-          Value: 0
-      CircleRadius:
-        RawValue: 0
-      CapsuleSize:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      EdgeExtent:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      RotationOffset:
-        RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-    ScaledShape3D:
-      ShapeType: 0
-      SphereRadius:
-        RawValue: 0
-      CapsuleRadius:
-        RawValue: 0
-      CapsuleHeight:
-        RawValue: 0
-      PositionOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      RotationOffset:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      UserTag: 0
-      IsPersistent: 1
-      CompoundShapes: []
-    LayerSource: 0
-    Layer: 0
-    CallbackFlags:
-      Value: 0
-  PhysicsBody:
-    IsEnabled: 0
-    Config2D: 116
-    Config3D: 58
-    RotationFreeze: 0
-    Mass:
-      RawValue: 65536
-    Drag:
-      RawValue: 32768
-    AngularDrag:
-      RawValue: 32768
-    CenterOfMass2D:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-    CenterOfMass3D:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    GravityScale:
-      _hasValue: 0
-      _value:
-        RawValue: 65536
-  NavMeshPathfinder:
-    IsEnabled: 0
-    NavMeshAgentConfig:
-      Id:
-        Value: 0
-    InitialTarget:
-      IsEnabled: 0
-      Target: {fileID: 0}
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-        Z:
-          RawValue: 0
-      NavMesh:
-        Reference: {fileID: 0}
-        Asset:
-          Id:
-            Value: 0
-        Name: 
-  NavMeshSteeringAgent:
-    IsEnabled: 0
-    MaxSpeed:
-      IsEnabled: 0
-      Value:
-        RawValue: 0
-    Acceleration:
-      IsEnabled: 0
-      Value:
-        RawValue: 0
-  NavMeshAvoidanceAgent:
-    IsEnabled: 0
-  View:
-    Id:
-      Value: 0
---- !u!114 &472824230175383139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604462642963666088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0008c51fe3af00b4da5d44f02d9b3dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BindBehaviour: 1
-  ManualDisposal: 0
-  ViewFlags: 0
-  InterpolationMode: 0
-  ErrorCorrectionRateMin: 3.3
-  ErrorCorrectionRateMax: 10
-  ErrorPositionBlendStart: 0.25
-  ErrorPositionBlendEnd: 1
-  ErrorRotationBlendStart: 0.1
-  ErrorRotationBlendEnd: 0.5
-  ErrorPositionMinCorrection: 0.025
-  ErrorPositionTeleportDistance: 2
-  ErrorRotationTeleportDistance: 0.5
-  OnEntityInstantiated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEntityDestroyed:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4757984649725526952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604462642963666088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e30f20165224046b9d3852a07f09f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullets:
-  - {fileID: 1203657776421206203}
-  - {fileID: 478694326600421968}
-  - {fileID: 4393469323635431968}
-  - {fileID: 9145292463232105059}
-  Model: {fileID: 3096151594797252450}
-  EmptyModel: {fileID: 2851853273873947071}
-  AttackCooltime: 5
-  AttackInitDelay: 0.1
-  attackSound: {fileID: 8300000, guid: 7b889162724f05c4f95da46adbd50ef7, type: 3}
-  readySound: {fileID: 8300000, guid: 8f268095f67575b44b10ea19a4482b2c, type: 3}
-  Config:
-    ShapeType: 1
-    SphereRadius:
-      RawValue: 32768
-    CapsuleRadius:
-      RawValue: 65536
-    CapsuleHeight:
-      RawValue: 0
-    PositionOffset:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    BoxExtents:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    RotationOffset:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    UserTag: 1
-    IsPersistent: 1
-    CompoundShapes: []
-  BulletData: {fileID: 11400000, guid: e0ff8c16ecaf1194e8f153ec2f84a427, type: 2}
---- !u!114 &5043585363628251538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604462642963666088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8943335e5d2e7e143850003430a7c070, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    Time:
-      RawValue: 0
-    Source: {fileID: 978252250710935834}
-    Direction:
-      X:
-        RawValue: 0
-      Y:
-        RawValue: 0
-      Z:
-        RawValue: 0
-    BulletData:
-      Id:
-        Value: 382308930789291948
 --- !u!1 &1625475602524486574
 GameObject:
   m_ObjectHideFlags: 0
@@ -10399,6 +10013,7 @@ GameObject:
   - component: {fileID: -4665663476530734917}
   - component: {fileID: 6775000513088193351}
   - component: {fileID: 9159139297732475708}
+  - component: {fileID: 7967047471337578445}
   m_Layer: 6
   m_Name: PlayableMechanic
   m_TagString: Untagged
@@ -10725,8 +10340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Aniamtor: {fileID: 4310478064254187992}
-  MainWeapon: {fileID: 4235544290692473976}
-  SubWeapon: {fileID: 4757984649725526952}
+  MainWeapon: {fileID: 0}
+  SubWeapon: {fileID: 0}
 --- !u!114 &-4665663476530734917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10783,6 +10398,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 5293896108239647298}
   CharacterAnimator: {fileID: 4310478064254187992}
+--- !u!114 &7967047471337578445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3886287574398689050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07f11610bf042bb4993ceba9ee4e618b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    CurrentWeaponIndex: 0
+    Weapons:
+    - IsRecharging:
+        Value: 0
+      CurrentAmmo: 0
+      FireRateTimer:
+        RawValue: 65536
+      DelayToStartRechargeTimer:
+        RawValue: 65536
+      RechargeRate:
+        RawValue: 65536
+      ChargeTime:
+        RawValue: 0
+      WeaponData:
+        Id:
+          Value: 430511359408159528
 --- !u!1 &3917550182542229095
 GameObject:
   m_ObjectHideFlags: 0
@@ -21497,11 +21141,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04170cb2c0f29744b8cc36d9931d31a3, type: 3}
---- !u!198 &4453189729950925388 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4236434171924481528, guid: 04170cb2c0f29744b8cc36d9931d31a3, type: 3}
-  m_PrefabInstance: {fileID: 506160281609963444}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4548554831749730712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4042412348484507180, guid: 04170cb2c0f29744b8cc36d9931d31a3, type: 3}
@@ -21657,11 +21296,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4746697918983191730, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
   m_PrefabInstance: {fileID: 4466407008953906761}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &9145292463232105059 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4832721425762782250, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
-  m_PrefabInstance: {fileID: 4466407008953906761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5023184275323870842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21810,11 +21444,6 @@ PrefabInstance:
 --- !u!4 &318145784117060296 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4746697918983191730, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
-  m_PrefabInstance: {fileID: 5023184275323870842}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &478694326600421968 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4832721425762782250, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
   m_PrefabInstance: {fileID: 5023184275323870842}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5454660572021595810
@@ -22104,11 +21733,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
---- !u!198 &1203657776421206203 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4832721425762782250, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
-  m_PrefabInstance: {fileID: 6027231196721345681}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1331568286897162275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4746697918983191730, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
@@ -22349,11 +21973,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
---- !u!198 &4393469323635431968 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4832721425762782250, guid: 603d302c5f8176946b275bcd787faec6, type: 3}
-  m_PrefabInstance: {fileID: 9217174752708204042}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4482861746658945720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4746697918983191730, guid: 603d302c5f8176946b275bcd787faec6, type: 3}

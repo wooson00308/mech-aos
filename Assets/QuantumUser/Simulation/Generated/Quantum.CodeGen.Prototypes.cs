@@ -381,6 +381,48 @@ namespace Quantum.Prototypes {
         MaterializeUser(frame, ref result, in context);
     }
   }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.Weapon))]
+  public unsafe partial class WeaponPrototype : StructPrototype {
+    public QBoolean IsRecharging;
+    public Int32 CurrentAmmo;
+    public FP FireRateTimer;
+    public FP DelayToStartRechargeTimer;
+    public FP RechargeRate;
+    public FP ChargeTime;
+    public AssetRef<WeaponData> WeaponData;
+    partial void MaterializeUser(Frame frame, ref Quantum.Weapon result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.Weapon result, in PrototypeMaterializationContext context = default) {
+        result.IsRecharging = this.IsRecharging;
+        result.CurrentAmmo = this.CurrentAmmo;
+        result.FireRateTimer = this.FireRateTimer;
+        result.DelayToStartRechargeTimer = this.DelayToStartRechargeTimer;
+        result.RechargeRate = this.RechargeRate;
+        result.ChargeTime = this.ChargeTime;
+        result.WeaponData = this.WeaponData;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.WeaponInventory))]
+  public unsafe partial class WeaponInventoryPrototype : ComponentPrototype<Quantum.WeaponInventory> {
+    public Int32 CurrentWeaponIndex;
+    [ArrayLengthAttribute(1)]
+    public Quantum.Prototypes.WeaponPrototype[] Weapons = new Quantum.Prototypes.WeaponPrototype[1];
+    partial void MaterializeUser(Frame frame, ref Quantum.WeaponInventory result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.WeaponInventory component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.WeaponInventory result, in PrototypeMaterializationContext context = default) {
+        result.CurrentWeaponIndex = this.CurrentWeaponIndex;
+        for (int i = 0, count = PrototypeValidator.CheckLength(Weapons, 1, in context); i < count; ++i) {
+          this.Weapons[i].Materialize(frame, ref *result.Weapons.GetPointer(i), in context);
+        }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
 }
 #pragma warning restore 0109
 #pragma warning restore 1591
