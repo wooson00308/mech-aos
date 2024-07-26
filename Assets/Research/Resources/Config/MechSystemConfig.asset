@@ -42,12 +42,12 @@ MonoBehaviour:
     StartDisabled: 0
     Children: []
   - SystemType:
-      AssemblyQualifiedName: Quantum.Mech.MechSystem, Quantum.Simulation
+      AssemblyQualifiedName: Quantum.Mech.MovementSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
     Children: []
   - SystemType:
-      AssemblyQualifiedName: Quantum.Mech.MechSpawnSystem, Assembly-CSharp
+      AssemblyQualifiedName: Quantum.Mech.MechSpawnSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
     Children: []
@@ -67,12 +67,17 @@ MonoBehaviour:
     StartDisabled: 0
     Children: []
   - SystemType:
-      AssemblyQualifiedName: Quantum.Mech.MechWaveSpawnerSystem, Quantum.Simulation
+      AssemblyQualifiedName: Quantum.Mech.BulletSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
     Children: []
   - SystemType:
-      AssemblyQualifiedName: Quantum.Mech.Projectile.ProjectileSystem, Quantum.Simulation
+      AssemblyQualifiedName: Quantum.Mech.WeaponSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Mech.RespawnSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
     Children: []

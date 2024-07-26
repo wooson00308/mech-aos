@@ -98,7 +98,8 @@ namespace Quantum.Mech
             weapon->DelayToStartRechargeTimer = weaponData.TimeToRecharge;
 
             frame.Events.OnWeaponShoot(mechanic);
-
+            
+            
             BulletData bulletData = frame.FindAsset<BulletData>(weaponData.BulletData.Id);
 
             EntityPrototype prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(bulletData.BulletPrototype.Id.Value));
@@ -112,6 +113,7 @@ namespace Quantum.Mech
 
             var fireSpotWorldOffset = WeaponHelper.GetFireSpotWorldOffset(
                 frame.FindAsset<WeaponData>(weapon->WeaponData.Id),
+                *transform,
                 direction
             );
 

@@ -69,6 +69,15 @@ namespace Quantum {
     MainWeapon,
     SubWeapon,
   }
+  public enum GameState : int {
+    Running,
+    Ended,
+  }
+  public enum Team : int {
+    Red,
+    Blue,
+    Green,
+  }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
     Fire = 1 << 0,
@@ -427,6 +436,28 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct GameController {
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public GameState State;
+    [FieldOffset(8)]
+    public FP GameTimer;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 2393;
+        hash = hash * 31 + (Int32)State;
+        hash = hash * 31 + GameTimer.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (GameController*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->State);
+        FP.Serialize(&p->GameTimer, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
     public const Int32 SIZE = 84;
     public const Int32 ALIGNMENT = 4;
@@ -767,7 +798,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 1072;
+    public const Int32 SIZE = 1088;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -796,8 +827,10 @@ namespace Quantum {
     public BitSet6 PlayerLastConnectionState;
     [FieldOffset(1056)]
     public Int32 AsteroidsWaveCount;
+    [FieldOffset(1072)]
+    public GameController GameController;
     [FieldOffset(1060)]
-    public Int32 MechWaveCount;
+    public Int32 TeamIndex;
     [FieldOffset(1064)]
     public FP DisconnectTime;
     public FixedArray<Input> input {
@@ -821,7 +854,8 @@ namespace Quantum {
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(input);
         hash = hash * 31 + PlayerLastConnectionState.GetHashCode();
         hash = hash * 31 + AsteroidsWaveCount.GetHashCode();
-        hash = hash * 31 + MechWaveCount.GetHashCode();
+        hash = hash * 31 + GameController.GetHashCode();
+        hash = hash * 31 + TeamIndex.GetHashCode();
         hash = hash * 31 + DisconnectTime.GetHashCode();
         return hash;
       }
@@ -841,8 +875,9 @@ namespace Quantum {
         FixedArray.Serialize(p->input, serializer, Statics.SerializeInput);
         Quantum.BitSet6.Serialize(&p->PlayerLastConnectionState, serializer);
         serializer.Stream.Serialize(&p->AsteroidsWaveCount);
-        serializer.Stream.Serialize(&p->MechWaveCount);
+        serializer.Stream.Serialize(&p->TeamIndex);
         FP.Serialize(&p->DisconnectTime, serializer);
+        Quantum.GameController.Serialize(&p->GameController, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1074,15 +1109,17 @@ namespace Quantum {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
+    public Team Team;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 8783;
+        hash = hash * 31 + (Int32)Team;
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayableMechanic*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Team);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1101,6 +1138,24 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerLink*)ptr;
         PlayerRef.Serialize(&p->PlayerRef, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct SpawnIdentifier : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public Team Team;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 11057;
+        hash = hash * 31 + (Int32)Team;
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (SpawnIdentifier*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Team);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1186,7 +1241,7 @@ namespace Quantum {
     void AsteroidsSpawnAsteroid(Frame f, AssetRef<EntityPrototype> childPrototype, EntityRef parent);
   }
   public unsafe partial interface ISignalSpawnMechanic : ISignal {
-    void SpawnMechanic(Frame f, EntityRef mechanic, QBoolean isLocal);
+    void SpawnMechanic(Frame f, EntityRef mechanic);
   }
   public unsafe partial interface ISignalOnMechanicRespawn : ISignal {
     void OnMechanicRespawn(Frame f, EntityRef robot);
@@ -1200,6 +1255,9 @@ namespace Quantum {
   public unsafe partial interface ISignalOnMechanicDeath : ISignal {
     void OnMechanicDeath(Frame f, EntityRef deadRobot, EntityRef killer);
   }
+  public unsafe partial interface ISignalOnGameEnded : ISignal {
+    void OnGameEnded(Frame f, GameController* gameController);
+  }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
@@ -1212,6 +1270,7 @@ namespace Quantum {
     private ISignalOnMechanicHit[] _ISignalOnMechanicHitSystems;
     private ISignalOnMechanicSkillHit[] _ISignalOnMechanicSkillHitSystems;
     private ISignalOnMechanicDeath[] _ISignalOnMechanicDeathSystems;
+    private ISignalOnGameEnded[] _ISignalOnGameEndedSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -1232,6 +1291,7 @@ namespace Quantum {
       _ISignalOnMechanicHitSystems = BuildSignalsArray<ISignalOnMechanicHit>();
       _ISignalOnMechanicSkillHitSystems = BuildSignalsArray<ISignalOnMechanicSkillHit>();
       _ISignalOnMechanicDeathSystems = BuildSignalsArray<ISignalOnMechanicDeath>();
+      _ISignalOnGameEndedSystems = BuildSignalsArray<ISignalOnGameEnded>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AsteroidsAsteroid>();
@@ -1286,6 +1346,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayableMechanic>();
       BuildSignalsArrayOnComponentAdded<Quantum.PlayerLink>();
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayerLink>();
+      BuildSignalsArrayOnComponentAdded<Quantum.SpawnIdentifier>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.SpawnIdentifier>();
       BuildSignalsArrayOnComponentAdded<Quantum.Status>();
       BuildSignalsArrayOnComponentRemoved<Quantum.Status>();
       BuildSignalsArrayOnComponentAdded<Transform2D>();
@@ -1360,12 +1422,12 @@ namespace Quantum {
           }
         }
       }
-      public void SpawnMechanic(EntityRef mechanic, QBoolean isLocal) {
+      public void SpawnMechanic(EntityRef mechanic) {
         var array = _f._ISignalSpawnMechanicSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.SpawnMechanic(_f, mechanic, isLocal);
+            s.SpawnMechanic(_f, mechanic);
           }
         }
       }
@@ -1402,6 +1464,15 @@ namespace Quantum {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnMechanicDeath(_f, deadRobot, killer);
+          }
+        }
+      }
+      public void OnGameEnded(GameController* gameController) {
+        var array = _f._ISignalOnGameEndedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnGameEnded(_f, gameController);
           }
         }
       }
@@ -1461,6 +1532,8 @@ namespace Quantum {
       typeRegistry.Register(typeof(FPVector3), FPVector3.SIZE);
       typeRegistry.Register(typeof(FrameMetaData), FrameMetaData.SIZE);
       typeRegistry.Register(typeof(FrameTimer), FrameTimer.SIZE);
+      typeRegistry.Register(typeof(Quantum.GameController), Quantum.GameController.SIZE);
+      typeRegistry.Register(typeof(Quantum.GameState), 4);
       typeRegistry.Register(typeof(HingeJoint), HingeJoint.SIZE);
       typeRegistry.Register(typeof(HingeJoint3D), HingeJoint3D.SIZE);
       typeRegistry.Register(typeof(Hit), Hit.SIZE);
@@ -1508,9 +1581,11 @@ namespace Quantum {
       typeRegistry.Register(typeof(RNGSession), RNGSession.SIZE);
       typeRegistry.Register(typeof(Shape2D), Shape2D.SIZE);
       typeRegistry.Register(typeof(Shape3D), Shape3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.SpawnIdentifier), Quantum.SpawnIdentifier.SIZE);
       typeRegistry.Register(typeof(SpringJoint), SpringJoint.SIZE);
       typeRegistry.Register(typeof(SpringJoint3D), SpringJoint3D.SIZE);
       typeRegistry.Register(typeof(Quantum.Status), Quantum.Status.SIZE);
+      typeRegistry.Register(typeof(Quantum.Team), 4);
       typeRegistry.Register(typeof(Transform2D), Transform2D.SIZE);
       typeRegistry.Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       typeRegistry.Register(typeof(Transform3D), Transform3D.SIZE);
@@ -1520,7 +1595,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 13)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 14)
         .AddBuiltInComponents()
         .Add<Quantum.AsteroidsAsteroid>(Quantum.AsteroidsAsteroid.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsPlayerLink>(Quantum.AsteroidsPlayerLink.Serialize, null, null, ComponentFlags.None)
@@ -1533,6 +1608,7 @@ namespace Quantum {
         .Add<Quantum.MechProjectile>(Quantum.MechProjectile.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayableMechanic>(Quantum.PlayableMechanic.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.SpawnIdentifier>(Quantum.SpawnIdentifier.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.Status>(Quantum.Status.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.WeaponInventory>(Quantum.WeaponInventory.Serialize, null, null, ComponentFlags.None)
         .Finish();
@@ -1544,7 +1620,9 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCIgnoreSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCProcessorSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EWeaponType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.Team>();
     }
   }
 }

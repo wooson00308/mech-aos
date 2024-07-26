@@ -10296,7 +10296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    _empty_prototype_dummy_field_: 0
+    Team:
+      Value: 0
 --- !u!114 &6696619510866150947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10356,15 +10357,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prototype:
     CurrentHealth:
-      RawValue: 6553600
+      RawValue: 13107200
     IsDead:
       Value: 0
     RespawnTimer:
-      RawValue: 6553600
+      RawValue: 327680
     RegenTimer:
       RawValue: 6553600
     InvincibleTimer:
-      RawValue: 6553600
+      RawValue: 0
     DisconnectedTicks: 100
     StatusData:
       Id:

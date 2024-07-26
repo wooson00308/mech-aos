@@ -1,5 +1,10 @@
+enum Team {
+	Red,
+	Blue,
+	Green 
+}
 component PlayerLink
 {
     player_ref PlayerRef;
 }
-signal SpawnMechanic(EntityRef mechanic, bool isLocal);
+signal SpawnMechanic(EntityRef mechanic);

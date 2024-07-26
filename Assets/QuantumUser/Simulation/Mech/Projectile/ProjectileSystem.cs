@@ -8,10 +8,10 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech.Projectile
 {
     [Preserve]
-    public unsafe class ProjectileSystem : SystemMainThreadFilter<MechSystem.Filter>
+    public unsafe class ProjectileSystem : SystemMainThreadFilter<MovementSystem.Filter>
     {
         
-        public override void Update(Frame f, ref MechSystem.Filter filter)
+        public override void Update(Frame f, ref MovementSystem.Filter filter)
         {
             //filter.Transform->Position += new FPVector3(0, 0, 1);
         }

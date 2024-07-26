@@ -17,12 +17,12 @@ MonoBehaviour:
     Guid:
       Value: 334589176256660519
   MaxHealth:
-    RawValue: 6553600
+    RawValue: 65536000
   RespawnTime:
-    RawValue: 6553600
+    RawValue: 327680
   TimeUntilRegen:
     RawValue: 6553600
   RegenRate:
     RawValue: 6553600
   InvincibleTime:
-    RawValue: 6553600
+    RawValue: 0

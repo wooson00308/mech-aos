@@ -148,6 +148,18 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.GameController))]
+  public unsafe partial class GameControllerPrototype : StructPrototype {
+    public Quantum.QEnum32<GameState> State;
+    public FP GameTimer;
+    partial void MaterializeUser(Frame frame, ref Quantum.GameController result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.GameController result, in PrototypeMaterializationContext context = default) {
+        result.State = this.State;
+        result.GameTimer = this.GameTimer;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
     public Button Fire;
@@ -327,8 +339,7 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.PlayableMechanic))]
   public unsafe partial class PlayableMechanicPrototype : ComponentPrototype<Quantum.PlayableMechanic> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
+    public Quantum.QEnum32<Team> Team;
     partial void MaterializeUser(Frame frame, ref Quantum.PlayableMechanic result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.PlayableMechanic component = default;
@@ -336,6 +347,7 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.PlayableMechanic result, in PrototypeMaterializationContext context = default) {
+        result.Team = this.Team;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -351,6 +363,21 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.PlayerLink result, in PrototypeMaterializationContext context = default) {
         result.PlayerRef = this.PlayerRef;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.SpawnIdentifier))]
+  public unsafe partial class SpawnIdentifierPrototype : ComponentPrototype<Quantum.SpawnIdentifier> {
+    public Quantum.QEnum32<Team> Team;
+    partial void MaterializeUser(Frame frame, ref Quantum.SpawnIdentifier result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.SpawnIdentifier component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.SpawnIdentifier result, in PrototypeMaterializationContext context = default) {
+        result.Team = this.Team;
         MaterializeUser(frame, ref result, in context);
     }
   }

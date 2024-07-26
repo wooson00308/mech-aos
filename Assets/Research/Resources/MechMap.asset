@@ -16671,8 +16671,83 @@ MonoBehaviour:
       IsTrigger: 0
       ColliderIndex: 377
       MutableMode: 0
-  MapEntities: []
+  MapEntities:
+  - Components:
+    - rid: 5727939716486004736
+    - rid: 5727939716486004737
+  - Components:
+    - rid: 6715725765138186240
+    - rid: 6715725765138186241
+  - Components:
+    - rid: 9194474575616802816
+    - rid: 9194474575616802817
   SerializedTriangleDataUncompressedSize: 8
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5727939716486004736
+      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 655360
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        Rotation:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+    - rid: 5727939716486004737
+      type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        Team:
+          Value: 0
+    - rid: 6715725765138186240
+      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 655360
+        Rotation:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+    - rid: 6715725765138186241
+      type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        Team:
+          Value: 1
+    - rid: 9194474575616802816
+      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
+      data:
+        Position:
+          X:
+            RawValue: -655360
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        Rotation:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+    - rid: 9194474575616802817
+      type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        Team:
+          Value: 2

@@ -9,3 +9,7 @@ event OnMechanicTakeDamage : MechanicEvent {
 synced event OnMechanicDeath : MechanicEvent {
 	entity_ref Killer; 	
 }
+
+event OnMechanicCreated : MechanicEvent {}
+event OnMechanicRespawn : MechanicEvent {}
+event OnMechanicChangeWeapon : MechanicEvent {}

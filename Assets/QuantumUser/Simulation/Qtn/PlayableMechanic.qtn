@@ -1,3 +1,4 @@
 component PlayableMechanic
 {
+    Team Team;
 }

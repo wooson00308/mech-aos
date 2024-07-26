@@ -55,25 +55,21 @@ namespace Quantum.Mech
             Transform3D* bulletTransform = frame.Unsafe.GetPointer<Transform3D>(bullet);
             FPVector3 futurePosition = bulletTransform->Position + bulletFields.Direction * frame.DeltaTime;
             BulletData data = frame.FindAsset<BulletData>(bulletFields.BulletData.Id);
-
+            
             if (FPVector3.DistanceSquared(bulletTransform->Position, futurePosition) <= FP._0_01)
             {
                 return false;
             }
-
-            //using (var hits = f.Scene.Linecastc)
-            // Physics2D.HitCollection hits = frame.Physics2D.LinecastAll(bulletTransform->Position, futurePosition);
             
-            Physics3D.HitCollection3D hits = frame.Physics3D.OverlapShape(
-                *bulletTransform, 
-                data.ShapeConfig.CreateShape(frame), 
-                frame.Layers.GetLayerMask("Enemy"));
-
+            var shooter = frame.Unsafe.GetPointer<PlayableMechanic>(bulletFields.Source);
             
+                
+            Physics3D.HitCollection3D hits = frame.Physics3D.OverlapShape(*bulletTransform, data.ShapeConfig.CreateShape(frame));
             for (int i = 0; i < hits.Count; i++)
             {
                 var entity = hits[i].Entity;
-                if (entity != EntityRef.None && frame.Has<Status>(entity) && entity != bulletFields.Source)
+                var playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(entity);
+                if (entity != EntityRef.None && frame.Has<Status>(entity) && entity != bulletFields.Source || shooter->Team != playableMechanic->Team)
                 {
                     if (frame.Get<Status>(entity).IsDead)
                     {

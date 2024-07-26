@@ -10,7 +10,8 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class MechSystem : SystemMainThreadFilter<MechSystem.Filter>, ISignalSpawnMechanic, IKCCCallbacks3D
+    public unsafe class MovementSystem : SystemMainThreadFilter<MovementSystem.Filter>, 
+        ISignalOnGameEnded, IKCCCallbacks3D
     {
         public struct Filter
         {
@@ -19,30 +20,39 @@ namespace Quantum.Mech
             public CharacterController3D* KCC;
             public PlayableMechanic* PlayableMechanic;
             public PlayerLink* PlayerLink;
+            public Status* Status;
+            
+        }
+        public void OnGameEnded(Frame frame, GameController* gameController)
+        {
+            foreach (var (mechanic, kcc) in frame.Unsafe.GetComponentBlockIterator<CharacterController3D>())
+            {
+                kcc->Velocity = FPVector3.Zero;
+            }
+
+            frame.SystemDisable<MovementSystem>();
         }
         public override void Update(Frame f, ref Filter filter)
         {
-
-            // if (f.Unsafe.TryGetPointer<Status>(filter.Entity, out var respawn))
-            // {
-            //     respawn->RespawnTimer -= f.DeltaTime;
-            //     if (respawn->RespawnTimer <= 0)
-            //     {
-            //         f.Signals.AsteroidsSpawnShip(filter.Entity);
-            //     }
-            //     return;
-            // }
-
-            if (filter.PlayerLink->PlayerRef == PlayerRef.None) return;
+            
+            var robot = filter.Entity;
+            var transform = filter.Transform;
+            var player = filter.PlayerLink;
+            var status = filter.Status;
+            // var robotMovement = filter.RobotMovement;
+            var kcc = filter.KCC;
+            
+            if (status->IsDead == true)
+            {
+                return;
+            }
             
             var config = f.FindAsset(f.RuntimeConfig.MechGameConfig);
-            
             Input* input = f.GetPlayerInput(filter.PlayerLink->PlayerRef);
 
+            
             var newPosition = UpdateMovement(f, ref filter, input, config);
             filter.Transform->Position += newPosition;
-            
-            UpdateFire(f, ref filter, input, config);
             UpdateRotate(f, ref filter, newPosition);
 
         }
@@ -99,7 +109,6 @@ namespace Quantum.Mech
             
             return movement;
         }
-
         private void UpdateRotate(Frame frame, ref Filter filter, FPVector3 velocity)
         {
             if (velocity.Normalized.XZ.SqrMagnitude == FP._0) return;
@@ -110,33 +119,8 @@ namespace Quantum.Mech
             var t = FPMath.Clamp01(FP.FromFloat_UNSAFE(11f) * frame.DeltaTime * FP.FromFloat_UNSAFE(1.2f));
             filter.Transform->Rotation = FPQuaternion.Lerp(filter.Transform->Rotation, lookDir, t);
         }
-        private void UpdateFire(Frame f, ref Filter filter, Input* input, MechGameConfig config)
-        {
-            if (input->MainWeaponFire)
-            {
-                // f.Signals.AsteroidsShipShoot(filter.Entity);
-                f.Events.WeaponFire(filter.Entity, EWeaponType.MainWeapon);
-            }
 
-            if (input->SubWeaponFire)
-            {
-                f.Events.WeaponFire(filter.Entity, EWeaponType.SubWeapon);
-            }
-        }
-        public void SpawnMechanic(Frame f, EntityRef entity, QBoolean isLocal)
-        {
-            var config = f.FindAsset(f.RuntimeConfig.MechGameConfig);
-            
-            Transform3D* transform = f.Unsafe.GetPointer<Transform3D>(entity);
-            transform->Position = MechUtils.GetRandomSpots(f, config.SpawnSpots);
-            transform->Teleport(f, transform);
 
-            var body = f.Unsafe.GetPointer<CharacterController3D>(entity);
-            body->Velocity = default;
-            // f.Unsafe.GetPointer<AsteroidsShip>(entity)->AmmoCount = config.MaxAmmo;
-            // f.Unsafe.GetPointer<PhysicsCollider3D>(entity)->Enabled = true;
-        }
-        
         static void ComputeRawSteer(CharacterController3D* kcc, ref CharacterController3DMovement movementPack, FP deltaTime, CharacterController3DConfig config)
         {
             kcc->Grounded = movementPack.Grounded;

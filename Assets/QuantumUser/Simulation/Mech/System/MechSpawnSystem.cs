@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Photon.Deterministic;
-using Quantum;
+using System;
 using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace Quantum.Mech
 {
+    
     [Preserve]
     public unsafe class MechSpawnSystem : SystemSignalsOnly, ISignalOnPlayerAdded
     {
@@ -31,10 +29,15 @@ namespace Quantum.Mech
             PlayerLink* playerLink = frame.Unsafe.GetPointer<PlayerLink>(character);
             playerLink->PlayerRef = player;
 
+            PlayableMechanic* playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(character);
+            playableMechanic->Team = (Team)(frame.Global->TeamIndex % 3);
+            Debug.Log($"Team : {playableMechanic->Team}");
+            frame.Global->TeamIndex++;
             
-            frame.Add(character, new PlayerLink { PlayerRef = player });
+            RespawnHelper.RespawnMechanic(frame, character);
+            // frame.Add(character, new PlayerLink { PlayerRef = player });
                 
-            frame.Signals.SpawnMechanic(character, QuantumRunner.Default.Game.PlayerIsLocal(player));
+            frame.Signals.SpawnMechanic(character);
         }
 
     }

@@ -95,9 +95,9 @@ MonoBehaviour:
       SphereRadius:
         RawValue: 0
       CapsuleRadius:
-        RawValue: 0
+        RawValue: 65536
       CapsuleHeight:
-        RawValue: 0
+        RawValue: 65536
       PositionOffset:
         X:
           RawValue: 0
@@ -156,9 +156,9 @@ MonoBehaviour:
       SphereRadius:
         RawValue: 0
       CapsuleRadius:
-        RawValue: 0
+        RawValue: 32768
       CapsuleHeight:
-        RawValue: 0
+        RawValue: 32768
       PositionOffset:
         X:
           RawValue: 0

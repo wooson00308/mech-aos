@@ -21,13 +21,13 @@ MonoBehaviour:
     Id:
       Value: 1530798938469091314
   ShapeConfig:
-    ShapeType: 1
+    ShapeType: 2
     SphereRadius:
-      RawValue: 32768
+      RawValue: 51118
     CapsuleRadius:
-      RawValue: 0
+      RawValue: 65536
     CapsuleHeight:
-      RawValue: 0
+      RawValue: 32768
     PositionOffset:
       X:
         RawValue: 0
@@ -37,11 +37,11 @@ MonoBehaviour:
         RawValue: 0
     BoxExtents:
       X:
-        RawValue: 0
+        RawValue: 32768
       Y:
-        RawValue: 0
+        RawValue: 32768
       Z:
-        RawValue: 0
+        RawValue: 32768
     RotationOffset:
       X:
         RawValue: 0
@@ -57,4 +57,4 @@ MonoBehaviour:
   Range:
     RawValue: 6553600
   Duration:
-    RawValue: 0
+    RawValue: 6553600

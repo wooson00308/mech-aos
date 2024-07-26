@@ -16,20 +16,20 @@ namespace Quantum.Mech
 
         public override void Update(Frame frame, ref Filter filter)
         {
-            // var status = filter.Status;
-            //
-            // var statusData = frame.FindAsset<StatusData>(status->StatusData.Id);
-            // status->RegenTimer -= frame.DeltaTime;
-            // if (status->RegenTimer < 0)
-            // {
-            //     status->CurrentHealth += frame.DeltaTime * statusData.RegenRate;
-            //     status->CurrentHealth = FPMath.Clamp(status->CurrentHealth, status->CurrentHealth, statusData.MaxHealth);
-            // }
-            //
-            // if (status->InvincibleTimer > FP._0)
-            // {
-            //     status->InvincibleTimer -= frame.DeltaTime;
-            // }
+            var status = filter.Status;
+            
+            var statusData = frame.FindAsset<StatusData>(status->StatusData.Id);
+            status->RegenTimer -= frame.DeltaTime;
+            if (status->RegenTimer < 0)
+            {
+                status->CurrentHealth += frame.DeltaTime * statusData.RegenRate;
+                status->CurrentHealth = FPMath.Clamp(status->CurrentHealth, status->CurrentHealth, statusData.MaxHealth);
+            }
+            
+            if (status->InvincibleTimer > FP._0)
+            {
+                status->InvincibleTimer -= frame.DeltaTime;
+            }
         }
 
         public void OnMechanicRespawn(Frame frame, EntityRef robot)
@@ -88,8 +88,7 @@ namespace Quantum.Mech
             mechanicStatus->RespawnTimer = respawnTime;
             characterController->Velocity = FPVector3.Zero;
             collider->IsTrigger = true;
-
-            Debug.Log("파괴");
+            
             frame.Signals.OnMechanicDeath(mechanic, killer);
             frame.Events.OnMechanicDeath(mechanic, killer);
 
