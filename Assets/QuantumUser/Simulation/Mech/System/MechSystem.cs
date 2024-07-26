@@ -32,8 +32,11 @@ namespace Quantum.Mech
             //     }
             //     return;
             // }
+
+            if (filter.PlayerLink->PlayerRef == PlayerRef.None) return;
             
             var config = f.FindAsset(f.RuntimeConfig.MechGameConfig);
+            
             Input* input = f.GetPlayerInput(filter.PlayerLink->PlayerRef);
 
             var newPosition = UpdateMovement(f, ref filter, input, config);
@@ -222,7 +225,7 @@ namespace Quantum.Mech
         {
             
             // throw new System.NotImplementedException();
-            Debug.Log($"{character.Index}");
+            // Debug.Log($"{character.Index}");
             return true;
         }
 

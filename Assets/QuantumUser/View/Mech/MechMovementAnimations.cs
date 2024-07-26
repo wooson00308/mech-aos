@@ -7,7 +7,7 @@ namespace Quantum.Mech
 {
     public class MechMovementAnimations : QuantumEntityViewComponent<CustomViewContext>
     {
-        private QuantumEntityView _entityView;
+        // private QuantumEntityView _entityView;
         private Animator _animator;
         public ParticleSystem MoveParticle; // 파티클 시스템 필드 추가
 
@@ -26,7 +26,7 @@ namespace Quantum.Mech
         private MechGameConfig _config;
         public override void OnActivate(Frame frame)
         {
-            _entityView = GetComponent<QuantumEntityView>();
+            // _entityView = GetComponent<QuantumEntityView>();
             _animator = GetComponentInChildren<Animator>();
             _config = frame.FindAsset(frame.RuntimeConfig.MechGameConfig);
         }
@@ -41,7 +41,7 @@ namespace Quantum.Mech
             _animator.SetFloat("MoveSpeed", moveSpeed * moveAnimationMultiplier);
             
             var normalized = body.Velocity.Normalized;
-            Debug.Log(normalized);
+            // Debug.Log(normalized);
             if (!isMoving && normalized != FPVector3.Zero)
             {
                 isMoving = true;

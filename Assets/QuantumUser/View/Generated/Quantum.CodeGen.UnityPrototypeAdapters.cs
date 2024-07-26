@@ -63,6 +63,23 @@ namespace Quantum.Prototypes.Unity {
     }
   }
   [System.SerializableAttribute()]
+  public unsafe partial class BulletFieldsPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.BulletFieldsPrototype> {
+    public FP Time;
+    public Quantum.QuantumEntityPrototype Source;
+    public FPVector3 Direction;
+    public AssetRef<BulletData> BulletData;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.BulletFieldsPrototype prototype);
+    public override Quantum.Prototypes.BulletFieldsPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.BulletFieldsPrototype();
+      converter.Convert(this.Time, out result.Time);
+      converter.Convert(this.Source, out result.Source);
+      converter.Convert(this.Direction, out result.Direction);
+      converter.Convert(this.BulletData, out result.BulletData);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
   public unsafe partial class KCCPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.KCCPrototype> {
     public AssetRef<KCCSettings> Settings;
     partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.KCCPrototype prototype);

@@ -52,12 +52,22 @@ MonoBehaviour:
     StartDisabled: 0
     Children: []
   - SystemType:
+      AssemblyQualifiedName: Quantum.KCCSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Mech.StatusSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
       AssemblyQualifiedName: Quantum.Mech.DisconnectSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
     Children: []
   - SystemType:
-      AssemblyQualifiedName: Quantum.KCCSystem, Quantum.Simulation
+      AssemblyQualifiedName: Quantum.Mech.MechWaveSpawnerSystem, Quantum.Simulation
     SystemName: 
     StartDisabled: 0
     Children: []

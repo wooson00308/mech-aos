@@ -17,6 +17,7 @@ MonoBehaviour:
   _availableAppVersions:
   - 1.0
   _availableRegions:
+  - kr
   - asia
   - eu
   - sa
@@ -26,7 +27,7 @@ MonoBehaviour:
     ScenePath: Assets/Research/Scenes/Redemo.unity
     Preview: {fileID: 21300000, guid: 5e8ff86360b2fa24a8355f7f37384592, type: 3}
     RuntimeConfig:
-      Seed: 0
+      Seed: -565412713
       Map:
         Id:
           Value: 534181941853177012

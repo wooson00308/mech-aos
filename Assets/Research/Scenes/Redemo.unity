@@ -24189,15 +24189,7 @@ MonoBehaviour:
       Id:
         Value: 482644345786211340
   SessionConfig: {fileID: 11400000, guid: a976f3c978041af41acccc4ba8508933, type: 2}
-  LocalPlayers:
-  - PlayerAvatar:
-      Id:
-        Value: 1302707971285072803
-    PlayerNickname: Player 1
-  - PlayerAvatar:
-      Id:
-        Value: 1302707971285072803
-    PlayerNickname: Player 2
+  LocalPlayers: []
   MaxPlayerCount: 3
   SimulationSpeedMultiplier: 3
   DisplaySaveAndReloadButton: 0

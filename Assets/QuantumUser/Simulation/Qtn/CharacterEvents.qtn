@@ -1,0 +1,11 @@
+abstract event MechanicEvent {
+	entity_ref Mechanic; 	
+}
+
+event OnMechanicTakeDamage : MechanicEvent {
+	FP Damage;
+	entity_ref Source; 	
+}
+synced event OnMechanicDeath : MechanicEvent {
+	entity_ref Killer; 	
+}

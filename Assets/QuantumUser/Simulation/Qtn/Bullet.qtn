@@ -1,0 +1,14 @@
+component BulletFields{
+	FP Time;
+	entity_ref Source;
+	FPVector3 Direction;
+	asset_ref<BulletData> BulletData;
+}
+
+event OnBulletDestroyed {
+	Int32 BulletRefHashCode;
+	entity_ref Mechanic;
+	FPVector3 BulletPosition;
+	FPVector3 BulletDirection;
+	asset_ref<BulletData> BulletData;
+}
