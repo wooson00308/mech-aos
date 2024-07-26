@@ -16673,23 +16673,24 @@ MonoBehaviour:
       MutableMode: 0
   MapEntities:
   - Components:
-    - rid: 6267233494699606016
-    - rid: 6267233494699606017
-    - rid: 6267233494699606018
+    - rid: 8843590597383028736
+    - rid: 8843590597383028737
+    - rid: 8843590597383028738
+    - rid: 8843590597383028739
   SerializedTriangleDataUncompressedSize: 8
   references:
     version: 2
     RefIds:
-    - rid: 6267233494699606016
+    - rid: 8843590597383028736
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
           X:
-            RawValue: 204472
+            RawValue: 0
           Y:
-            RawValue: -114688
+            RawValue: 0
           Z:
-            RawValue: 435814
+            RawValue: 0
         Rotation:
           X:
             RawValue: 0
@@ -16697,17 +16698,17 @@ MonoBehaviour:
             RawValue: 0
           Z:
             RawValue: 0
-    - rid: 6267233494699606017
+    - rid: 8843590597383028737
       type: {class: PhysicsCollider3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         ShapeConfig:
           ShapeType: 2
           SphereRadius:
-            RawValue: 0
+            RawValue: 65536
           CapsuleRadius:
-            RawValue: 0
+            RawValue: 131072
           CapsuleHeight:
-            RawValue: 0
+            RawValue: 131072
           PositionOffset:
             X:
               RawValue: 0
@@ -16717,11 +16718,11 @@ MonoBehaviour:
               RawValue: 0
           BoxExtents:
             X:
-              RawValue: 393216
+              RawValue: 13107
             Y:
-              RawValue: 196608
+              RawValue: 13107
             Z:
-              RawValue: 393216
+              RawValue: 32768
           RotationOffset:
             X:
               RawValue: 0
@@ -16737,8 +16738,25 @@ MonoBehaviour:
         PhysicsMaterial:
           Id:
             Value: 0
-    - rid: 6267233494699606018
+    - rid: 8843590597383028738
       type: {class: PhysicsCallbacks3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
           Value: 0
+    - rid: 8843590597383028739
+      type: {class: BulletFieldsPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        Time:
+          RawValue: 0
+        Source:
+          SceneIndexPlusOne: 0
+        Direction:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+          Z:
+            RawValue: 0
+        BulletData:
+          Id:
+            Value: 0
