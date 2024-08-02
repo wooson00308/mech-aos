@@ -12,6 +12,7 @@ public class GameUI : QuantumMonoBehaviour
     public List<PlayerInfoUI> playerInfoUIs;
     public TimerUI timer;
     public Button settingButton;
+    public Button settingPopupCloseButton;
     public GameObject settingPanel;
 
     [Header("Test")]
@@ -22,6 +23,7 @@ public class GameUI : QuantumMonoBehaviour
     private void Start()
     {
         settingButton.onClick.AddListener(OnSettingButtonClicked);
+        settingPopupCloseButton.onClick.AddListener(OnSettingButtonClicked);
 
         SetTimer(testTime);
     }

@@ -6606,6 +6606,7 @@ MonoBehaviour:
   - {fileID: 8403241895869769898}
   timer: {fileID: 854096790811825083}
   settingButton: {fileID: 8384200326325952840}
+  settingPopupCloseButton: {fileID: 7466275129854248486}
   settingPanel: {fileID: 8467712641427392783}
   testTime: 180
 --- !u!223 &6170763066655215993
@@ -7766,6 +7767,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 670999359974608209, guid: 4e00118c30506c74cb59e1713001ce87, type: 3}
   m_PrefabInstance: {fileID: 7657313602094892105}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7466275129854248486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 998030598136775279, guid: 4e00118c30506c74cb59e1713001ce87, type: 3}
+  m_PrefabInstance: {fileID: 7657313602094892105}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8467712641427392783 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2289911009340509510, guid: 4e00118c30506c74cb59e1713001ce87, type: 3}
