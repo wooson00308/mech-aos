@@ -19,9 +19,9 @@ MonoBehaviour:
   UserAsset:
     Id:
       Value: 0
-  Scene: Redemo 1
-  ScenePath: Assets/Research/Scenes/Redemo 1.unity
-  SceneGuid: 03ea0a0bc8f124f4c977416ea58eb0b0
+  Scene: Redemo
+  ScenePath: Assets/Research/Scenes/Redemo.unity
+  SceneGuid: 223351feacea45749af38216ac9064d1
   WorldSize: 256
   BucketsCount: 16
   BucketsSubdivisions: 8
@@ -16673,19 +16673,19 @@ MonoBehaviour:
       MutableMode: 0
   MapEntities:
   - Components:
-    - rid: 2620027649396834304
-    - rid: 2620027649396834305
+    - rid: 5727939716486004736
+    - rid: 5727939716486004737
   - Components:
-    - rid: 3607813698049015808
-    - rid: 3607813698049015809
+    - rid: 6715725765138186240
+    - rid: 6715725765138186241
   - Components:
-    - rid: 6086562508527632384
-    - rid: 6086562508527632385
+    - rid: 9194474575616802816
+    - rid: 9194474575616802817
   SerializedTriangleDataUncompressedSize: 8
   references:
     version: 2
     RefIds:
-    - rid: 2620027649396834304
+    - rid: 5727939716486004736
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
@@ -16702,12 +16702,12 @@ MonoBehaviour:
             RawValue: 0
           Z:
             RawValue: 0
-    - rid: 2620027649396834305
+    - rid: 5727939716486004737
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
           Value: 0
-    - rid: 3607813698049015808
+    - rid: 6715725765138186240
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
@@ -16724,12 +16724,12 @@ MonoBehaviour:
             RawValue: 0
           Z:
             RawValue: 0
-    - rid: 3607813698049015809
+    - rid: 6715725765138186241
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
           Value: 1
-    - rid: 6086562508527632384
+    - rid: 9194474575616802816
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
@@ -16746,7 +16746,7 @@ MonoBehaviour:
             RawValue: 0
           Z:
             RawValue: 0
-    - rid: 6086562508527632385
+    - rid: 9194474575616802817
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
