@@ -41905,6 +41905,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1989925384}
     m_Modifications:
+    - target: {fileID: 7463519784114552080, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.X.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463519784114552080, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.Y.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463519784114552080, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.Z.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463519784114552080, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.PositionOffset.Y.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539105090780997182, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539105090780997182, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539105090780997182, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7539105090780997182, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.5
@@ -41945,9 +41973,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7924223104974591993, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.X.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924223104974591993, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.Y.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924223104974591993, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.Z.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924223104974591993, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.PositionOffset.Y.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
     - target: {fileID: 7968010273693292566, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
       propertyPath: m_Name
       value: Map (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360732282980753066, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.X.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360732282980753066, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.Y.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360732282980753066, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.Z.RawValue
+      value: 786432
+      objectReference: {fileID: 0}
+    - target: {fileID: 8360732282980753066, guid: c23141ae7a0da7f43b252f74eb1e724b, type: 3}
+      propertyPath: PhysicsCollider.ScaledShape3D.PositionOffset.Y.RawValue
+      value: 786432
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
