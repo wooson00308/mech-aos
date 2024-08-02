@@ -5,21 +5,20 @@ using UnityEngine;
 
 namespace Quantum.Mech
 {
-    public unsafe class FollowCamera : QuantumSceneViewComponent
+    public class FollowCamera : QuantumEntityViewComponent<CustomViewContext>
     {
-        public CinemachineVirtualCamera Camera;
+        public GameObject camera;
 
-        public override void OnUpdateView()
+        public override void OnActivate(Frame frame)
         {
-            if (Camera.Follow == null || Camera.LookAt == null)
-            {
-                var filter = VerifiedFrame.Filter<PlayableMechanic, PlayerLink>();
-                while (filter.Next(out var entity, out var mechanic, out var playerLink))
-                {
-                    // if()
-                }
-            }
+            QuantumEvent.Subscribe<EventOnMechanicRespawn>(this, OnCameraSetting);
         }
+        
+        public void OnCameraSetting(EventOnMechanicRespawn respawn)
+        {
+            camera.gameObject.SetActive(respawn.Mechanic == EntityRef);
+        }
+  
     }
 }
 

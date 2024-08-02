@@ -4932,7 +4932,6 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8144626657419765598}
   - {fileID: 4789222577992719940}
   - {fileID: 2419352259390279479}
   m_Father: {fileID: 0}
@@ -5006,22 +5005,22 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 0
+          RawValue: 3620
       BoxExtents:
         X:
-          RawValue: 32768
+          RawValue: 13208
         Y:
-          RawValue: 32768
+          RawValue: 15754
         Z:
-          RawValue: 32768
+          RawValue: 11439
       RotationOffset:
         X:
-          RawValue: 0
+          RawValue: 5898240
         Y:
           RawValue: 0
         Z:
           RawValue: 0
-      UserTag: 0
+      UserTag: 1
       IsPersistent: 1
       CompoundShapes: []
     ScaledShape2D:
@@ -5067,22 +5066,22 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 0
+          RawValue: 1810
       BoxExtents:
         X:
-          RawValue: 16384
+          RawValue: 6604
         Y:
-          RawValue: 16384
+          RawValue: 7877
         Z:
-          RawValue: 16384
+          RawValue: 5719
       RotationOffset:
         X:
-          RawValue: 0
+          RawValue: 5898240
         Y:
           RawValue: 0
         Z:
           RawValue: 0
-      UserTag: 0
+      UserTag: 1
       IsPersistent: 1
       CompoundShapes: []
     LayerSource: 0
@@ -5090,7 +5089,7 @@ MonoBehaviour:
     CallbackFlags:
       Value: 0
   PhysicsBody:
-    IsEnabled: 1
+    IsEnabled: 0
     Config2D: 116
     Config3D: 58
     RotationFreeze: 0
@@ -5209,89 +5208,6 @@ MonoBehaviour:
     BulletData:
       Id:
         Value: 382308930789291948
---- !u!1 &9149963252820561159
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8144626657419765598}
-  - component: {fileID: 5794480468960676150}
-  - component: {fileID: 8587213717152539788}
-  m_Layer: 0
-  m_Name: Model
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &8144626657419765598
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9149963252820561159}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
-  m_LocalScale: {x: 6, y: 6, z: 6}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3255408355225605723}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!33 &5794480468960676150
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9149963252820561159}
-  m_Mesh: {fileID: -3523461631999880964, guid: efbb4648911e4e04d9cbd617b204dddc, type: 3}
---- !u!23 &8587213717152539788
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9149963252820561159}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &133743075803242271
 PrefabInstance:
   m_ObjectHideFlags: 0

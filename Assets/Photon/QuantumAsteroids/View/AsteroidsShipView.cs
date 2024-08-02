@@ -75,17 +75,17 @@ namespace Quantum.Asteroids
       
       AsteroidsPlayerLink playerLink = PredictedFrame.Get<AsteroidsPlayerLink>(_entityView.EntityRef);
       Quantum.Input* input = PredictedFrame.GetPlayerInput(playerLink.PlayerRef);
-      if (input->Up)
-      {
-        if (PropulsionFX.isPlaying == false)
-        {
-          PropulsionFX.Play();
-        }
-      }
-      else
-      {
-        PropulsionFX.Stop();
-      }
+      // if (input->Up)
+      // {
+      //   if (PropulsionFX.isPlaying == false)
+      //   {
+      //     PropulsionFX.Play();
+      //   }
+      // }
+      // else
+      // {
+      //   PropulsionFX.Stop();
+      // }
     }
 
     /// <summary>

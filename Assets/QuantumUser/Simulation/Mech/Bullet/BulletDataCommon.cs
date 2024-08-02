@@ -15,7 +15,6 @@ namespace Quantum
             {
                 frame.Signals.OnMechanicHit(bullet, targetRobot, Damage);
             }
-
             BulletFields fields = frame.Get<BulletFields>(bullet);
             FPVector3 position = frame.Get<Transform3D>(bullet).Position;
             frame.Events.OnBulletDestroyed(bullet.GetHashCode(), fields.Source, position, fields.Direction, fields.BulletData);

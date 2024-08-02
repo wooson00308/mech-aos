@@ -12,79 +12,75 @@ namespace Quantum.Mech
         private QuantumEntityView _entityView;
         public Animator Aniamtor;
 
-        public Weapon MainWeapon;
-        public Weapon SubWeapon;
-        
         int _targetHandle;
         public int TargetHandle => _targetHandle;
 
         static int playerHandle = 0;
         public int Handle { get; private set; }
         
-        private Dictionary<Weapon, bool> _weaponDelayDic = new();
-
+        private Dictionary<string, Weapon> _weaponDelayDic = new();
+        private Dictionary<Weapon, bool> IsCoolDowns = new();
+        
+        
         private bool MainAttackInteractable;
         private bool SubAttackInteractable;
 
         private void Awake()
         {
             _entityView = GetComponent<QuantumEntityView>();
-            
-            // _weaponDelayDic.Add(MainWeapon, false);
-            // _weaponDelayDic.Add(SubWeapon, false);
+            var weapons = GetComponentsInChildren<Weapon>(true);
+            foreach (var weapon in weapons)
+            {
+                _weaponDelayDic.Add(weapon.name, weapon);
+                IsCoolDowns.Add(weapon,false);
+            }
             
             playerHandle++;
             Handle = playerHandle;
 
-            //QuantumEvent.Subscribe<EventWeaponFire>(this, WeaponFire);
+            QuantumEvent.Subscribe<EventWeaponFire>(this, WeaponFire);
         }
 
         public override void OnUpdateView(QuantumGame game)
         {
-            return;
-            Aniamtor.SetBool("IsAttack", _weaponDelayDic[MainWeapon]);
-            
-            MainAttackInteractable = _targetHandle != 0;
-            SubAttackInteractable = _targetHandle != 0;
-            
+            // Aniamtor.SetBool("IsAttack", _weaponDelayDic[MainWeapon]);
+            Aniamtor.SetBool("IsAttack", true);
         }
 
         public void WeaponFire(EventWeaponFire weaponFire)
         {
             
+            var weaponData = _entityView.Game.Frames.Predicted.FindAsset<WeaponData>(weaponFire.WeaponData.Id);
+            if (!_weaponDelayDic.ContainsKey(weaponData.RootName)) return;
+            
             if (weaponFire.Owner != _entityView.EntityRef) return;
-                
-            if (weaponFire.Type == EWeaponType.MainWeapon)
+            var weapon = _weaponDelayDic[weaponData.RootName];
+            
+            if (weapon != null && !IsCoolDowns[weapon])
             {
-                if (MainWeapon != null && !_weaponDelayDic[MainWeapon])
-                {
-                    StartCoroutine(ProcessAttack(MainWeapon));
-                }
+                // StartCoroutine(ProcessAttack(weapon, weaponData));
+                weapon.OnAttack();
             }
-            else if (weaponFire.Type == EWeaponType.SubWeapon)
-            {
-                if (SubWeapon != null && !_weaponDelayDic[SubWeapon])
-                {
-                    StartCoroutine(ProcessAttack(SubWeapon));
-                }
-            }
-  
+
         }
         
-        IEnumerator ProcessAttack(Weapon weapon)
+        IEnumerator ProcessAttack(Weapon weapon, WeaponData weaponData)
         {
-            if (_weaponDelayDic[weapon]) yield break;
-            _weaponDelayDic[weapon] = true;
+            if (IsCoolDowns[weapon]) yield break;
+            IsCoolDowns[weapon] = true;
 
-            yield return new WaitForSeconds(weapon.AttackInitDelay);
+            yield return new WaitForSeconds((float)(1 / weaponData.FireRate));
 
             weapon.OnAttack();
+            
+            Debug.Log($"TimeToRecharge : {(float)weaponData.TimeToRecharge}");
 
-            yield return new WaitForSeconds(weapon.AttackCooltime);
+            yield return new WaitForSeconds((float)weaponData.TimeToRecharge);
 
             weapon.OnReadyAttack(true);
 
-            _weaponDelayDic[weapon] = false;
+            IsCoolDowns[weapon] = false;
+            Debug.Log("차징!");
         }
 
         public void OnDestroy()

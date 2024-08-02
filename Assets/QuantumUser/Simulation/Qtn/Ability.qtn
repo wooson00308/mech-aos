@@ -1,0 +1,42 @@
+// Order used for activation priority
+enum AbilityType
+{
+    Dash
+}
+component AbilityInventory
+{
+    [ExcludeFromPrototype] ActiveAbilityInfo ActiveAbilityInfo;
+        
+    // Same order as AbilityType enum
+    [Header("Ability Order: Dash")]
+    array<Ability>[1] Abilities;
+}
+
+struct ActiveAbilityInfo
+{
+    [ExcludeFromPrototype] int ActiveAbilityIndex;
+    [ExcludeFromPrototype] FPVector3 CastDirection;
+    [ExcludeFromPrototype] FPQuaternion CastRotation;
+    [ExcludeFromPrototype] FPVector3 CastVelocity;
+}
+
+struct Ability
+{
+    [ExcludeFromPrototype] AbilityType AbilityType;
+
+    [ExcludeFromPrototype] CountdownTimer InputBufferTimer;
+    [ExcludeFromPrototype] CountdownTimer DelayTimer;
+    [ExcludeFromPrototype] CountdownTimer DurationTimer;
+//    [ExcludeFromPrototype] CountdownTimer CooldownTimer;
+
+    asset_ref<AbilityData> AbilityData;
+}
+
+struct CountdownTimer
+{
+    FP TimeLeft;
+    FP StartTime;
+}
+
+signal OnCooldownsReset(entity_ref playerEntityRef);
+signal OnActiveAbilityStopped(entity_ref playerEntityRef);

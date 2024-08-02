@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7867e4c94e4e47778bd1dab4a1b01fb5, type: 3}
-  m_Name: TestBulletData
+  m_Script: {fileID: 11500000, guid: efc48636f7fb99e41bd127f71b1354fd, type: 3}
+  m_Name: BulletDataMultiShot - Rocket
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Bullet/TestBulletData
+    Path: QuantumUser/Resources/Bullet/BulletDataMultiShot - Rocket
     Guid:
-      Value: 382308930789291948
-  BulletDestroyFxGameObject: {fileID: 4156065313240209359, guid: 4a3e5a4a9db28034abd3d4dba18e76b6, type: 3}
+      Value: 484558112583343682
+  BulletDestroyFxGameObject: {fileID: 110416582043920679, guid: ca6929de6103e4a449717f80aafb8ed5, type: 3}
   BulletPrototype:
     Id:
-      Value: 1530798938469091314
+      Value: 1386418854184384481
   ShapeConfig:
     ShapeType: 2
     SphereRadius:
-      RawValue: 51118
+      RawValue: 0
     CapsuleRadius:
-      RawValue: 65536
+      RawValue: 0
     CapsuleHeight:
-      RawValue: 32768
+      RawValue: 0
     PositionOffset:
       X:
         RawValue: 0
@@ -37,9 +37,9 @@ MonoBehaviour:
         RawValue: 0
     BoxExtents:
       X:
-        RawValue: 32768
+        RawValue: 13107
       Y:
-        RawValue: 32768
+        RawValue: 13107
       Z:
         RawValue: 32768
     RotationOffset:
@@ -58,3 +58,13 @@ MonoBehaviour:
     RawValue: 6553600
   Duration:
     RawValue: 6553600
+  projectileCount:
+    RawValue: 655360
+  projectileGap:
+    RawValue: 327680
+  circleRadius:
+    RawValue: 65536
+  hemisphereAngle:
+    RawValue: 1638400
+  spreadShape: 1
+  spreadDirection: 0

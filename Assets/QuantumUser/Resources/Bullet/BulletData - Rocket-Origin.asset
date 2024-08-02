@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7867e4c94e4e47778bd1dab4a1b01fb5, type: 3}
-  m_Name: TestBulletData 1
+  m_Name: BulletData - Rocket-Origin
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Bullet/TestBulletData 1
+    Path: QuantumUser/Resources/Bullet/BulletData - Rocket-Origin
     Guid:
-      Value: 403264865205900764
+      Value: 530211896682301953
   BulletDestroyFxGameObject: {fileID: 110416582043920679, guid: ca6929de6103e4a449717f80aafb8ed5, type: 3}
   BulletPrototype:
     Id:
@@ -57,4 +57,4 @@ MonoBehaviour:
   Range:
     RawValue: 6553600
   Duration:
-    RawValue: 0
+    RawValue: 6553600

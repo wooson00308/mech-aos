@@ -1,0 +1,17 @@
+enum SkillStatus
+{
+    Ready,
+    Casting,
+    CoolTime
+}
+
+struct Skill {
+    SkillStatus Status;
+    FP RemainingCastingTime;
+    FP RemainingCoolTime;
+	asset_ref<SkillData> SkillData;
+}
+
+component SkillInventory {
+	list<Skill> Skills;
+}

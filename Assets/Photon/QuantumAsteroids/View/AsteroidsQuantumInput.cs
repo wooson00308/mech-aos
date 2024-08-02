@@ -24,10 +24,10 @@ namespace Quantum.Asteroids
     public void PollInput(CallbackPollInput callback)
     {
       Quantum.Input i = new Quantum.Input();
-      i.Left = UnityEngine.Input.GetKey(KeyCode.A) || UnityEngine.Input.GetKey(KeyCode.LeftArrow);
-      i.Right = UnityEngine.Input.GetKey(KeyCode.D) || UnityEngine.Input.GetKey(KeyCode.RightAlt);
-      i.Up = UnityEngine.Input.GetKey(KeyCode.W) || UnityEngine.Input.GetKey(KeyCode.UpArrow);
-      i.Fire = UnityEngine.Input.GetKey(KeyCode.Space);
+      // i.Left = UnityEngine.Input.GetKey(KeyCode.A) || UnityEngine.Input.GetKey(KeyCode.LeftArrow);
+      // i.Right = UnityEngine.Input.GetKey(KeyCode.D) || UnityEngine.Input.GetKey(KeyCode.RightAlt);
+      // i.Up = UnityEngine.Input.GetKey(KeyCode.W) || UnityEngine.Input.GetKey(KeyCode.UpArrow);
+      // i.Fire = UnityEngine.Input.GetKey(KeyCode.Space);
       callback.SetInput(i, DeterministicInputFlags.Repeatable);
     }
   }

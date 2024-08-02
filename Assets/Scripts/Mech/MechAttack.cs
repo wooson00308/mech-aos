@@ -108,17 +108,18 @@ public class MechAttack : MonoBehaviour
 
     IEnumerator ProcessAttack(Mech mech, Weapon weapon)
     {
-        if (_weaponDelayDic[weapon]) yield break;
-        _weaponDelayDic[weapon] = true;
-
-        yield return new WaitForSeconds(weapon.AttackInitDelay);
-
-        weapon.OnAttack();
-
-        yield return new WaitForSeconds(weapon.AttackCooltime);
-
-        weapon.OnReadyAttack(true);
-
-        _weaponDelayDic[weapon] = false;
+        // if (_weaponDelayDic[weapon]) yield break;
+        // _weaponDelayDic[weapon] = true;
+        //
+        // yield return new WaitForSeconds(weapon.AttackInitDelay);
+        //
+        // weapon.OnAttack();
+        //
+        // yield return new WaitForSeconds(weapon.AttackCooltime);
+        //
+        // weapon.OnReadyAttack(true);
+        //
+        // _weaponDelayDic[weapon] = false;
+        yield break;
     }
 }

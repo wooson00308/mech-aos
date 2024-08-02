@@ -50,6 +50,45 @@ namespace Quantum.Prototypes {
   #endif //;
   
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.Ability))]
+  public unsafe partial class AbilityPrototype : StructPrototype {
+    public AssetRef<AbilityData> AbilityData;
+    partial void MaterializeUser(Frame frame, ref Quantum.Ability result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.Ability result, in PrototypeMaterializationContext context = default) {
+        result.AbilityData = this.AbilityData;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.AbilityInventory))]
+  public unsafe partial class AbilityInventoryPrototype : ComponentPrototype<Quantum.AbilityInventory> {
+    [Header("Ability Order: Dash")]
+    [ArrayLengthAttribute(1)]
+    public Quantum.Prototypes.AbilityPrototype[] Abilities = new Quantum.Prototypes.AbilityPrototype[1];
+    partial void MaterializeUser(Frame frame, ref Quantum.AbilityInventory result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.AbilityInventory component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.AbilityInventory result, in PrototypeMaterializationContext context = default) {
+        for (int i = 0, count = PrototypeValidator.CheckLength(Abilities, 1, in context); i < count; ++i) {
+          this.Abilities[i].Materialize(frame, ref *result.Abilities.GetPointer(i), in context);
+        }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.ActiveAbilityInfo))]
+  public unsafe partial class ActiveAbilityInfoPrototype : StructPrototype {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.ActiveAbilityInfo result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.ActiveAbilityInfo result, in PrototypeMaterializationContext context = default) {
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.AsteroidsAsteroid))]
   public unsafe partial class AsteroidsAsteroidPrototype : ComponentPrototype<Quantum.AsteroidsAsteroid> {
     public AssetRef<EntityPrototype> ChildAsteroid;
@@ -148,6 +187,18 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.CountdownTimer))]
+  public unsafe partial class CountdownTimerPrototype : StructPrototype {
+    public FP TimeLeft;
+    public FP StartTime;
+    partial void MaterializeUser(Frame frame, ref Quantum.CountdownTimer result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.CountdownTimer result, in PrototypeMaterializationContext context = default) {
+        result.TimeLeft = this.TimeLeft;
+        result.StartTime = this.StartTime;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.GameController))]
   public unsafe partial class GameControllerPrototype : StructPrototype {
     public Quantum.QEnum32<GameState> State;
@@ -163,21 +214,33 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
     public Button Fire;
-    public Button Left;
-    public Button Right;
-    public Button Up;
-    public Button Down;
+    public Byte MovementEncoded;
     public Button MainWeaponFire;
-    public Button SubWeaponFire;
+    public Button FirstSkill;
+    public Button SecondSkill;
+    public Button ThirdSkill;
+    public Button FourthSkill;
+    public Button FifthSkill;
+    public Button SixthSkill;
+    public Button SeventhSkill;
+    public Button EighthSkill;
+    public Button NinthSkill;
+    public Button TenthSkill;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
         result.Fire = this.Fire;
-        result.Left = this.Left;
-        result.Right = this.Right;
-        result.Up = this.Up;
-        result.Down = this.Down;
+        result.MovementEncoded = this.MovementEncoded;
         result.MainWeaponFire = this.MainWeaponFire;
-        result.SubWeaponFire = this.SubWeaponFire;
+        result.FirstSkill = this.FirstSkill;
+        result.SecondSkill = this.SecondSkill;
+        result.ThirdSkill = this.ThirdSkill;
+        result.FourthSkill = this.FourthSkill;
+        result.FifthSkill = this.FifthSkill;
+        result.SixthSkill = this.SixthSkill;
+        result.SeventhSkill = this.SeventhSkill;
+        result.EighthSkill = this.EighthSkill;
+        result.NinthSkill = this.NinthSkill;
+        result.TenthSkill = this.TenthSkill;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -367,6 +430,47 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.Skill))]
+  public unsafe partial class SkillPrototype : StructPrototype {
+    public Quantum.QEnum32<SkillStatus> Status;
+    public FP RemainingCastingTime;
+    public FP RemainingCoolTime;
+    public AssetRef<SkillData> SkillData;
+    partial void MaterializeUser(Frame frame, ref Quantum.Skill result, in PrototypeMaterializationContext context);
+    public void Materialize(Frame frame, ref Quantum.Skill result, in PrototypeMaterializationContext context = default) {
+        result.Status = this.Status;
+        result.RemainingCastingTime = this.RemainingCastingTime;
+        result.RemainingCoolTime = this.RemainingCoolTime;
+        result.SkillData = this.SkillData;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.SkillInventory))]
+  public unsafe partial class SkillInventoryPrototype : ComponentPrototype<Quantum.SkillInventory> {
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.SkillPrototype[] Skills = {};
+    partial void MaterializeUser(Frame frame, ref Quantum.SkillInventory result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.SkillInventory component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.SkillInventory result, in PrototypeMaterializationContext context = default) {
+        if (this.Skills.Length == 0) {
+          result.Skills = default;
+        } else {
+          var list = frame.AllocateList(out result.Skills, this.Skills.Length);
+          for (int i = 0; i < this.Skills.Length; ++i) {
+            Quantum.Skill tmp = default;
+            this.Skills[i].Materialize(frame, ref tmp, in context);
+            list.Add(tmp);
+          }
+        }
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.SpawnIdentifier))]
   public unsafe partial class SpawnIdentifierPrototype : ComponentPrototype<Quantum.SpawnIdentifier> {
     public Quantum.QEnum32<Team> Team;
@@ -391,6 +495,7 @@ namespace Quantum.Prototypes {
     public FP InvincibleTimer;
     public Int32 DisconnectedTicks;
     public AssetRef<StatusData> StatusData;
+    public AssetRef<PlayerMovementData> PlayerMovementData;
     partial void MaterializeUser(Frame frame, ref Quantum.Status result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.Status component = default;
@@ -405,6 +510,7 @@ namespace Quantum.Prototypes {
         result.InvincibleTimer = this.InvincibleTimer;
         result.DisconnectedTicks = this.DisconnectedTicks;
         result.StatusData = this.StatusData;
+        result.PlayerMovementData = this.PlayerMovementData;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -417,7 +523,7 @@ namespace Quantum.Prototypes {
     public FP DelayToStartRechargeTimer;
     public FP RechargeRate;
     public FP ChargeTime;
-    public AssetRef<WeaponData> WeaponData;
+    public AssetRef<PrimaryWeaponData> WeaponData;
     partial void MaterializeUser(Frame frame, ref Quantum.Weapon result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Weapon result, in PrototypeMaterializationContext context = default) {
         result.IsRecharging = this.IsRecharging;
@@ -434,8 +540,8 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.WeaponInventory))]
   public unsafe partial class WeaponInventoryPrototype : ComponentPrototype<Quantum.WeaponInventory> {
     public Int32 CurrentWeaponIndex;
-    [ArrayLengthAttribute(1)]
-    public Quantum.Prototypes.WeaponPrototype[] Weapons = new Quantum.Prototypes.WeaponPrototype[1];
+    [DynamicCollectionAttribute()]
+    public Quantum.Prototypes.WeaponPrototype[] Weapons = {};
     partial void MaterializeUser(Frame frame, ref Quantum.WeaponInventory result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.WeaponInventory component = default;
@@ -444,8 +550,15 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.WeaponInventory result, in PrototypeMaterializationContext context = default) {
         result.CurrentWeaponIndex = this.CurrentWeaponIndex;
-        for (int i = 0, count = PrototypeValidator.CheckLength(Weapons, 1, in context); i < count; ++i) {
-          this.Weapons[i].Materialize(frame, ref *result.Weapons.GetPointer(i), in context);
+        if (this.Weapons.Length == 0) {
+          result.Weapons = default;
+        } else {
+          var list = frame.AllocateList(out result.Weapons, this.Weapons.Length);
+          for (int i = 0; i < this.Weapons.Length; ++i) {
+            Quantum.Weapon tmp = default;
+            this.Weapons[i].Materialize(frame, ref tmp, in context);
+            list.Add(tmp);
+          }
         }
         MaterializeUser(frame, ref result, in context);
     }

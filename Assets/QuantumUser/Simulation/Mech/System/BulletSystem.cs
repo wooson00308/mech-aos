@@ -4,7 +4,7 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class BulletSystem : SystemMainThreadFilter<BulletSystem.Filter>//, ISignalOnGameEnded
+    public unsafe class BulletSystem : SystemMainThreadFilter<BulletSystem.Filter>, ISignalOnGameEnded
     {
         public struct Filter
         {
@@ -12,10 +12,10 @@ namespace Quantum.Mech
             public Transform3D* Transform;
             public BulletFields* BulletFields;
         }
-        // void ISignalOnGameEnded.OnGameEnded(Frame frame, GameController* gameController)
-        // {
-        //     frame.SystemDisable<BulletSystem>();
-        // }
+        void ISignalOnGameEnded.OnGameEnded(Frame frame, GameController* gameController)
+        {
+            frame.SystemDisable<BulletSystem>();
+        }
         
         public override void Update(Frame frame, ref Filter filter)
         {

@@ -1,10 +1,16 @@
 input {
-	button Left;
-	button Right;
-	button Up;
-	button Down;
+    Byte MovementEncoded;
 	button MainWeaponFire;
-	button SubWeaponFire;
+	button FirstSkill;
+    button SecondSkill;
+    button ThirdSkill;
+    button FourthSkill;
+    button FifthSkill;
+    button SixthSkill;
+    button SeventhSkill;
+    button EighthSkill;
+    button NinthSkill;
+    button TenthSkill;
 }
 enum EWeaponType 
 {
@@ -20,5 +26,5 @@ event Movement
 event WeaponFire
 {
     EntityRef Owner;
-    EWeaponType Type;
+    asset_ref<WeaponData> WeaponData;
 }

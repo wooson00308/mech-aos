@@ -7,4 +7,6 @@ component Status {
 	Int32 DisconnectedTicks;
 
 	asset_ref<StatusData> StatusData;
+	asset_ref<PlayerMovementData> PlayerMovementData;
+	
 }

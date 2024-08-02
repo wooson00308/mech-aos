@@ -5,7 +5,7 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class WeaponSystem : SystemMainThreadFilter<WeaponSystem.Filter>, ISignalOnMechanicRespawn//, ISignalOnGameEnded
+    public unsafe class WeaponSystem : SystemMainThreadFilter<WeaponSystem.Filter>, ISignalOnMechanicRespawn, ISignalOnGameEnded
     {
         public struct Filter
         {
@@ -15,10 +15,10 @@ namespace Quantum.Mech
             public WeaponInventory* WeaponInventory;
         }
         
-        // void ISignalOnGameEnded.OnGameEnded(Frame frame, GameController* gameController)
-        // {
-        //     frame.SystemDisable<WeaponSystem>();
-        // }
+        void ISignalOnGameEnded.OnGameEnded(Frame frame, GameController* gameController)
+        {
+            frame.SystemDisable<WeaponSystem>();
+        }
         
         void ISignalOnMechanicRespawn.OnMechanicRespawn(Frame frame, EntityRef robot)
         {
@@ -49,7 +49,9 @@ namespace Quantum.Mech
                 return;
             }
 
-            Weapon* currentWeapon = weaponInventory->Weapons.GetPointer(weaponInventory->CurrentWeaponIndex);
+            var weapons = frame.ResolveList(weaponInventory->Weapons);
+
+            Weapon* currentWeapon = weapons.GetPointer(weaponInventory->CurrentWeaponIndex);
             currentWeapon->FireRateTimer -= frame.DeltaTime;
             currentWeapon->DelayToStartRechargeTimer -= frame.DeltaTime;
             currentWeapon->RechargeRate -= frame.DeltaTime;
@@ -58,7 +60,7 @@ namespace Quantum.Mech
             if (currentWeapon->DelayToStartRechargeTimer < 0 && currentWeapon->RechargeRate <= 0 &&
                 currentWeapon->CurrentAmmo < weaponData.MaxAmmo)
             {
-                IncreaseAmmo(frame, currentWeapon, weaponData);
+                IncreaseAmmo(currentWeapon, weaponData);
             }
             
             if (currentWeapon->FireRateTimer <= FP._0 && !currentWeapon->IsRecharging && currentWeapon->CurrentAmmo > 0)
@@ -71,13 +73,15 @@ namespace Quantum.Mech
                     SpawnBullet(frame, mechanic, currentWeapon, transform3D->Forward);
                     currentWeapon->FireRateTimer = FP._1 / weaponData.FireRate;
                     currentWeapon->ChargeTime = FP._0;
+                    frame.Events.WeaponFire(filter.Entity, weaponData);
                 }
             }
         }
         
-        private static void IncreaseAmmo(Frame frame, Weapon* weapon, WeaponData data)
+        private void IncreaseAmmo(Weapon* weapon, WeaponData data)
         {
             weapon->RechargeRate = data.RechargeTimer / (FP)data.MaxAmmo;
+            Debug.Log($"weapon->RechargeRate : {weapon->RechargeRate}");
             weapon->CurrentAmmo++;
 
             if (weapon->CurrentAmmo == data.MaxAmmo)
@@ -85,7 +89,7 @@ namespace Quantum.Mech
                 weapon->IsRecharging = false;
             }
         }
-        private static void SpawnBullet(Frame frame, EntityRef mechanic, Weapon* weapon, FPVector3 direction)
+        private void SpawnBullet(Frame frame, EntityRef mechanic, Weapon* weapon, FPVector3 direction)
         {
             weapon->CurrentAmmo -= 1;
             if (weapon->CurrentAmmo == 0)
@@ -112,13 +116,13 @@ namespace Quantum.Mech
             Transform3D* transform = frame.Unsafe.GetPointer<Transform3D>(mechanic);
 
             var fireSpotWorldOffset = WeaponHelper.GetFireSpotWorldOffset(
-                frame.FindAsset<WeaponData>(weapon->WeaponData.Id),
+                weaponData,
                 *transform,
                 direction
             );
 
             bulletTransform->Position = transform->Position + fireSpotWorldOffset;
-            Debug.Log($"Root Transform : {transform->Position}, Bullet Transform : {bulletTransform->Position}");
+            // Debug.Log($"Root Transform : {transform->Position}, Bullet Transform : {bulletTransform->Position}");
             bulletFields->Direction = direction * weaponData.ShootForce;
             bulletFields->Source = mechanic;
             bulletFields->Time = FP._0;

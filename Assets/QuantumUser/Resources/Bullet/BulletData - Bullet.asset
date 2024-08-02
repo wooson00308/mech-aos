@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7867e4c94e4e47778bd1dab4a1b01fb5, type: 3}
+  m_Name: BulletData - Bullet
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/Bullet/BulletData - Bullet
+    Guid:
+      Value: 382308930789291948
+  BulletDestroyFxGameObject: {fileID: 4156065313240209359, guid: 4a3e5a4a9db28034abd3d4dba18e76b6, type: 3}
+  BulletPrototype:
+    Id:
+      Value: 1530798938469091314
+  ShapeConfig:
+    ShapeType: 2
+    SphereRadius:
+      RawValue: 51118
+    CapsuleRadius:
+      RawValue: 65536
+    CapsuleHeight:
+      RawValue: 32768
+    PositionOffset:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 3620
+    BoxExtents:
+      X:
+        RawValue: 13208
+      Y:
+        RawValue: 15754
+      Z:
+        RawValue: 11439
+    RotationOffset:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    UserTag: 1
+    IsPersistent: 1
+    CompoundShapes: []
+  Damage:
+    RawValue: 6553600
+  Range:
+    RawValue: 6553600
+  Duration:
+    RawValue: 6553600

@@ -101,23 +101,8 @@ namespace Quantum.Asteroids
     /// <param name="config">The game configuration settings.</param>
     private void UpdateShipMovement(Frame f, ref Filter filter, Input* input, AsteroidsGameConfig config)
     {
-      if (input->Up)
-      {
-        filter.Body->AddForce(filter.Transform->Up * config.ShipAceleration);
-      }
 
-      FP turnSpeed = config.ShipTurnSpeed;
-      if (input->Left)
-      {
-        filter.Body->AddTorque(turnSpeed);
-      }
-
-      if (input->Right)
-      {
-        filter.Body->AddTorque(-turnSpeed);
-      }
-
-      filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -turnSpeed, turnSpeed);
+      // filter.Body->AngularVelocity = FPMath.Clamp(filter.Body->AngularVelocity, -turnSpeed, turnSpeed);
     }
 
     /// <summary>

@@ -12,3 +12,14 @@ event OnBulletDestroyed {
 	FPVector3 BulletDirection;
 	asset_ref<BulletData> BulletData;
 }
+
+enum ESpreadShape {
+    PLANE,   // 평면
+    CIRCULAR // 원형
+}
+
+enum ESpreadDirection {
+    HORIZONTAL,  // 가로
+    VERTICAL,    // 세로
+    Grid // 그리드
+}

@@ -19,6 +19,8 @@ namespace Quantum.Mech
                     if (mechanicStatus->RespawnTimer <= FP._0)
                     {
                         RespawnHelper.RespawnMechanic(f, mechanic);
+                        f.Signals.OnActiveAbilityStopped(mechanic);
+                        f.Signals.OnCooldownsReset(mechanic);
                     }
                 }
             }

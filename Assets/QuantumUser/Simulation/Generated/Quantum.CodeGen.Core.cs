@@ -49,6 +49,9 @@ namespace Quantum {
   using RuntimeInitializeOnLoadMethodAttribute = UnityEngine.RuntimeInitializeOnLoadMethodAttribute;
   #endif //;
   
+  public enum AbilityType : int {
+    Dash,
+  }
   public enum EKCCCollisionSource : byte {
     None = 0,
     Entity = 1,
@@ -65,6 +68,15 @@ namespace Quantum {
     StaticCollider = 2,
     EntityCollider = 3,
   }
+  public enum ESpreadDirection : int {
+    HORIZONTAL,
+    VERTICAL,
+    Grid,
+  }
+  public enum ESpreadShape : int {
+    PLANE,
+    CIRCULAR,
+  }
   public enum EWeaponType : int {
     MainWeapon,
     SubWeapon,
@@ -72,6 +84,11 @@ namespace Quantum {
   public enum GameState : int {
     Running,
     Ended,
+  }
+  public enum SkillStatus : int {
+    Ready,
+    Casting,
+    CoolTime,
   }
   public enum Team : int {
     Red,
@@ -81,12 +98,17 @@ namespace Quantum {
   [System.FlagsAttribute()]
   public enum InputButtons : int {
     Fire = 1 << 0,
-    Left = 1 << 1,
-    Right = 1 << 2,
-    Up = 1 << 3,
-    Down = 1 << 4,
-    MainWeaponFire = 1 << 5,
-    SubWeaponFire = 1 << 6,
+    MainWeaponFire = 1 << 1,
+    FirstSkill = 1 << 2,
+    SecondSkill = 1 << 3,
+    ThirdSkill = 1 << 4,
+    FourthSkill = 1 << 5,
+    FifthSkill = 1 << 6,
+    SixthSkill = 1 << 7,
+    SeventhSkill = 1 << 8,
+    EighthSkill = 1 << 9,
+    NinthSkill = 1 << 10,
+    TenthSkill = 1 << 11,
   }
   public static unsafe partial class FlagsExtensions {
     public static Boolean IsFlagSet(this InputButtons self, InputButtons flag) {
@@ -436,6 +458,100 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct Ability {
+    public const Int32 SIZE = 64;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    [ExcludeFromPrototype()]
+    public AbilityType AbilityType;
+    [FieldOffset(48)]
+    [ExcludeFromPrototype()]
+    public CountdownTimer InputBufferTimer;
+    [FieldOffset(16)]
+    [ExcludeFromPrototype()]
+    public CountdownTimer DelayTimer;
+    [FieldOffset(32)]
+    [ExcludeFromPrototype()]
+    public CountdownTimer DurationTimer;
+    [FieldOffset(8)]
+    public AssetRef<AbilityData> AbilityData;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 6343;
+        hash = hash * 31 + (Int32)AbilityType;
+        hash = hash * 31 + InputBufferTimer.GetHashCode();
+        hash = hash * 31 + DelayTimer.GetHashCode();
+        hash = hash * 31 + DurationTimer.GetHashCode();
+        hash = hash * 31 + AbilityData.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (Ability*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->AbilityType);
+        AssetRef.Serialize(&p->AbilityData, serializer);
+        Quantum.CountdownTimer.Serialize(&p->DelayTimer, serializer);
+        Quantum.CountdownTimer.Serialize(&p->DurationTimer, serializer);
+        Quantum.CountdownTimer.Serialize(&p->InputBufferTimer, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct ActiveAbilityInfo {
+    public const Int32 SIZE = 88;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    [ExcludeFromPrototype()]
+    public Int32 ActiveAbilityIndex;
+    [FieldOffset(8)]
+    [ExcludeFromPrototype()]
+    public FPVector3 CastDirection;
+    [FieldOffset(56)]
+    [ExcludeFromPrototype()]
+    public FPQuaternion CastRotation;
+    [FieldOffset(32)]
+    [ExcludeFromPrototype()]
+    public FPVector3 CastVelocity;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 2017;
+        hash = hash * 31 + ActiveAbilityIndex.GetHashCode();
+        hash = hash * 31 + CastDirection.GetHashCode();
+        hash = hash * 31 + CastRotation.GetHashCode();
+        hash = hash * 31 + CastVelocity.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (ActiveAbilityInfo*)ptr;
+        serializer.Stream.Serialize(&p->ActiveAbilityIndex);
+        FPVector3.Serialize(&p->CastDirection, serializer);
+        FPVector3.Serialize(&p->CastVelocity, serializer);
+        FPQuaternion.Serialize(&p->CastRotation, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct CountdownTimer {
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(8)]
+    public FP TimeLeft;
+    [FieldOffset(0)]
+    public FP StartTime;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 8641;
+        hash = hash * 31 + TimeLeft.GetHashCode();
+        hash = hash * 31 + StartTime.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (CountdownTimer*)ptr;
+        FP.Serialize(&p->StartTime, serializer);
+        FP.Serialize(&p->TimeLeft, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct GameController {
     public const Int32 SIZE = 16;
     public const Int32 ALIGNMENT = 8;
@@ -459,32 +575,50 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
-    public const Int32 SIZE = 84;
+    public const Int32 SIZE = 148;
     public const Int32 ALIGNMENT = 4;
-    [FieldOffset(12)]
+    [FieldOffset(28)]
     public Button Fire;
-    [FieldOffset(24)]
-    public Button Left;
-    [FieldOffset(48)]
-    public Button Right;
-    [FieldOffset(72)]
-    public Button Up;
     [FieldOffset(0)]
-    public Button Down;
-    [FieldOffset(36)]
+    public Byte MovementEncoded;
+    [FieldOffset(64)]
     public Button MainWeaponFire;
-    [FieldOffset(60)]
-    public Button SubWeaponFire;
+    [FieldOffset(40)]
+    public Button FirstSkill;
+    [FieldOffset(88)]
+    public Button SecondSkill;
+    [FieldOffset(136)]
+    public Button ThirdSkill;
+    [FieldOffset(52)]
+    public Button FourthSkill;
+    [FieldOffset(16)]
+    public Button FifthSkill;
+    [FieldOffset(112)]
+    public Button SixthSkill;
+    [FieldOffset(100)]
+    public Button SeventhSkill;
+    [FieldOffset(4)]
+    public Button EighthSkill;
+    [FieldOffset(76)]
+    public Button NinthSkill;
+    [FieldOffset(124)]
+    public Button TenthSkill;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 19249;
         hash = hash * 31 + Fire.GetHashCode();
-        hash = hash * 31 + Left.GetHashCode();
-        hash = hash * 31 + Right.GetHashCode();
-        hash = hash * 31 + Up.GetHashCode();
-        hash = hash * 31 + Down.GetHashCode();
+        hash = hash * 31 + MovementEncoded.GetHashCode();
         hash = hash * 31 + MainWeaponFire.GetHashCode();
-        hash = hash * 31 + SubWeaponFire.GetHashCode();
+        hash = hash * 31 + FirstSkill.GetHashCode();
+        hash = hash * 31 + SecondSkill.GetHashCode();
+        hash = hash * 31 + ThirdSkill.GetHashCode();
+        hash = hash * 31 + FourthSkill.GetHashCode();
+        hash = hash * 31 + FifthSkill.GetHashCode();
+        hash = hash * 31 + SixthSkill.GetHashCode();
+        hash = hash * 31 + SeventhSkill.GetHashCode();
+        hash = hash * 31 + EighthSkill.GetHashCode();
+        hash = hash * 31 + NinthSkill.GetHashCode();
+        hash = hash * 31 + TenthSkill.GetHashCode();
         return hash;
       }
     }
@@ -494,36 +628,52 @@ namespace Quantum {
     public Boolean IsDown(InputButtons button) {
       switch (button) {
         case InputButtons.Fire: return Fire.IsDown;
-        case InputButtons.Left: return Left.IsDown;
-        case InputButtons.Right: return Right.IsDown;
-        case InputButtons.Up: return Up.IsDown;
-        case InputButtons.Down: return Down.IsDown;
         case InputButtons.MainWeaponFire: return MainWeaponFire.IsDown;
-        case InputButtons.SubWeaponFire: return SubWeaponFire.IsDown;
+        case InputButtons.FirstSkill: return FirstSkill.IsDown;
+        case InputButtons.SecondSkill: return SecondSkill.IsDown;
+        case InputButtons.ThirdSkill: return ThirdSkill.IsDown;
+        case InputButtons.FourthSkill: return FourthSkill.IsDown;
+        case InputButtons.FifthSkill: return FifthSkill.IsDown;
+        case InputButtons.SixthSkill: return SixthSkill.IsDown;
+        case InputButtons.SeventhSkill: return SeventhSkill.IsDown;
+        case InputButtons.EighthSkill: return EighthSkill.IsDown;
+        case InputButtons.NinthSkill: return NinthSkill.IsDown;
+        case InputButtons.TenthSkill: return TenthSkill.IsDown;
         default: return false;
       }
     }
     public Boolean WasPressed(InputButtons button) {
       switch (button) {
         case InputButtons.Fire: return Fire.WasPressed;
-        case InputButtons.Left: return Left.WasPressed;
-        case InputButtons.Right: return Right.WasPressed;
-        case InputButtons.Up: return Up.WasPressed;
-        case InputButtons.Down: return Down.WasPressed;
         case InputButtons.MainWeaponFire: return MainWeaponFire.WasPressed;
-        case InputButtons.SubWeaponFire: return SubWeaponFire.WasPressed;
+        case InputButtons.FirstSkill: return FirstSkill.WasPressed;
+        case InputButtons.SecondSkill: return SecondSkill.WasPressed;
+        case InputButtons.ThirdSkill: return ThirdSkill.WasPressed;
+        case InputButtons.FourthSkill: return FourthSkill.WasPressed;
+        case InputButtons.FifthSkill: return FifthSkill.WasPressed;
+        case InputButtons.SixthSkill: return SixthSkill.WasPressed;
+        case InputButtons.SeventhSkill: return SeventhSkill.WasPressed;
+        case InputButtons.EighthSkill: return EighthSkill.WasPressed;
+        case InputButtons.NinthSkill: return NinthSkill.WasPressed;
+        case InputButtons.TenthSkill: return TenthSkill.WasPressed;
         default: return false;
       }
     }
     static partial void SerializeCodeGen(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        Button.Serialize(&p->Down, serializer);
+        serializer.Stream.Serialize(&p->MovementEncoded);
+        Button.Serialize(&p->EighthSkill, serializer);
+        Button.Serialize(&p->FifthSkill, serializer);
         Button.Serialize(&p->Fire, serializer);
-        Button.Serialize(&p->Left, serializer);
+        Button.Serialize(&p->FirstSkill, serializer);
+        Button.Serialize(&p->FourthSkill, serializer);
         Button.Serialize(&p->MainWeaponFire, serializer);
-        Button.Serialize(&p->Right, serializer);
-        Button.Serialize(&p->SubWeaponFire, serializer);
-        Button.Serialize(&p->Up, serializer);
+        Button.Serialize(&p->NinthSkill, serializer);
+        Button.Serialize(&p->SecondSkill, serializer);
+        Button.Serialize(&p->SeventhSkill, serializer);
+        Button.Serialize(&p->SixthSkill, serializer);
+        Button.Serialize(&p->TenthSkill, serializer);
+        Button.Serialize(&p->ThirdSkill, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -755,6 +905,36 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct Skill {
+    public const Int32 SIZE = 32;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(0)]
+    public SkillStatus Status;
+    [FieldOffset(16)]
+    public FP RemainingCastingTime;
+    [FieldOffset(24)]
+    public FP RemainingCoolTime;
+    [FieldOffset(8)]
+    public AssetRef<SkillData> SkillData;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 6287;
+        hash = hash * 31 + (Int32)Status;
+        hash = hash * 31 + RemainingCastingTime.GetHashCode();
+        hash = hash * 31 + RemainingCoolTime.GetHashCode();
+        hash = hash * 31 + SkillData.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (Skill*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Status);
+        AssetRef.Serialize(&p->SkillData, serializer);
+        FP.Serialize(&p->RemainingCastingTime, serializer);
+        FP.Serialize(&p->RemainingCoolTime, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Weapon {
     public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
@@ -771,7 +951,7 @@ namespace Quantum {
     [FieldOffset(16)]
     public FP ChargeTime;
     [FieldOffset(8)]
-    public AssetRef<WeaponData> WeaponData;
+    public AssetRef<PrimaryWeaponData> WeaponData;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 8713;
@@ -798,7 +978,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 1088;
+    public const Int32 SIZE = 1472;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -822,20 +1002,20 @@ namespace Quantum {
     public Int32 PlayerConnectedCount;
     [FieldOffset(540)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
-    private fixed Byte _input_[504];
-    [FieldOffset(1048)]
+    private fixed Byte _input_[888];
+    [FieldOffset(1432)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(1056)]
+    [FieldOffset(1440)]
     public Int32 AsteroidsWaveCount;
-    [FieldOffset(1072)]
+    [FieldOffset(1456)]
     public GameController GameController;
-    [FieldOffset(1060)]
+    [FieldOffset(1444)]
     public Int32 TeamIndex;
-    [FieldOffset(1064)]
+    [FieldOffset(1448)]
     public FP DisconnectTime;
     public FixedArray<Input> input {
       get {
-        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 84, 6); }
+        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 148, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -878,6 +1058,36 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->TeamIndex);
         FP.Serialize(&p->DisconnectTime, serializer);
         Quantum.GameController.Serialize(&p->GameController, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct AbilityInventory : Quantum.IComponent {
+    public const Int32 SIZE = 152;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(64)]
+    [ExcludeFromPrototype()]
+    public ActiveAbilityInfo ActiveAbilityInfo;
+    [FieldOffset(0)]
+    [Header("Ability Order: Dash")]
+    [FramePrinter.FixedArrayAttribute(typeof(Ability), 1)]
+    private fixed Byte _Abilities_[64];
+    public FixedArray<Ability> Abilities {
+      get {
+        fixed (byte* p = _Abilities_) { return new FixedArray<Ability>(p, 64, 1); }
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 13523;
+        hash = hash * 31 + ActiveAbilityInfo.GetHashCode();
+        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Abilities);
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (AbilityInventory*)ptr;
+        FixedArray.Serialize(p->Abilities, serializer, Statics.SerializeAbility);
+        Quantum.ActiveAbilityInfo.Serialize(&p->ActiveAbilityInfo, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1141,6 +1351,31 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct SkillInventory : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public QListPtr<Skill> Skills;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 1319;
+        hash = hash * 31 + Skills.GetHashCode();
+        return hash;
+      }
+    }
+    public void ClearPointers(FrameBase f, EntityRef entity) {
+      Skills = default;
+    }
+    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
+      var p = (Quantum.SkillInventory*)ptr;
+      p->ClearPointers((Frame)frame, entity);
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (SkillInventory*)ptr;
+        QList.Serialize(&p->Skills, serializer, Statics.SerializeSkill);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct SpawnIdentifier : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -1160,22 +1395,24 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Status : Quantum.IComponent {
-    public const Int32 SIZE = 48;
+    public const Int32 SIZE = 56;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(16)]
+    [FieldOffset(24)]
     public FP CurrentHealth;
     [FieldOffset(4)]
     public QBoolean IsDead;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public FP RespawnTimer;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     public FP RegenTimer;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public FP InvincibleTimer;
     [FieldOffset(0)]
     public Int32 DisconnectedTicks;
-    [FieldOffset(8)]
+    [FieldOffset(16)]
     public AssetRef<StatusData> StatusData;
+    [FieldOffset(8)]
+    public AssetRef<PlayerMovementData> PlayerMovementData;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 7673;
@@ -1186,6 +1423,7 @@ namespace Quantum {
         hash = hash * 31 + InvincibleTimer.GetHashCode();
         hash = hash * 31 + DisconnectedTicks.GetHashCode();
         hash = hash * 31 + StatusData.GetHashCode();
+        hash = hash * 31 + PlayerMovementData.GetHashCode();
         return hash;
       }
     }
@@ -1193,6 +1431,7 @@ namespace Quantum {
         var p = (Status*)ptr;
         serializer.Stream.Serialize(&p->DisconnectedTicks);
         QBoolean.Serialize(&p->IsDead, serializer);
+        AssetRef.Serialize(&p->PlayerMovementData, serializer);
         AssetRef.Serialize(&p->StatusData, serializer);
         FP.Serialize(&p->CurrentHealth, serializer);
         FP.Serialize(&p->InvincibleTimer, serializer);
@@ -1202,31 +1441,38 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponInventory : Quantum.IComponent {
-    public const Int32 SIZE = 56;
-    public const Int32 ALIGNMENT = 8;
+    public const Int32 SIZE = 8;
+    public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public Int32 CurrentWeaponIndex;
-    [FieldOffset(8)]
-    [FramePrinter.FixedArrayAttribute(typeof(Weapon), 1)]
-    private fixed Byte _Weapons_[48];
-    public FixedArray<Weapon> Weapons {
-      get {
-        fixed (byte* p = _Weapons_) { return new FixedArray<Weapon>(p, 48, 1); }
-      }
-    }
+    [FieldOffset(4)]
+    public QListPtr<Weapon> Weapons;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 4513;
         hash = hash * 31 + CurrentWeaponIndex.GetHashCode();
-        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Weapons);
+        hash = hash * 31 + Weapons.GetHashCode();
         return hash;
       }
+    }
+    public void ClearPointers(FrameBase f, EntityRef entity) {
+      Weapons = default;
+    }
+    public static void OnRemoved(FrameBase frame, EntityRef entity, void* ptr) {
+      var p = (Quantum.WeaponInventory*)ptr;
+      p->ClearPointers((Frame)frame, entity);
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (WeaponInventory*)ptr;
         serializer.Stream.Serialize(&p->CurrentWeaponIndex);
-        FixedArray.Serialize(p->Weapons, serializer, Statics.SerializeWeapon);
+        QList.Serialize(&p->Weapons, serializer, Statics.SerializeWeapon);
     }
+  }
+  public unsafe partial interface ISignalOnCooldownsReset : ISignal {
+    void OnCooldownsReset(Frame f, EntityRef playerEntityRef);
+  }
+  public unsafe partial interface ISignalOnActiveAbilityStopped : ISignal {
+    void OnActiveAbilityStopped(Frame f, EntityRef playerEntityRef);
   }
   public unsafe partial interface ISignalAsteroidsSpawnShip : ISignal {
     void AsteroidsSpawnShip(Frame f, EntityRef ship);
@@ -1261,6 +1507,8 @@ namespace Quantum {
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
+    private ISignalOnCooldownsReset[] _ISignalOnCooldownsResetSystems;
+    private ISignalOnActiveAbilityStopped[] _ISignalOnActiveAbilityStoppedSystems;
     private ISignalAsteroidsSpawnShip[] _ISignalAsteroidsSpawnShipSystems;
     private ISignalAsteroidsShipShoot[] _ISignalAsteroidsShipShootSystems;
     private ISignalAsteroidsShipDestroyed[] _ISignalAsteroidsShipDestroyedSystems;
@@ -1282,6 +1530,8 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities, 256);
+      _ISignalOnCooldownsResetSystems = BuildSignalsArray<ISignalOnCooldownsReset>();
+      _ISignalOnActiveAbilityStoppedSystems = BuildSignalsArray<ISignalOnActiveAbilityStopped>();
       _ISignalAsteroidsSpawnShipSystems = BuildSignalsArray<ISignalAsteroidsSpawnShip>();
       _ISignalAsteroidsShipShootSystems = BuildSignalsArray<ISignalAsteroidsShipShoot>();
       _ISignalAsteroidsShipDestroyedSystems = BuildSignalsArray<ISignalAsteroidsShipDestroyed>();
@@ -1294,6 +1544,8 @@ namespace Quantum {
       _ISignalOnGameEndedSystems = BuildSignalsArray<ISignalOnGameEnded>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
+      BuildSignalsArrayOnComponentAdded<Quantum.AbilityInventory>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.AbilityInventory>();
       BuildSignalsArrayOnComponentAdded<Quantum.AsteroidsAsteroid>();
       BuildSignalsArrayOnComponentRemoved<Quantum.AsteroidsAsteroid>();
       BuildSignalsArrayOnComponentAdded<Quantum.AsteroidsPlayerLink>();
@@ -1346,6 +1598,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayableMechanic>();
       BuildSignalsArrayOnComponentAdded<Quantum.PlayerLink>();
       BuildSignalsArrayOnComponentRemoved<Quantum.PlayerLink>();
+      BuildSignalsArrayOnComponentAdded<Quantum.SkillInventory>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.SkillInventory>();
       BuildSignalsArrayOnComponentAdded<Quantum.SpawnIdentifier>();
       BuildSignalsArrayOnComponentRemoved<Quantum.SpawnIdentifier>();
       BuildSignalsArrayOnComponentAdded<Quantum.Status>();
@@ -1365,12 +1619,18 @@ namespace Quantum {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
       i->Fire = i->Fire.Update(this.Number, input.Fire);
-      i->Left = i->Left.Update(this.Number, input.Left);
-      i->Right = i->Right.Update(this.Number, input.Right);
-      i->Up = i->Up.Update(this.Number, input.Up);
-      i->Down = i->Down.Update(this.Number, input.Down);
+      i->MovementEncoded = input.MovementEncoded;
       i->MainWeaponFire = i->MainWeaponFire.Update(this.Number, input.MainWeaponFire);
-      i->SubWeaponFire = i->SubWeaponFire.Update(this.Number, input.SubWeaponFire);
+      i->FirstSkill = i->FirstSkill.Update(this.Number, input.FirstSkill);
+      i->SecondSkill = i->SecondSkill.Update(this.Number, input.SecondSkill);
+      i->ThirdSkill = i->ThirdSkill.Update(this.Number, input.ThirdSkill);
+      i->FourthSkill = i->FourthSkill.Update(this.Number, input.FourthSkill);
+      i->FifthSkill = i->FifthSkill.Update(this.Number, input.FifthSkill);
+      i->SixthSkill = i->SixthSkill.Update(this.Number, input.SixthSkill);
+      i->SeventhSkill = i->SeventhSkill.Update(this.Number, input.SeventhSkill);
+      i->EighthSkill = i->EighthSkill.Update(this.Number, input.EighthSkill);
+      i->NinthSkill = i->NinthSkill.Update(this.Number, input.NinthSkill);
+      i->TenthSkill = i->TenthSkill.Update(this.Number, input.TenthSkill);
     }
     public Input* GetPlayerInput(PlayerRef player) {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -1386,6 +1646,24 @@ namespace Quantum {
       Physics3D.Init(_globals->PhysicsState3D.MapStaticCollidersState.TrackedMap);
     }
     public unsafe partial struct FrameSignals {
+      public void OnCooldownsReset(EntityRef playerEntityRef) {
+        var array = _f._ISignalOnCooldownsResetSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnCooldownsReset(_f, playerEntityRef);
+          }
+        }
+      }
+      public void OnActiveAbilityStopped(EntityRef playerEntityRef) {
+        var array = _f._ISignalOnActiveAbilityStoppedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnActiveAbilityStopped(_f, playerEntityRef);
+          }
+        }
+      }
       public void AsteroidsSpawnShip(EntityRef ship) {
         var array = _f._ISignalAsteroidsSpawnShipSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -1479,19 +1757,27 @@ namespace Quantum {
     }
   }
   public unsafe partial class Statics {
+    public static FrameSerializer.Delegate SerializeAbility;
     public static FrameSerializer.Delegate SerializeKCCCollision;
     public static FrameSerializer.Delegate SerializeKCCIgnore;
     public static FrameSerializer.Delegate SerializeKCCModifier;
+    public static FrameSerializer.Delegate SerializeSkill;
     public static FrameSerializer.Delegate SerializeWeapon;
     public static FrameSerializer.Delegate SerializeInput;
     static partial void InitStaticDelegatesGen() {
+      SerializeAbility = Quantum.Ability.Serialize;
       SerializeKCCCollision = Quantum.KCCCollision.Serialize;
       SerializeKCCIgnore = Quantum.KCCIgnore.Serialize;
       SerializeKCCModifier = Quantum.KCCModifier.Serialize;
+      SerializeSkill = Quantum.Skill.Serialize;
       SerializeWeapon = Quantum.Weapon.Serialize;
       SerializeInput = Quantum.Input.Serialize;
     }
     static partial void RegisterSimulationTypesGen(TypeRegistry typeRegistry) {
+      typeRegistry.Register(typeof(Quantum.Ability), Quantum.Ability.SIZE);
+      typeRegistry.Register(typeof(Quantum.AbilityInventory), Quantum.AbilityInventory.SIZE);
+      typeRegistry.Register(typeof(Quantum.AbilityType), 4);
+      typeRegistry.Register(typeof(Quantum.ActiveAbilityInfo), Quantum.ActiveAbilityInfo.SIZE);
       typeRegistry.Register(typeof(AssetGuid), AssetGuid.SIZE);
       typeRegistry.Register(typeof(AssetRef), AssetRef.SIZE);
       typeRegistry.Register(typeof(Quantum.AsteroidsAsteroid), Quantum.AsteroidsAsteroid.SIZE);
@@ -1513,11 +1799,14 @@ namespace Quantum {
       typeRegistry.Register(typeof(ColorRGBA), ColorRGBA.SIZE);
       typeRegistry.Register(typeof(ComponentPrototypeRef), ComponentPrototypeRef.SIZE);
       typeRegistry.Register(typeof(ComponentTypeRef), ComponentTypeRef.SIZE);
+      typeRegistry.Register(typeof(Quantum.CountdownTimer), Quantum.CountdownTimer.SIZE);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
       typeRegistry.Register(typeof(DistanceJoint3D), DistanceJoint3D.SIZE);
       typeRegistry.Register(typeof(Quantum.EKCCCollisionSource), 1);
       typeRegistry.Register(typeof(Quantum.EKCCIgnoreSource), 1);
       typeRegistry.Register(typeof(Quantum.EKCCProcessorSource), 1);
+      typeRegistry.Register(typeof(Quantum.ESpreadDirection), 4);
+      typeRegistry.Register(typeof(Quantum.ESpreadShape), 4);
       typeRegistry.Register(typeof(Quantum.EWeaponType), 4);
       typeRegistry.Register(typeof(EntityPrototypeRef), EntityPrototypeRef.SIZE);
       typeRegistry.Register(typeof(EntityRef), EntityRef.SIZE);
@@ -1581,6 +1870,9 @@ namespace Quantum {
       typeRegistry.Register(typeof(RNGSession), RNGSession.SIZE);
       typeRegistry.Register(typeof(Shape2D), Shape2D.SIZE);
       typeRegistry.Register(typeof(Shape3D), Shape3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.Skill), Quantum.Skill.SIZE);
+      typeRegistry.Register(typeof(Quantum.SkillInventory), Quantum.SkillInventory.SIZE);
+      typeRegistry.Register(typeof(Quantum.SkillStatus), 4);
       typeRegistry.Register(typeof(Quantum.SpawnIdentifier), Quantum.SpawnIdentifier.SIZE);
       typeRegistry.Register(typeof(SpringJoint), SpringJoint.SIZE);
       typeRegistry.Register(typeof(SpringJoint3D), SpringJoint3D.SIZE);
@@ -1595,8 +1887,9 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 14)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 16)
         .AddBuiltInComponents()
+        .Add<Quantum.AbilityInventory>(Quantum.AbilityInventory.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsAsteroid>(Quantum.AsteroidsAsteroid.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsPlayerLink>(Quantum.AsteroidsPlayerLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsProjectile>(Quantum.AsteroidsProjectile.Serialize, null, null, ComponentFlags.None)
@@ -1608,20 +1901,25 @@ namespace Quantum {
         .Add<Quantum.MechProjectile>(Quantum.MechProjectile.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayableMechanic>(Quantum.PlayableMechanic.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.SkillInventory>(Quantum.SkillInventory.Serialize, null, Quantum.SkillInventory.OnRemoved, ComponentFlags.None)
         .Add<Quantum.SpawnIdentifier>(Quantum.SpawnIdentifier.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.Status>(Quantum.Status.Serialize, null, null, ComponentFlags.None)
-        .Add<Quantum.WeaponInventory>(Quantum.WeaponInventory.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.WeaponInventory>(Quantum.WeaponInventory.Serialize, null, Quantum.WeaponInventory.OnRemoved, ComponentFlags.None)
         .Finish();
     }
     [Preserve()]
     public static void EnsureNotStrippedGen() {
       FramePrinter.EnsureNotStripped();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.AbilityType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCCollisionSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCIgnoreSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCProcessorSource>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ESpreadDirection>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.ESpreadShape>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EWeaponType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.SkillStatus>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.Team>();
     }
   }

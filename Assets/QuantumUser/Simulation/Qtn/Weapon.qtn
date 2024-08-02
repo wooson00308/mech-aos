@@ -5,12 +5,12 @@ struct Weapon {
 	FP DelayToStartRechargeTimer;
 	FP RechargeRate;
 	FP ChargeTime;
-	asset_ref<WeaponData> WeaponData;
+	asset_ref<PrimaryWeaponData> WeaponData;
 }
 
 component WeaponInventory {
 	Int32 CurrentWeaponIndex;
-	array<Weapon>[1] Weapons;
+	list<Weapon> Weapons;
 }
 
 event OnWeaponShoot{
@@ -18,3 +18,4 @@ event OnWeaponShoot{
 }
 
 event DummyEvent {}
+
