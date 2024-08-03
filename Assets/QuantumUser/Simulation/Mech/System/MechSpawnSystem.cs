@@ -17,8 +17,6 @@ namespace Quantum.Mech
                 var playerAvatarAssetRef = data.PlayerAvatar.IsValid ? data.PlayerAvatar : frame.RuntimeConfig.DefaultPlayerAvatar;
                 var prototypeAsset = frame.FindAsset(playerAvatarAssetRef);
                 SetPlayerCharacter(frame, player, prototypeAsset);
-               
-               
             }
         }
         
@@ -35,7 +33,7 @@ namespace Quantum.Mech
             
             RespawnHelper.RespawnMechanic(frame, character);
             // frame.Add(character, new PlayerLink { PlayerRef = player });
-                
+            frame.Events.OnMechanicCreated(character);
             frame.Signals.SpawnMechanic(character);
         }
 

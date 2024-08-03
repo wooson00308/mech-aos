@@ -48,10 +48,10 @@ MonoBehaviour:
     X:
       RawValue: 0
     Y:
-      RawValue: -655360
+      RawValue: -3276800
     Z:
       RawValue: 0
   MaxSlope:
-    RawValue: 983040
+    RawValue: 5898240
   MaxSlopeSpeed:
     RawValue: 327680

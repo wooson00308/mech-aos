@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f98ff78397bdc4a9886959982c466e, type: 3}
   m_Name: MechMenuConfig
   m_EditorClassIdentifier: 
-  _maxPlayers: 6
+  _maxPlayers: 3
   _adaptFramerateForMobilePlatform: 1
   _availableAppVersions:
   - 1.0
   _availableRegions:
-  - kr
   - asia
   - eu
   - sa
   - us
   _availableScenes:
   - Name: Redemo
-    ScenePath: Assets/Research/Scenes/Redemo.unity
+    ScenePath: Assets/Research/Scenes/Redemo/Redemo.unity
     Preview: {fileID: 21300000, guid: 5e8ff86360b2fa24a8355f7f37384592, type: 3}
     RuntimeConfig:
       Seed: -565412713

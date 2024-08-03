@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Research/Scenes/MenuDemo.unity
     guid: 0e1c48dcbc852144a8e393c4864d77e4
   - enabled: 1
-    path: Assets/Research/Scenes/Redemo.unity
+    path: Assets/Research/Scenes/Redemo/Redemo.unity
     guid: 223351feacea45749af38216ac9064d1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 111e635832d81f34c9c4d9b4326ea4d2, type: 2}
