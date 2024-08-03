@@ -1,0 +1,16 @@
+enum GameState {
+    None, Waiting, Countdown, InProgress, Finishing, Finished
+}
+
+signal GameStateChanged(GameState state);
+signal PlayerKilled(entity_ref target, entity_ref killer);
+signal PlayerNexusDestoryed(Team team);
+
+synced event OnGameStateChanged { GameState state; }
+synced event OnCountdownStart { FP Time; }
+synced event OnGameStart {}
+synced event OnPlayerDeath{ entity_ref entityRef;}
+synced event OnPlayerUseSkill { entity_ref entityRef; FP }
+synced event OnPlayerNexusDestoryed { Team team; }
+synced event OnPlayerKilled { entity_ref target; entity_ref killer; }
+synced event OnPlayerTeamWin { Team team; }

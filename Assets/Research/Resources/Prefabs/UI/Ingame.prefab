@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Connecting..
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea311468ecb7b0c4aa61e290774cbfe0, type: 2}
   m_sharedMaterial: {fileID: 1843996279589475743, guid: ea311468ecb7b0c4aa61e290774cbfe0, type: 2}
@@ -555,8 +555,8 @@ MonoBehaviour:
   nicknameText: {fileID: 6325753770382851431}
   healthText: {fileID: 4716112278748836305}
   healthImage: {fileID: 6658431457968887310}
-  nickname: Thon
-  health: 80
+  nickname: Connecting..
+  health: 100
   maxHealth: 100
 --- !u!1 &477000788944474414
 GameObject:
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Connecting..
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea311468ecb7b0c4aa61e290774cbfe0, type: 2}
   m_sharedMaterial: {fileID: 1843996279589475743, guid: ea311468ecb7b0c4aa61e290774cbfe0, type: 2}
@@ -2509,7 +2509,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Connecting..
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea311468ecb7b0c4aa61e290774cbfe0, type: 2}
   m_sharedMaterial: {fileID: 1843996279589475743, guid: ea311468ecb7b0c4aa61e290774cbfe0, type: 2}
@@ -3903,7 +3903,7 @@ MonoBehaviour:
   nicknameText: {fileID: 3874081967701197389}
   healthText: {fileID: 8361647824996492628}
   healthImage: {fileID: 2548827862578438087}
-  nickname: BoB
+  nickname: Connecting..
   health: 100
   maxHealth: 100
 --- !u!1 &4262404370534134984
@@ -4447,7 +4447,7 @@ MonoBehaviour:
   nicknameText: {fileID: 7274381824799455014}
   healthText: {fileID: 1853800012319869081}
   healthImage: {fileID: 1592191676249678358}
-  nickname: Kayle
+  nickname: Connecting..
   health: 100
   maxHealth: 100
 --- !u!1 &5480536646712144895
@@ -6600,6 +6600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0563dbbd773ff6c46aa4e98d4334bb21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateObjectPairs: []
   playerInfoUIs:
   - {fileID: 2341357170839361546}
   - {fileID: 7078093335498246404}

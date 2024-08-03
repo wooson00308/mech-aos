@@ -18,7 +18,7 @@ public class PlayerInfoUI : QuantumMonoBehaviour
 
     private void Start()
     {
-        SetPlayer(nickname);
+        //SetPlayer(nickname);
         UpdateHealth(health, maxHealth);
     }
 
