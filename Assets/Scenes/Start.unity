@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -389,6 +389,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &266904993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266904995}
+  - component: {fileID: 266904994}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &266904994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266904993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782df29ca04e2f4f8ab4bf96e30a43d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BgmTitle: {fileID: 8300000, guid: 8b15ea86f8386a24f93e7ff86e71b4cd, type: 3}
+--- !u!4 &266904995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266904993}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &403166395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3295,6 +3340,7 @@ GameObject:
   - component: {fileID: 1391196894}
   - component: {fileID: 1391196897}
   - component: {fileID: 1391196896}
+  - component: {fileID: 1391196898}
   m_Layer: 0
   m_Name: Event System
   m_TagString: Untagged
@@ -3374,6 +3420,14 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!81 &1391196898
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391196892}
+  m_Enabled: 1
 --- !u!1 &1419261749
 GameObject:
   m_ObjectHideFlags: 0
@@ -5736,6 +5790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2131968834}
   - component: {fileID: 2131968833}
+  - component: {fileID: 2131968835}
   m_Layer: 0
   m_Name: Matchmaker
   m_TagString: Untagged
@@ -5759,26 +5814,20 @@ MonoBehaviour:
     Seed: 0
     Map:
       Id:
-        Value: 0
+        Value: 534181941853177012
     SimulationConfig:
       Id:
-        Value: 0
+        Value: 289877923502599030
     SystemsConfig:
       Id:
-        Value: 0
-    GameConfig:
-      Id:
-        Value: 0
-    DefaultPlayerAvatar:
-      Id:
-        Value: 0
+        Value: 351251061444656621
     MechGameConfig:
       Id:
-        Value: 0
+        Value: 482644345786211340
   runtimePlayer:
     PlayerAvatar:
       Id:
-        Value: 0
+        Value: 1302707971285072803
     PlayerNickname: 
   maxPlayers: 3
 --- !u!4 &2131968834
@@ -5796,6 +5845,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2131968835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131968832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18b6410b3574c94a15ca07885ec9535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &28306240682769716
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10064,7 +10125,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5453964748092911335}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1419261754}
+        m_TargetAssemblyTypeName: QuantumUser.MainMenuUIHandler, Assembly-CSharp
+        m_MethodName: HideAllPopupPanels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9106464581161939787
 GameObject:
   m_ObjectHideFlags: 0
@@ -10112,3 +10185,4 @@ SceneRoots:
   - {fileID: 676738162}
   - {fileID: 1419261753}
   - {fileID: 2131968834}
+  - {fileID: 266904995}

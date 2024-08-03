@@ -13,30 +13,9 @@ namespace Quantum.Mech
         [Header("configuration")]
         [Tooltip("메카의 움직임 스피드")] 
         public FP MechMovementSpeed;
-
-        [Header("Projectile configuration")]
-        public AssetRef<EntityPrototype> ProjectilePrototype;
-
-
-        [Header("Map configuration")] 
-        [Tooltip("스폰 위치")]
-        public List<FPVector3> SpawnSpots;
-
-
-
-
-
-        // [Header("Map configuration")]
-        // [Tooltip("Total size of the map. This is used to calculate when an entity is outside de gameplay area and then wrap it to the other side")]
-        // public FPVector3 GameMapSize = new FPVector3(25, 25, 25);
-        // public FPVector3 MapExtends => _mapExtends;
-        // private FPVector3 _mapExtends;
-        //
-        // public override void Loaded(IResourceManager resourceManager, Native.Allocator allocator)
-        // {
-        //     base.Loaded(resourceManager, allocator);
-        //
-        //     _mapExtends = GameMapSize / 2;
-        // }
+        
+        [Space]
+        public FP lobbyingDuration = 10;
+        public FP postgameDuration = 30;
     }
 }

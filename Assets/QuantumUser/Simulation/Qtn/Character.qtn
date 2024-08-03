@@ -7,5 +7,12 @@ component PlayerLink
 {
     player_ref PlayerRef;
 }
+
+struct PlayerData
+{
+	bool ready;
+	Team Team;
+}
+
 signal SpawnMechanic(EntityRef mechanic);
 

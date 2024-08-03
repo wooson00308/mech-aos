@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource bgmSource;
     private List<AudioSource> sfxSources;
+    public float sfxVol { get; private set; }
+    public float bgmVol { get; private set; }
 
     public AudioClip BgmTitle;
 
@@ -25,7 +27,11 @@ public class AudioManager : MonoBehaviour
             bgmSource.loop = true;
 
             sfxSources = new List<AudioSource>();
+            
+            bgmVol = PlayerPrefs.GetFloat("BGM Volume", 1);
+            sfxVol = PlayerPrefs.GetFloat("SFX Volume", 1);
 
+            bgmSource.volume = bgmVol;
             PlayBgm(BgmTitle);
         }
         else
@@ -42,6 +48,12 @@ public class AudioManager : MonoBehaviour
         bgmSource.Play();
     }
 
+    public void BgmVol(float vol)
+    {
+        bgmSource.volume = vol;
+        PlayerPrefs.SetFloat("BGM Volume", vol);
+        PlayerPrefs.Save();
+    }
     public void PlaySfx(AudioClip clip, bool loop = false, float pitch = 1f, float volume = 1f)
     {
         if (clip == null) return;
@@ -51,11 +63,21 @@ public class AudioManager : MonoBehaviour
         sfxSource.loop = loop;
         sfxSource.clip = clip;
         sfxSource.pitch = pitch;
-        sfxSource.volume = volume;
+        sfxSource.volume = sfxVol;
         sfxSource.Play();
         sfxSources.Add(sfxSource);
     }
-
+    public void SfxVol(float vol)
+    {
+        sfxVol = vol;
+        foreach (var audioSource in sfxSources)
+        {
+            audioSource.volume = vol;
+        }
+        PlayerPrefs.SetFloat("SFX Volume", vol);
+        PlayerPrefs.Save();
+    }
+    
     public void StopSfx(AudioClip clip)
     {
         for (int i = sfxSources.Count - 1; i >= 0; i--)

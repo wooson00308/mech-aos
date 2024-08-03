@@ -36,12 +36,6 @@ MonoBehaviour:
       SystemsConfig:
         Id:
           Value: 351251061444656621
-      GameConfig:
-        Id:
-          Value: 0
-      DefaultPlayerAvatar:
-        Id:
-          Value: 1302707971285072803
       MechGameConfig:
         Id:
           Value: 482644345786211340

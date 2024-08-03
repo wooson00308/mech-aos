@@ -2,4 +2,5 @@ global
 {
     Int32 TeamIndex;
     FP DisconnectTime;
+    dictionary<Int32, PlayerData> teamData;
 }

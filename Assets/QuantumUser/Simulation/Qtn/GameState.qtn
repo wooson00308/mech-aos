@@ -1,0 +1,28 @@
+global
+{
+	FP StateTimer;
+	GameState DelayedState;
+	GameState CurrentState;
+	GameState PreviousState;
+    FP clock;
+//    dictionary<Int32, PlayerData> playerData;
+    	
+}
+
+enum GameState
+{
+	Off = 0,
+	Lobby,
+	Pregame,
+	Intro,
+	Countdown,
+	Game,
+	Outro,
+	Postgame
+}
+
+synced event GameStateChanged
+{
+	GameState NewState;
+	GameState OldState;
+}

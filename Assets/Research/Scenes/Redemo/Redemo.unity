@@ -3037,17 +3037,15 @@ MonoBehaviour:
     SystemsConfig:
       Id:
         Value: 351251061444656621
-    GameConfig:
-      Id:
-        Value: 316527076537738773
-    DefaultPlayerAvatar:
-      Id:
-        Value: 1302707971285072803
     MechGameConfig:
       Id:
         Value: 482644345786211340
   SessionConfig: {fileID: 11400000, guid: a976f3c978041af41acccc4ba8508933, type: 2}
-  LocalPlayers: []
+  LocalPlayers:
+  - PlayerAvatar:
+      Id:
+        Value: 1302707971285072803
+    PlayerNickname: 
   MaxPlayerCount: 3
   SimulationSpeedMultiplier: 3
   DisplaySaveAndReloadButton: 0
@@ -5231,7 +5229,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2048291405}
   - component: {fileID: 2048291406}
-  - component: {fileID: 2048291407}
   m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
@@ -5271,14 +5268,6 @@ MonoBehaviour:
   Updater: {fileID: 745369856}
   UseFindUpdater: 0
   _localCamera: {fileID: 1594704080}
---- !u!81 &2048291407
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048291404}
-  m_Enabled: 1
 --- !u!1 &2103129492
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,7 +5284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2103129493
 MonoBehaviour:
   m_ObjectHideFlags: 0

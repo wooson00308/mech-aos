@@ -6,6 +6,7 @@ namespace Quantum
     public partial class RuntimeConfig
     {
         public AssetRef<MechGameConfig> MechGameConfig;
+        
     }
 }
 
