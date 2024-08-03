@@ -52,6 +52,11 @@ namespace Quantum {
   public enum AbilityType : int {
     Dash,
   }
+  public enum EHitTargetType : int {
+    None,
+    Mechanic,
+    Nexus,
+  }
   public enum EKCCCollisionSource : byte {
     None = 0,
     Entity = 1,
@@ -71,7 +76,7 @@ namespace Quantum {
   public enum ESpreadDirection : int {
     HORIZONTAL,
     VERTICAL,
-    Grid,
+    GRID,
   }
   public enum ESpreadShape : int {
     PLANE,
@@ -1315,6 +1320,32 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct Nexus : Quantum.IComponent {
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(4)]
+    public Team Team;
+    [FieldOffset(8)]
+    public FP CurrentHealth;
+    [FieldOffset(0)]
+    public QBoolean IsDestroy;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 2557;
+        hash = hash * 31 + (Int32)Team;
+        hash = hash * 31 + CurrentHealth.GetHashCode();
+        hash = hash * 31 + IsDestroy.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (Nexus*)ptr;
+        QBoolean.Serialize(&p->IsDestroy, serializer);
+        serializer.Stream.Serialize((Int32*)&p->Team);
+        FP.Serialize(&p->CurrentHealth, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayableMechanic : Quantum.IComponent {
     public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
@@ -1504,6 +1535,12 @@ namespace Quantum {
   public unsafe partial interface ISignalOnGameEnded : ISignal {
     void OnGameEnded(Frame f, GameController* gameController);
   }
+  public unsafe partial interface ISignalOnNexusHit : ISignal {
+    void OnNexusHit(Frame f, EntityRef bullet, EntityRef nexus, FP damage);
+  }
+  public unsafe partial interface ISignalOnNexusDestroy : ISignal {
+    void OnNexusDestroy(Frame f, EntityRef nexus, EntityRef killer);
+  }
   public static unsafe partial class Constants {
   }
   public unsafe partial class Frame {
@@ -1519,6 +1556,8 @@ namespace Quantum {
     private ISignalOnMechanicSkillHit[] _ISignalOnMechanicSkillHitSystems;
     private ISignalOnMechanicDeath[] _ISignalOnMechanicDeathSystems;
     private ISignalOnGameEnded[] _ISignalOnGameEndedSystems;
+    private ISignalOnNexusHit[] _ISignalOnNexusHitSystems;
+    private ISignalOnNexusDestroy[] _ISignalOnNexusDestroySystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -1542,6 +1581,8 @@ namespace Quantum {
       _ISignalOnMechanicSkillHitSystems = BuildSignalsArray<ISignalOnMechanicSkillHit>();
       _ISignalOnMechanicDeathSystems = BuildSignalsArray<ISignalOnMechanicDeath>();
       _ISignalOnGameEndedSystems = BuildSignalsArray<ISignalOnGameEnded>();
+      _ISignalOnNexusHitSystems = BuildSignalsArray<ISignalOnNexusHit>();
+      _ISignalOnNexusDestroySystems = BuildSignalsArray<ISignalOnNexusDestroy>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AbilityInventory>();
@@ -1578,6 +1619,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<NavMeshPathfinder>();
       BuildSignalsArrayOnComponentAdded<NavMeshSteeringAgent>();
       BuildSignalsArrayOnComponentRemoved<NavMeshSteeringAgent>();
+      BuildSignalsArrayOnComponentAdded<Quantum.Nexus>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.Nexus>();
       BuildSignalsArrayOnComponentAdded<PhysicsBody2D>();
       BuildSignalsArrayOnComponentRemoved<PhysicsBody2D>();
       BuildSignalsArrayOnComponentAdded<PhysicsBody3D>();
@@ -1754,6 +1797,24 @@ namespace Quantum {
           }
         }
       }
+      public void OnNexusHit(EntityRef bullet, EntityRef nexus, FP damage) {
+        var array = _f._ISignalOnNexusHitSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnNexusHit(_f, bullet, nexus, damage);
+          }
+        }
+      }
+      public void OnNexusDestroy(EntityRef nexus, EntityRef killer) {
+        var array = _f._ISignalOnNexusDestroySystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnNexusDestroy(_f, nexus, killer);
+          }
+        }
+      }
     }
   }
   public unsafe partial class Statics {
@@ -1802,6 +1863,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum.CountdownTimer), Quantum.CountdownTimer.SIZE);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
       typeRegistry.Register(typeof(DistanceJoint3D), DistanceJoint3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.EHitTargetType), 4);
       typeRegistry.Register(typeof(Quantum.EKCCCollisionSource), 1);
       typeRegistry.Register(typeof(Quantum.EKCCIgnoreSource), 1);
       typeRegistry.Register(typeof(Quantum.EKCCProcessorSource), 1);
@@ -1846,6 +1908,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(NavMeshPathfinder), NavMeshPathfinder.SIZE);
       typeRegistry.Register(typeof(NavMeshRegionMask), NavMeshRegionMask.SIZE);
       typeRegistry.Register(typeof(NavMeshSteeringAgent), NavMeshSteeringAgent.SIZE);
+      typeRegistry.Register(typeof(Quantum.Nexus), Quantum.Nexus.SIZE);
       typeRegistry.Register(typeof(NullableFP), NullableFP.SIZE);
       typeRegistry.Register(typeof(NullableFPVector2), NullableFPVector2.SIZE);
       typeRegistry.Register(typeof(NullableFPVector3), NullableFPVector3.SIZE);
@@ -1887,7 +1950,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 16)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 17)
         .AddBuiltInComponents()
         .Add<Quantum.AbilityInventory>(Quantum.AbilityInventory.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.AsteroidsAsteroid>(Quantum.AsteroidsAsteroid.Serialize, null, null, ComponentFlags.None)
@@ -1899,6 +1962,7 @@ namespace Quantum {
         .Add<Quantum.KCC>(Quantum.KCC.Serialize, null, Quantum.KCC.OnRemoved, ComponentFlags.None)
         .Add<Quantum.KCCProcessorLink>(Quantum.KCCProcessorLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.MechProjectile>(Quantum.MechProjectile.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.Nexus>(Quantum.Nexus.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayableMechanic>(Quantum.PlayableMechanic.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.SkillInventory>(Quantum.SkillInventory.Serialize, null, Quantum.SkillInventory.OnRemoved, ComponentFlags.None)
@@ -1911,6 +1975,7 @@ namespace Quantum {
     public static void EnsureNotStrippedGen() {
       FramePrinter.EnsureNotStripped();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AbilityType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EHitTargetType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCCollisionSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCIgnoreSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCProcessorSource>();

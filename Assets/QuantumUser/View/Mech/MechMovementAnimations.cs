@@ -34,7 +34,7 @@ namespace Quantum.Mech
         public override void OnUpdateView() {
             
      
-            var body = ViewContext.LocalPlayerView.PredictedFrame.Get<CharacterController3D>(_entityView.EntityRef);
+            var body = VerifiedFrame.Get<CharacterController3D>(EntityView.EntityRef);
             // TODO 무브 스피드 이상함 쏜과 대화 해봐야함.
             var moveSpeed = _config.MechMovementSpeed.AsFloat * 0.001f;
             UpdateMultipliers(moveSpeed);
