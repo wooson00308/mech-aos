@@ -52,7 +52,7 @@ namespace Quantum {
   public unsafe partial class Frame {
     public unsafe partial struct FrameEvents {
       static partial void GetEventTypeCountCodeGen(ref Int32 eventCount) {
-        eventCount = 14;
+        eventCount = 18;
       }
       static partial void GetParentEventIDCodeGen(Int32 eventID, ref Int32 parentEventID) {
         switch (eventID) {
@@ -62,6 +62,8 @@ namespace Quantum {
           case EventOnMechanicRespawn.ID: parentEventID = EventMechanicEvent.ID; return;
           case EventOnMechanicChangeWeapon.ID: parentEventID = EventMechanicEvent.ID; return;
           case EventOnMechanicDashed.ID: parentEventID = EventMechanicEvent.ID; return;
+          case EventOnNexusTakeDamage.ID: parentEventID = EventNexusEvent.ID; return;
+          case EventOnNexusDestroy.ID: parentEventID = EventNexusEvent.ID; return;
           default: break;
         }
       }
@@ -78,6 +80,10 @@ namespace Quantum {
           case EventOnGameEnded.ID: result = typeof(EventOnGameEnded); return;
           case EventMovement.ID: result = typeof(EventMovement); return;
           case EventWeaponFire.ID: result = typeof(EventWeaponFire); return;
+          case EventNexusEvent.ID: result = typeof(EventNexusEvent); return;
+          case EventOnNexusTakeDamage.ID: result = typeof(EventOnNexusTakeDamage); return;
+          case EventOnNexusDestroy.ID: result = typeof(EventOnNexusDestroy); return;
+          case EventOnTeamNexusDestroy.ID: result = typeof(EventOnTeamNexusDestroy); return;
           case EventOnWeaponShoot.ID: result = typeof(EventOnWeaponShoot); return;
           case EventDummyEvent.ID: result = typeof(EventDummyEvent); return;
           default: break;
@@ -150,6 +156,29 @@ namespace Quantum {
         var ev = _f.Context.AcquireEvent<EventWeaponFire>(EventWeaponFire.ID);
         ev.Owner = Owner;
         ev.WeaponData = WeaponData;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnNexusTakeDamage OnNexusTakeDamage(EntityRef Nexus, FP Damage, EntityRef Source) {
+        var ev = _f.Context.AcquireEvent<EventOnNexusTakeDamage>(EventOnNexusTakeDamage.ID);
+        ev.Nexus = Nexus;
+        ev.Damage = Damage;
+        ev.Source = Source;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnNexusDestroy OnNexusDestroy(EntityRef Nexus, EntityRef Killer) {
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnNexusDestroy>(EventOnNexusDestroy.ID);
+        ev.Nexus = Nexus;
+        ev.Killer = Killer;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnTeamNexusDestroy OnTeamNexusDestroy(Team Team) {
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnTeamNexusDestroy>(EventOnTeamNexusDestroy.ID);
+        ev.Team = Team;
         _f.AddEvent(ev);
         return ev;
       }
@@ -400,14 +429,11 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnWeaponShoot : EventBase {
+  public abstract unsafe partial class EventNexusEvent : EventBase {
     public new const Int32 ID = 12;
-    public EntityRef Mechanic;
-    protected EventOnWeaponShoot(Int32 id, EventFlags flags) : 
+    public EntityRef Nexus;
+    protected EventNexusEvent(Int32 id, EventFlags flags) : 
         base(id, flags) {
-    }
-    public EventOnWeaponShoot() : 
-        base(12, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
       get {
@@ -420,18 +446,57 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 89;
-        hash = hash * 31 + Mechanic.GetHashCode();
+        hash = hash * 31 + Nexus.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventDummyEvent : EventBase {
+  public unsafe partial class EventOnNexusTakeDamage : EventNexusEvent {
     public new const Int32 ID = 13;
-    protected EventDummyEvent(Int32 id, EventFlags flags) : 
+    public FP Damage;
+    public EntityRef Source;
+    protected EventOnNexusTakeDamage(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventDummyEvent() : 
+    public EventOnNexusTakeDamage() : 
         base(13, EventFlags.Server|EventFlags.Client) {
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 97;
+        hash = hash * 31 + Nexus.GetHashCode();
+        hash = hash * 31 + Damage.GetHashCode();
+        hash = hash * 31 + Source.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnNexusDestroy : EventNexusEvent {
+    public new const Int32 ID = 14;
+    public EntityRef Killer;
+    protected EventOnNexusDestroy(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnNexusDestroy() : 
+        base(14, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 101;
+        hash = hash * 31 + Nexus.GetHashCode();
+        hash = hash * 31 + Killer.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnTeamNexusDestroy : EventBase {
+    public new const Int32 ID = 15;
+    public Team Team;
+    protected EventOnTeamNexusDestroy(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnTeamNexusDestroy() : 
+        base(15, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
       get {
@@ -443,7 +508,56 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked {
-        var hash = 97;
+        var hash = 103;
+        hash = hash * 31 + Team.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnWeaponShoot : EventBase {
+    public new const Int32 ID = 16;
+    public EntityRef Mechanic;
+    protected EventOnWeaponShoot(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnWeaponShoot() : 
+        base(16, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 107;
+        hash = hash * 31 + Mechanic.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventDummyEvent : EventBase {
+    public new const Int32 ID = 17;
+    protected EventDummyEvent(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventDummyEvent() : 
+        base(17, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 109;
         return hash;
       }
     }
