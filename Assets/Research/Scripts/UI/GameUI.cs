@@ -1,8 +1,11 @@
 using JetBrains.Annotations;
+using Photon.Client.StructWrapping;
 using Quantum;
+using Quantum.Mech;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
@@ -22,13 +25,15 @@ struct StateObjectPair
     public GameObject Object;
 }
 
-public class GameUI : QuantumCallbacks
+[Preserve]
+public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 {
     [SerializeField] private List<StateObjectPair> _stateObjectPairs = new();
     private Dictionary<UIState, GameObject> _stateObjectDictionary = new();
 
     [Header("Header")]
     public List<PlayerInfoUI> playerInfoUIs;
+    public List<CharacterHUD> playerHUDs;
     public TimerUI timer;
     public Button settingButton;
     public Button settingPopupCloseButton;
@@ -39,32 +44,69 @@ public class GameUI : QuantumCallbacks
     private float timeRemaining; 
     private bool isTimerRunning = false;
 
+    private Frame f;
+
+    private List<EntityRef> entityRefs = new();
+
+    private Camera _camera;
+
+    public Vector3 hudOffset;
+
     private void Awake()
     {
+        _camera = FindObjectOfType<Camera>();
         QuantumEvent.Subscribe(this, (EventOnMechanicCreated e) => OnMechanicCreated(e));
-        QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
+        QuantumEvent.Subscribe(this, (EventOnNexusTakeDamage e) => OnNexusTakeDamage(e));
 
         foreach (var pair in _stateObjectPairs)
         {
             _stateObjectDictionary.Add(pair.State, pair.Object);
         }
+        f = QuantumRunner.DefaultGame.Frames.Verified;
     }
 
     private void OnMechanicCreated(EventOnMechanicCreated e)
     {
-        var frame = QuantumRunner.Default.Game.Frames.Predicted; 
-        
-        int i = 0;
-        foreach (var playerRef in QuantumRunner.DefaultGame.GetLocalPlayers())
+        var playerLink = f.Get<PlayerLink>(e.Mechanic);
+        var runtimePlayer = f.GetPlayerData(playerLink.PlayerRef);
+
+        entityRefs.Add(e.Mechanic);
+
+        // Player Setting
+        Status* playerStatus = f.Unsafe.GetPointer<Status>(e.Mechanic);
+
+        float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
+        float maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
+        playerHUDs[playerLink.PlayerRef._index - 1].SetPlayer(runtimePlayer.PlayerNickname, e.Mechanic);
+        playerHUDs[playerLink.PlayerRef._index - 1].UpdateHealth(currentHealthPlayer, maxHealthPlayer);
+
+        // Nexus Setting
+        var playableMechanic = f.Get<PlayableMechanic>(e.Mechanic);
+
+        Nexus* Nexus = null;
+
+        foreach (var nexus in f.Unsafe.GetComponentBlockIterator<Nexus>())
         {
-            var player = frame.GetPlayerData(playerRef);
-            playerInfoUIs[i].SetPlayer(player.PlayerNickname);
+            if (nexus.Component->Team != playableMechanic.Team) continue;
+            Nexus = nexus.Component;
         }
+
+        if (Nexus == null) return;
+
+        float currentHealthNexus = Nexus->CurrentHealth.AsFloat;
+
+        playerInfoUIs[playerLink.PlayerRef._index - 1].SetPlayer(runtimePlayer.PlayerNickname);
+        playerInfoUIs[playerLink.PlayerRef._index - 1].UpdateHealth(currentHealthNexus, currentHealthNexus);
     }
 
-    private void OnMechanicTakeDamage(EventOnMechanicTakeDamage e)
+    private void OnNexusTakeDamage(EventOnNexusTakeDamage e)
     {
+        var playerLink = f.Get<PlayerLink>(e.Nexus);
+        Status* nexusStatus = f.Unsafe.GetPointer<Status>(e.Nexus);
 
+        float currentHealth = nexusStatus->CurrentHealth.AsFloat;
+        float maxHealth = f.FindAsset<StatusData>(nexusStatus->StatusData.Id).MaxHealth.AsFloat;
+        playerInfoUIs[playerLink.PlayerRef._index - 1].UpdateHealth(currentHealth, maxHealth);
     }
 
     private void Start()
@@ -73,6 +115,33 @@ public class GameUI : QuantumCallbacks
         settingPopupCloseButton.onClick.AddListener(OnSettingButtonClicked);
 
         SetTimer(testTime);
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (var entity in entityRefs)
+        {
+            var transform3D = f.Get<Transform3D>(entity);
+            var mechPosition = transform3D.Position.ToUnityVector3();
+
+            var hud = playerHUDs.Find(x => entity == x.entityRef);
+
+            if (hud == null) return;
+
+            var hudRect = hud.GetComponent<RectTransform>();
+
+            var screenPosition = _camera.WorldToScreenPoint(mechPosition);
+
+            if (screenPosition.z > 0 && screenPosition.x > 0 && screenPosition.x < Screen.width && screenPosition.y > 0 && screenPosition.y < Screen.height)
+            {
+                hudRect.gameObject.SetActive(true);
+                hudRect.position = screenPosition + hudOffset;
+            }
+            else
+            {
+                hudRect.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void Update()
@@ -93,6 +162,11 @@ public class GameUI : QuantumCallbacks
             }
         }
     }
+
+    private void UpdateHUD(Vector3 position)
+    {
+
+    } 
 
     public void SetTimer(float time)
     {
