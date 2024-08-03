@@ -21,5 +21,12 @@ enum ESpreadShape {
 enum ESpreadDirection {
     HORIZONTAL,  // 가로
     VERTICAL,    // 세로
-    Grid // 그리드
+    GRID // 그리드
+}
+
+enum EHitTargetType
+{
+    None,
+    Mechanic,
+    Nexus
 }

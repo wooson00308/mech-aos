@@ -41,7 +41,7 @@ namespace Quantum.Mech
             if (bulletIsTooFar || bulletIsOld)
             {
                 // Applies polymorphic behavior on the bullet action
-                bulletData.BulletAction(frame, bullet, EntityRef.None);
+                bulletData.BulletAction(frame, bullet, EntityRef.None, EHitTargetType.None);
             }
         }
         
@@ -68,25 +68,41 @@ namespace Quantum.Mech
             for (int i = 0; i < hits.Count; i++)
             {
                 var entity = hits[i].Entity;
-                var playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(entity);
-                if (entity != EntityRef.None && frame.Has<Status>(entity) && entity != bulletFields.Source || shooter->Team != playableMechanic->Team)
+                
+                
+                // 플레이어
+                if (entity != EntityRef.None && frame.Has<Status>(entity) && entity != bulletFields.Source)
                 {
-                    if (frame.Get<Status>(entity).IsDead)
+                    var playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(entity);
+                    if (frame.Get<Status>(entity).IsDead || shooter->Team == playableMechanic->Team)
                     {
                         continue;
                     }
 
                     bulletTransform->Position = hits[i].Point;
                     // Applies polymorphic behavior on the bullet action
-                    data.BulletAction(frame, bullet, entity);
+                    data.BulletAction(frame, bullet, entity, EHitTargetType.Mechanic);
                     return true;
                 }
+                
+                // 넥서스
+                if (entity != EntityRef.None && frame.Has<Nexus>(entity) && entity != bulletFields.Source)
+                {
+                    var nexus = frame.Get<Nexus>(entity);
+                    if (nexus.IsDestroy || shooter->Team == nexus.Team )
+                    {
+                        continue;
+                    }
 
+                    bulletTransform->Position = hits[i].Point;
+                    data.BulletAction(frame, bullet, entity, EHitTargetType.Nexus);
+                    return true;
+                }
+                
                 if (entity == EntityRef.None)
                 {
                     bulletTransform->Position = hits[i].Point;
-                    // Applies polymorphic behavior on the bullet action
-                    data.BulletAction(frame, bullet, EntityRef.None);
+                    data.BulletAction(frame, bullet, EntityRef.None, EHitTargetType.None);
                     return true;
                 }
             }

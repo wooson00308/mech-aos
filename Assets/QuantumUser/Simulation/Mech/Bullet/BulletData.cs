@@ -32,8 +32,8 @@ namespace Quantum
         /// </summary>
         /// <param name="frame"></param>
         /// <param name="bullet">The bullet that triggered the function call</param>
-        /// <param name="targetRobot">The target of the bullet (is null when hitting a static collider)</param>
-        public virtual unsafe void BulletAction(Frame frame, EntityRef bullet, EntityRef targetRobot)
+        /// <param name="target">The target of the bullet (is null when hitting a static collider)</param>
+        public virtual unsafe void BulletAction(Frame frame, EntityRef bullet, EntityRef target, EHitTargetType hitTargetType)
         {
         }
 

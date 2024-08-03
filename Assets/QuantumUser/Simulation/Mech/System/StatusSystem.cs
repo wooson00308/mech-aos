@@ -5,7 +5,7 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class StatusSystem  : SystemMainThreadFilter<StatusSystem.Filter>, ISignalOnMechanicRespawn, ISignalOnMechanicHit, ISignalOnMechanicSkillHit
+    public unsafe class StatusSystem : SystemMainThreadFilter<StatusSystem.Filter>, ISignalOnMechanicRespawn, ISignalOnMechanicHit, ISignalOnMechanicSkillHit
     {
         public struct Filter
         {
@@ -44,8 +44,8 @@ namespace Quantum.Mech
 
         public void OnMechanicHit(Frame frame, EntityRef bullet, EntityRef robot, FP damage)
         {
-            // EntityRef shooter = frame.Get<BulletFields>(bullet).Source;
-            TakeDamage(frame, bullet, robot, damage);
+            EntityRef shooter = frame.Get<BulletFields>(bullet).Source;
+            TakeDamage(frame, shooter, robot, damage);
         }
 
         public void OnMechanicSkillHit(Frame frame, EntityRef skill, EntityRef robot)

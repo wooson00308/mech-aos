@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum
 {
     using Photon.Deterministic;
@@ -9,11 +11,22 @@ namespace Quantum
     [System.Serializable]
     public class BulletDataCommon : BulletData
     {
-        public override unsafe void BulletAction(Frame frame, EntityRef bullet, EntityRef targetRobot)
+        public override unsafe void BulletAction(Frame frame, EntityRef bullet, EntityRef target, EHitTargetType hitTargetTyp)
         {
-            if (targetRobot != EntityRef.None)
+            if (target != EntityRef.None)
             {
-                frame.Signals.OnMechanicHit(bullet, targetRobot, Damage);
+                switch (hitTargetTyp)
+                {
+                    case EHitTargetType.None:
+                        break;
+                    case EHitTargetType.Mechanic:
+                        frame.Signals.OnMechanicHit(bullet, target, Damage);
+                        break;
+                    case EHitTargetType.Nexus:
+                        frame.Signals.OnNexusHit(bullet, target, Damage);
+                        break;
+                }
+
             }
             BulletFields fields = frame.Get<BulletFields>(bullet);
             FPVector3 position = frame.Get<Transform3D>(bullet).Position;
