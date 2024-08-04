@@ -4,6 +4,7 @@ using Quantum;
 using Quantum.Mech;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UI;
@@ -40,6 +41,9 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public GameObject settingPanel;
     public KillLogStorage killLog;
 
+    [Header("Controller")]
+    public List<SkillButton> weaponSkillButtons;
+
     [Header("Test")]
     public float testTime;
     private float timeRemaining; 
@@ -52,6 +56,9 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private Camera _camera;
 
     public Vector3 hudOffset;
+
+    private PlayerRef _localPlayerRef;
+    private EntityRef _localEntityRef;
 
     private void Awake()
     {
@@ -82,6 +89,12 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     {
         var playerLink = f.Get<PlayerLink>(e.Mechanic);
         var runtimePlayer = f.GetPlayerData(playerLink.PlayerRef);
+
+        if (QuantumRunner.DefaultGame.PlayerIsLocal(playerLink.PlayerRef))
+        {
+            _localPlayerRef = playerLink.PlayerRef;
+            _localEntityRef = e.Mechanic;
+        }
 
         entityRefs.Add(e.Mechanic);
 
@@ -159,6 +172,30 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void Update()
     {
+        if(_localEntityRef != null)
+        {
+            SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
+            var skills = f.ResolveList(skillInventory->Skills);
+            for (int i = 0; i < skills.Count; i++)
+            {
+                var skill = skills.GetPointer(i);
+                var skillData = f.FindAsset(skill->SkillData);
+                switch (skill->Status)
+                {
+                    case SkillStatus.Casting:
+                        weaponSkillButtons[i].OnActivate(false);
+                        break;
+                    case SkillStatus.CoolTime:
+                        weaponSkillButtons[i].UpdateCooltime(skill->RemainingCoolTime.AsFloat, skillData.CoolTime.AsFloat);
+                        break;
+                    case SkillStatus.Ready:
+                        weaponSkillButtons[i].OnActivate(true);
+                        break;
+                }
+            }
+        }
+        
+
         // Test Code
         if (isTimerRunning)
         {

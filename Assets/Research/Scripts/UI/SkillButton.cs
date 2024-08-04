@@ -12,7 +12,7 @@ public class SkillButton : MonoBehaviour
 
     public Image cooltimeImage;
 
-    bool isCooldown = false;
+    private bool isCooldown = false;
 
     private void Awake()
     {
@@ -24,6 +24,11 @@ public class SkillButton : MonoBehaviour
         button.interactable = isCooldown;
     }
 
+    public void OnActivate(bool value)
+    {
+        button.interactable = value;
+    }
+
     public void AddListener(UnityAction action)
     {
         button.onClick.AddListener(action);
@@ -32,6 +37,13 @@ public class SkillButton : MonoBehaviour
     public void UpdateCooltime(float currentCooltime, float maxCooltime)
     {
         isCooldown = currentCooltime > 0;
+
+        if (maxCooltime == 0)
+        {
+            cooltimeImage.fillAmount = 0;
+            return;
+        }
+
         cooltimeImage.fillAmount = Mathf.Clamp01(currentCooltime / maxCooltime);
     }
 }
