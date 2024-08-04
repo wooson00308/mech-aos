@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 2462756543750599793}
   - component: {fileID: 4787457602000131484}
   - component: {fileID: 4166576041863015394}
+  - component: {fileID: 810289432329944452}
   m_Layer: 5
   m_Name: Kill_Log
   m_TagString: Untagged
@@ -418,3 +419,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &810289432329944452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8062144263665893070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e93a5a54677054dba7e3d2bfd422d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killedPlayerText: {fileID: 4143164968497212862}
+  killerPlayerText: {fileID: 5892855572260907714}
+  duration: 3

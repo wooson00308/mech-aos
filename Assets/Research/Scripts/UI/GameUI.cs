@@ -38,6 +38,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public Button settingButton;
     public Button settingPopupCloseButton;
     public GameObject settingPanel;
+    public KillLogStorage killLog;
 
     [Header("Test")]
     public float testTime;
@@ -57,12 +58,24 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         _camera = FindObjectOfType<Camera>();
         QuantumEvent.Subscribe(this, (EventOnMechanicCreated e) => OnMechanicCreated(e));
         QuantumEvent.Subscribe(this, (EventOnNexusTakeDamage e) => OnNexusTakeDamage(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
 
         foreach (var pair in _stateObjectPairs)
         {
             _stateObjectDictionary.Add(pair.State, pair.Object);
         }
         f = QuantumRunner.DefaultGame.Frames.Verified;
+    }
+
+    private void OnMechanicDeath(EventOnMechanicDeath e)
+    {
+        var killedPlayerLink = f.Get<PlayerLink>(e.Mechanic);
+        var runtimeKilledPlayer = f.GetPlayerData(killedPlayerLink.PlayerRef);
+
+        var killerPlayerLink = f.Get<PlayerLink>(e.Killer);
+        var runtimeKillerPlayer = f.GetPlayerData(killerPlayerLink.PlayerRef);
+
+        killLog.GetKillLogUI().Show(runtimeKilledPlayer.PlayerNickname, runtimeKillerPlayer.PlayerNickname);
     }
 
     private void OnMechanicCreated(EventOnMechanicCreated e)
