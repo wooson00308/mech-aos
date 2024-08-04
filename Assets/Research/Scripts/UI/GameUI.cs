@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using Photon.Client.StructWrapping;
 using Quantum;
 using Quantum.Mech;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -58,7 +59,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public Vector3 hudOffset;
 
     private PlayerRef _localPlayerRef;
-    private EntityRef _localEntityRef;
+    private EntityRef _localEntityRef = default;
 
     private void Awake()
     {
@@ -172,7 +173,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void Update()
     {
-        if(_localEntityRef != null)
+        if(_localEntityRef.IsValid)
         {
             SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
             var skills = f.ResolveList(skillInventory->Skills);
@@ -194,7 +195,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
                 }
             }
         }
-        
 
         // Test Code
         if (isTimerRunning)
