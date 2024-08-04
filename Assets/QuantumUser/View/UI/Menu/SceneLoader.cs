@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour
 
     void GameStateChanged(Quantum.EventGameStateChanged evt)
     {
-        if (evt.NewState == Quantum.GameState.Countdown)
+        if (evt.NewState == Quantum.GameState.Pregame)
         {
             Debug.Log("들어와용~!!");
             StartCoroutine(LoadScene(QuantumRunner.Default.Game.Frames.Predicted.Map.Scene));

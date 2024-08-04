@@ -8,14 +8,17 @@ namespace Quantum.Mech
 {
     public unsafe class GameStateSystem : SystemMainThread
     {
-        static readonly ReadOnlyDictionary<GameState, Type> stateTable =
-            new(new Dictionary<GameState, Type>()
-            {
-                { GameState.Lobby, typeof(IGameState_Lobby) },
-                { GameState.Pregame, typeof(IGameState_Pregame) },
-                { GameState.Game, typeof(IGameState_Game) },
-                { GameState.Postgame, typeof(IGameState_Postgame) }
-            });
+		static readonly ReadOnlyDictionary<GameState, Type> stateTable =
+			new(new Dictionary<GameState, Type>()
+			{
+				{ GameState.Lobby, typeof(IGameState_Lobby) },
+				{ GameState.Pregame, typeof(IGameState_Pregame) },
+				{ GameState.Intro, typeof(IGameState_Intro) },
+				{ GameState.Countdown, typeof(IGameState_Countdown) },
+				{ GameState.Game, typeof(IGameState_Game) },
+				{ GameState.Outro, typeof(IGameState_Outro) },
+				{ GameState.Postgame, typeof(IGameState_Postgame) }
+			});
 
         
         public override void OnInit(Frame f)

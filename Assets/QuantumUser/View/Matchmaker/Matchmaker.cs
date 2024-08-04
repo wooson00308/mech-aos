@@ -63,7 +63,7 @@ namespace QuantumUser
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // SceneLoader.OnSceneLoadDone += SendData;
+            SceneLoader.OnSceneLoadDone += SendData;
 
             AppSettings = new AppSettings(PhotonServerSettings.Global.AppSettings);
             Client = new RealtimeClient();

@@ -10,12 +10,18 @@ namespace Quantum.Mech
     {
         // 여기서 플레이어 데이터를 뽑아낼수있음
         // https://doc.photonengine.com/ko-kr/quantum/current/tutorials/asteroids/5-player-spawning
-
+        public override bool StartEnabled => false;
         public override void OnEnabled(Frame frame)
         {
             for (PlayerRef player = 0; player < frame.PlayerCount; player++)
             {
+                
                 var data = frame.GetPlayerData(player);
+                if (data == null)
+                {
+                    Debug.LogError($"{player} : {data}");
+                    continue;
+                }
                 MechGameConfig config = frame.FindAsset(frame.RuntimeConfig.MechGameConfig);
                 var playerAvatarAssetRef = data.PlayerAvatar.IsValid ? data.PlayerAvatar : config.MechPrototype;
                 var prototypeAsset = frame.FindAsset(playerAvatarAssetRef);
@@ -49,6 +55,6 @@ namespace Quantum.Mech
             frame.Events.OnMechanicCreated(character);
             frame.Signals.SpawnMechanic(character);
         }
-
+        
     }
 }
