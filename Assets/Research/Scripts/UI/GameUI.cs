@@ -67,6 +67,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventOnMechanicCreated e) => OnMechanicCreated(e));
         QuantumEvent.Subscribe(this, (EventOnNexusTakeDamage e) => OnNexusTakeDamage(e));
         QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicRespawn e) => OnMechanicRespawn(e));
 
         foreach (var pair in _stateObjectPairs)
         {
@@ -75,10 +76,17 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         f = QuantumRunner.DefaultGame.Frames.Verified;
     }
 
+    private void OnMechanicRespawn(EventOnMechanicRespawn e)
+    {
+        entityRefs.Add(e.Mechanic);
+    }
+
     private void OnMechanicDeath(EventOnMechanicDeath e)
     {
         var killedPlayerLink = f.Get<PlayerLink>(e.Mechanic);
         var runtimeKilledPlayer = f.GetPlayerData(killedPlayerLink.PlayerRef);
+
+        entityRefs.Remove(e.Mechanic);
 
         var killerPlayerLink = f.Get<PlayerLink>(e.Killer);
         var runtimeKillerPlayer = f.GetPlayerData(killerPlayerLink.PlayerRef);

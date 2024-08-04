@@ -41,7 +41,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2535508613071177074}
   serializedVersion: 8
-  lengthInSec: 2
+  lengthInSec: 0.8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
@@ -243,7 +243,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 33000
+        atime1: 33346
         atime2: 65535
         atime3: 0
         atime4: 0
@@ -251,7 +251,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 3
       minGradient:
@@ -288,7 +288,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.4
-      minScalar: 0.05
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4928,8 +4928,8 @@ Transform:
   m_GameObject: {fileID: 8708059872935924287}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.082}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4789222577992719940}
@@ -5066,14 +5066,14 @@ MonoBehaviour:
         Y:
           RawValue: 0
         Z:
-          RawValue: 1810
+          RawValue: 3620
       BoxExtents:
         X:
-          RawValue: 6604
+          RawValue: 13208
         Y:
-          RawValue: 7877
+          RawValue: 15754
         Z:
-          RawValue: 5719
+          RawValue: 11439
       RotationOffset:
         X:
           RawValue: 5898240
@@ -5218,15 +5218,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4876723369382429019, guid: c7ccd220fe34db14598e0dbb4ecb9f51, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4876723369382429019, guid: c7ccd220fe34db14598e0dbb4ecb9f51, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4876723369382429019, guid: c7ccd220fe34db14598e0dbb4ecb9f51, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4876723369382429019, guid: c7ccd220fe34db14598e0dbb4ecb9f51, type: 3}
       propertyPath: m_LocalPosition.x

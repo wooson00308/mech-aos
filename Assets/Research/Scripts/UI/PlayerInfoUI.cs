@@ -19,7 +19,7 @@ public class PlayerInfoUI : QuantumMonoBehaviour
     private void Start()
     {
         //SetPlayer(nickname);
-        UpdateHealth(health, maxHealth);
+        //UpdateHealth(health, maxHealth);
     }
 
     public void UpdateHealth(float health, float maxHealth = 100)
