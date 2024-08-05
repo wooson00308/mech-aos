@@ -9,7 +9,7 @@ namespace QuantumUser
         [SerializeField] private TextMeshProUGUI sessionWaitingText;
         private void Update()
         {
-            if (QuantumRunner.Default == null) return;
+            if (QuantumRunner.Default == null || QuantumRunner.Default.Game.Frames.Verified == null) return;
             if (QuantumRunner.Default.Game.Frames.Verified.Global->CurrentState != Quantum.GameState.Lobby) return;
 
             var clock = QuantumRunner.Default.Game.Frames.Verified.Global->clock.AsInt;

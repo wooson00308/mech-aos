@@ -1,5 +1,6 @@
 global
 {
+    Int32 ClientConnectUsers;
 	FP StateTimer;
 	GameState DelayedState;
 	GameState CurrentState;

@@ -6,7 +6,7 @@ namespace Quantum.Mech
 {
     
     [Preserve]
-    public unsafe class MechSpawnSystem : SystemSignalsOnly, IGameState_Countdown, IGameState_Game
+    public unsafe class MechSpawnSystem : SystemSignalsOnly, IGameState_Game
     {
         // 여기서 플레이어 데이터를 뽑아낼수있음
         // https://doc.photonengine.com/ko-kr/quantum/current/tutorials/asteroids/5-player-spawning

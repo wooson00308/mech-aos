@@ -19,10 +19,7 @@ namespace Quantum
 
             Log.Debug($"Player {player} is ready");
             pd->ready = true;
-            pd->Team = (Team)(frame.Global->TeamIndex % 3);
-            frame.Global->TeamIndex++;
-
-
+            
             if (CheckAllReady(frame, dict))
             {
                 Log.Debug("Ready");
@@ -33,7 +30,6 @@ namespace Quantum
 
         private static bool CheckAllReady(Frame f, Collections.QDictionary<int, PlayerData> dict)
         {
-            int redCount = 0, blueCount = 0, greenCount = 0;
             for (int i = 0; i < f.ActiveUsers; i++)
             {
                 if (dict.TryGetValuePointer(i, out PlayerData* pd))
@@ -43,20 +39,6 @@ namespace Quantum
                         Log.Debug($"player {i} is not ready");
                         return false;
                     }
-                    
-                    switch (pd->Team)
-                    {
-                        case Team.Red:
-                            redCount++;
-                            break;
-                        case Team.Blue:
-                            blueCount++;
-                            break;
-                        case Team.Green:
-                            greenCount++;
-                            break;
-                    }
-                    
                 }
                 else
                 {
@@ -64,9 +46,7 @@ namespace Quantum
                     return false;
                 }
             }
-            
-            Log.Debug($"player Team All Ready : {(redCount == 1 && blueCount == 1 && greenCount == 1)}");
-            return (redCount == 1 && blueCount == 1 && greenCount == 1);
+            return true;
         }
     }
 }

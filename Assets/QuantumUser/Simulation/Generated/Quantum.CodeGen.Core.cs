@@ -910,24 +910,20 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayerData {
-    public const Int32 SIZE = 8;
+    public const Int32 SIZE = 4;
     public const Int32 ALIGNMENT = 4;
     [FieldOffset(0)]
     public QBoolean ready;
-    [FieldOffset(4)]
-    public Team Team;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 10271;
         hash = hash * 31 + ready.GetHashCode();
-        hash = hash * 31 + (Int32)Team;
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayerData*)ptr;
         QBoolean.Serialize(&p->ready, serializer);
-        serializer.Stream.Serialize((Int32*)&p->Team);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1033,6 +1029,8 @@ namespace Quantum {
     public BitSet6 PlayerLastConnectionState;
     [FieldOffset(1416)]
     public GameController GameController;
+    [FieldOffset(1380)]
+    public Int32 ClientConnectUsers;
     [FieldOffset(1400)]
     public FP StateTimer;
     [FieldOffset(1372)]
@@ -1043,11 +1041,11 @@ namespace Quantum {
     public GameState PreviousState;
     [FieldOffset(1408)]
     public FP clock;
-    [FieldOffset(1380)]
+    [FieldOffset(1384)]
     public Int32 TeamIndex;
     [FieldOffset(1392)]
     public FP DisconnectTime;
-    [FieldOffset(1384)]
+    [FieldOffset(1388)]
     public QDictionaryPtr<Int32, PlayerData> teamData;
     public FixedArray<Input> input {
       get {
@@ -1070,6 +1068,7 @@ namespace Quantum {
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(input);
         hash = hash * 31 + PlayerLastConnectionState.GetHashCode();
         hash = hash * 31 + GameController.GetHashCode();
+        hash = hash * 31 + ClientConnectUsers.GetHashCode();
         hash = hash * 31 + StateTimer.GetHashCode();
         hash = hash * 31 + (Int32)DelayedState;
         hash = hash * 31 + (Int32)CurrentState;
@@ -1101,6 +1100,7 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->CurrentState);
         serializer.Stream.Serialize((Int32*)&p->DelayedState);
         serializer.Stream.Serialize((Int32*)&p->PreviousState);
+        serializer.Stream.Serialize(&p->ClientConnectUsers);
         serializer.Stream.Serialize(&p->TeamIndex);
         QDictionary.Serialize(&p->teamData, serializer, Statics.SerializeInt32, Statics.SerializePlayerData);
         FP.Serialize(&p->DisconnectTime, serializer);

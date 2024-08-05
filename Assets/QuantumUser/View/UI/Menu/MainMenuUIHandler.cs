@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Quantum;
 using TMPro;
@@ -52,25 +53,23 @@ namespace QuantumUser
                 Debug.Log("No Nickname found");
             }
             
-            Matchmaker.OnRealtimeJoinedRoom += () =>
-            {
-                playersFoundText.text = $"{Matchmaker.Client.CurrentRoom.PlayerCount}/{Matchmaker.Client.CurrentRoom.MaxPlayers}";
-            };
+            Matchmaker.OnRealtimeJoinedRoom += OnConnectUserChanged;
 
             Matchmaker.OnRealtimePlayerJoined += p =>
             {
-                playersFoundText.text = $"{Matchmaker.Client.CurrentRoom.PlayerCount}/{Matchmaker.Client.CurrentRoom.MaxPlayers}";
+                OnConnectUserChanged();
             };
 
             Matchmaker.OnRealtimePlayerLeft += p =>
             {
-                playersFoundText.text = $"{Matchmaker.Client.CurrentRoom.PlayerCount}/{Matchmaker.Client.CurrentRoom.MaxPlayers}";
+                OnConnectUserChanged();
             };
-
-            
         }
-        
-        
+
+        void OnConnectUserChanged()
+        {
+            playersFoundText.text = $"{Matchmaker.Client.CurrentRoom.PlayerCount}/{Matchmaker.Client.CurrentRoom.MaxPlayers}";
+        }
         #region UI Code
         void HideAllPanels()
         {
@@ -161,13 +160,13 @@ namespace QuantumUser
                 }
                 else if (status.State == Matchmaker.State.JoinedRoom)
                 {
-
-                }
-                else if (status.State == Matchmaker.State.GameStarted)
-                {
                     Debug.Log("<color=#FF8080>Game Started</color>");
                     HideAllPopupPanels();
                     searchingPanel.gameObject.SetActive(true);
+                }
+                else if (status.State == Matchmaker.State.GameStarted)
+                {
+
                 }
                 else if (status.State == Matchmaker.State.Failed)
                 {

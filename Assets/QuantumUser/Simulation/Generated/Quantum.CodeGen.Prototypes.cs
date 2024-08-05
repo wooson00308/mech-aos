@@ -356,11 +356,9 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.PlayerData))]
   public unsafe partial class PlayerDataPrototype : StructPrototype {
     public QBoolean ready;
-    public Quantum.QEnum32<Team> Team;
     partial void MaterializeUser(Frame frame, ref Quantum.PlayerData result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.PlayerData result, in PrototypeMaterializationContext context = default) {
         result.ready = this.ready;
-        result.Team = this.Team;
         MaterializeUser(frame, ref result, in context);
     }
   }

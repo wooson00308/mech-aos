@@ -68,13 +68,14 @@ namespace QuantumUser
             AppSettings = new AppSettings(PhotonServerSettings.Global.AppSettings);
             Client = new RealtimeClient();
             Client.AddCallbackTarget(Instance);
+            
         }
-        
-        private void Update()
+
+        public void Update()
         {
             Client?.Service();
+
         }
-        
 
         #endregion
         
@@ -95,6 +96,8 @@ namespace QuantumUser
                 onStatusUpdated = null;
                 LogWarning("Connect failed");
             }
+            
+                
         }
         
         public static void SendStartGameEvent()
@@ -124,7 +127,8 @@ namespace QuantumUser
                 Communicator = new QuantumNetworkCommunicator(Client),
                 SessionConfig = QuantumDeterministicSessionConfigAsset.DefaultConfig,
             };
-		
+		    
+            
             QuantumRunner.StartGame(arguments);
         }
 
@@ -225,9 +229,12 @@ namespace QuantumUser
         public void OnJoinedRoom()
         {
             onStatusUpdated?.Invoke(new ConnectionStatus("Joined Room", State.JoinedRoom));
+            
             Log("Joined room");
             OnRealtimeJoinedRoom?.Invoke();
-            StartQuantumGame();
+            
+            // StartQuantumGame();
+  
         }
 
         public void OnJoinRoomFailed(short returnCode, string message)
@@ -247,6 +254,7 @@ namespace QuantumUser
         {
             Log($"Player {newPlayer} entered the room");
             OnRealtimePlayerJoined?.Invoke(newPlayer);
+     
         }
 
         public void OnPlayerLeftRoom(Player otherPlayer)
@@ -259,6 +267,11 @@ namespace QuantumUser
         public void OnPlayerPropertiesUpdate(Player targetPlayer, PhotonHashtable changedProps)
         {
             Log($"Properties updated for player: {targetPlayer}, {changedProps.ToStringFull()}");
+            if (Client.CurrentRoom.PlayerCount >= Client.CurrentRoom.MaxPlayers)
+            {
+                Debug.Log("실행!!!!!!");
+                StartQuantumGame();
+            }
 
         }
 
@@ -275,7 +288,7 @@ namespace QuantumUser
         
         
         #region Quantum Callbacks
-        public override void OnGameStart(QuantumGame game, bool isResync)
+        public override unsafe void OnGameStart(QuantumGame game, bool isResync)
         {
             if (game.Session.IsPaused)
             {
@@ -287,6 +300,7 @@ namespace QuantumUser
             onStatusUpdated?.Invoke(new ConnectionStatus("Game Started", State.GameStarted));
             onStatusUpdated = null;
             OnQuantumGameStart?.Invoke();
+
         }
         #endregion
     }

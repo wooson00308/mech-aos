@@ -7,8 +7,10 @@ namespace Quantum
 {
     unsafe partial class Frame
     {
+        
         private byte _activeUsers;
         public byte ActiveUsers => _activeUsers;
+
 
         public void UserJoined()
         {
