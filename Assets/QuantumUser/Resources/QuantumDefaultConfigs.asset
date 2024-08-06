@@ -71,12 +71,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a89a4a7ca4e4d6e4698ba1a26ca4eae5, type: 3}
   m_Name: QuantumDefaultConfigs
   m_EditorClassIdentifier: 
-  SimulationConfig: {fileID: 672242397379168251}
+  SimulationConfig: {fileID: 11400000, guid: 0913a89120ef03945810f4df5dd4a36b, type: 2}
   PhysicsMaterial: {fileID: 690653091708213418}
   CharacterController2DConfig: {fileID: 4405956293855254404}
-  CharacterController3DConfig: {fileID: 4714283820342116551}
+  CharacterController3DConfig: {fileID: 11400000, guid: ae3bee741d67e8140a780ec253dd9f37, type: 2}
   NavMeshAgentConfig: {fileID: 7092932817018779343}
-  SystemsConfig: {fileID: -3019409149054279182}
+  SystemsConfig: {fileID: 11400000, guid: 6782da346897bb6478f6a676eb948efb, type: 2}
 --- !u!114 &672242397379168251
 MonoBehaviour:
   m_ObjectHideFlags: 0

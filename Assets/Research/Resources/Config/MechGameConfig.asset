@@ -18,28 +18,10 @@ MonoBehaviour:
       Value: 482644345786211340
   MechPrototype:
     Id:
-      Value: 1511731387183452130
+      Value: 1302707971285072803
   MechMovementSpeed:
     RawValue: 78643200
-  ProjectilePrototype:
-    Id:
-      Value: 1530798938469091314
-  SpawnSpots:
-  - X:
-      RawValue: 327680
-    Y:
-      RawValue: 65536
-    Z:
-      RawValue: 0
-  - X:
-      RawValue: -327680
-    Y:
-      RawValue: 65536
-    Z:
-      RawValue: 0
-  - X:
-      RawValue: 655360
-    Y:
-      RawValue: 65536
-    Z:
-      RawValue: 0
+  lobbyingDuration:
+    RawValue: 655360
+  postgameDuration:
+    RawValue: 1966080

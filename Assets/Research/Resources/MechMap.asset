@@ -20,7 +20,7 @@ MonoBehaviour:
     Id:
       Value: 0
   Scene: Redemo
-  ScenePath: Assets/Research/Scenes/Redemo.unity
+  ScenePath: Assets/Research/Scenes/Redemo/Redemo.unity
   SceneGuid: 223351feacea45749af38216ac9064d1
   WorldSize: 256
   BucketsCount: 16
