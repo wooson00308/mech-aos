@@ -28,17 +28,6 @@ namespace Quantum.Mech
                 SetPlayerCharacter(frame, player, prototypeAsset);
             }
         }
-        // public void OnPlayerAdded(Frame frame, PlayerRef player, bool firstTime)
-        // {
-        //     {
-        //         MechGameConfig config = frame.FindAsset(frame.RuntimeConfig.MechGameConfig);
-        //         var data = frame.GetPlayerData(player);
-        //         var playerAvatarAssetRef = data.PlayerAvatar.IsValid ? data.PlayerAvatar : config.MechPrototype;
-        //         var prototypeAsset = frame.FindAsset(playerAvatarAssetRef);
-        //         SetPlayerCharacter(frame, player, prototypeAsset);
-        //     }
-        // }
-        
         private void SetPlayerCharacter(Frame frame, PlayerRef player, AssetRef<EntityPrototype> prototypeAsset)
         {
             EntityRef character = frame.Create(prototypeAsset);

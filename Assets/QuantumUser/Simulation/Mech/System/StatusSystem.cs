@@ -5,7 +5,8 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class StatusSystem : SystemMainThreadFilter<StatusSystem.Filter>, ISignalOnMechanicRespawn, ISignalOnMechanicHit, ISignalOnMechanicSkillHit
+    public unsafe class StatusSystem : SystemMainThreadFilter<StatusSystem.Filter>,
+        ISignalOnMechanicRespawn, ISignalOnMechanicHit, ISignalOnMechanicSkillHit
     {
         public struct Filter
         {
@@ -93,5 +94,6 @@ namespace Quantum.Mech
             frame.Events.OnMechanicDeath(mechanic, killer);
 
         }
+        
     }
 }

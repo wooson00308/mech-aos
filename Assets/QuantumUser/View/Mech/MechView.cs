@@ -21,13 +21,10 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
 
         QuantumEvent.Subscribe<EventOnMechanicDeath>(this, Death);
         QuantumEvent.Subscribe<EventOnMechanicRespawn>(this, Respawn);
-        QuantumEvent.Subscribe<EventOnTeamNexusDestroy>(this, OnTeamNexusDestroy);
     }
     
     private void Respawn(EventOnMechanicRespawn mechanicRespawn)
     {
-        
-        // var playableMechanic = VerifiedFrame.Get<PlayableMechanic>(EntityRef);
         if (mechanicRespawn.Mechanic != EntityRef) return;
         Body.gameObject.SetActive(true);
     }
@@ -47,27 +44,6 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
             }
         }
 
-        if (Nexus->IsDestroy)
-        {
-            VerifiedFrame.Destroy(EntityRef);
-            // 영원히 죽음 처리
-        }
-
-        
-
-    }
-    private void OnTeamNexusDestroy(EventOnTeamNexusDestroy nexusDestroy)
-    {
-
-        var playableMechanic = VerifiedFrame.Get<PlayableMechanic>(EntityRef);
-        if (nexusDestroy.Team != playableMechanic.Team) return;
-        var status = VerifiedFrame.Get<Status>(EntityRef);
-        if (status.IsDead)
-        {
-            VerifiedFrame.Destroy(EntityRef);
-            // 영원히 죽음 처리
-        }
-        
     }
     private void OnDestroy()
     {

@@ -17,6 +17,7 @@ namespace QuantumUser
         public static RealtimeClient Client { get; private set; }
         public static AppSettings AppSettings { get; private set; }
         
+        public static bool isRequeueing = false;
         
         static System.Action<ConnectionStatus> onStatusUpdated = null;
         
@@ -25,6 +26,8 @@ namespace QuantumUser
         [SerializeField] RuntimePlayer runtimePlayer;
         
         [SerializeField] byte maxPlayers = 3;
+
+        [SerializeField] private string menuScene = "Start";
         
         
         #region Type Definitions
@@ -196,10 +199,9 @@ namespace QuantumUser
             // AudioManager.LerpVolume(AudioManager.Instance.crowdSource, 0f, 0.5f);
             // AudioManager.SetSnapshot("Default", 0.5f);
             // if (CameraController.Instance) CameraController.Instance.Effects.Unblur(0);
-            // UnityEngine.SceneManagement.SceneManager.LoadScene(menuScene);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(menuScene);
 
             // if (isRequeueing) return;
-
             // UIScreen.activeScreen.BackTo(InterfaceManager.Instance.mainMenuScreen);
             // UIScreen.Focus(InterfaceManager.Instance.playmodeScreen);
         }

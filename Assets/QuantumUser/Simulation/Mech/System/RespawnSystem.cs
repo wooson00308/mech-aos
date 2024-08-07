@@ -13,7 +13,7 @@ namespace Quantum.Mech
         {
             foreach (var (mechanic, mechanicStatus) in f.Unsafe.GetComponentBlockIterator<Status>())
             {
-                if (mechanicStatus->IsDead)
+                if (mechanicStatus->IsDead && IsRespawnTimerAllowed(f, f.Get<PlayableMechanic>(mechanic).Team))
                 {
                     mechanicStatus->RespawnTimer -= f.DeltaTime;
                     if (mechanicStatus->RespawnTimer <= FP._0)
@@ -24,6 +24,16 @@ namespace Quantum.Mech
                     }
                 }
             }
+        }
+        private bool IsRespawnTimerAllowed(Frame f,Team team)
+        {
+            foreach (var pair in f.Unsafe.GetComponentBlockIterator<Nexus>())
+            {
+                if(pair.Component->Team != team) continue;
+                return !pair.Component->IsDestroy;
+            }
+
+            return false;
         }
     }
 }

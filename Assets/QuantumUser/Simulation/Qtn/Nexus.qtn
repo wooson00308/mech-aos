@@ -2,7 +2,8 @@ component Nexus
 {
     Team Team;
     FP CurrentHealth;
-    Boolean IsDestroy;   
+    Boolean IsDestroy;
+    Boolean IsTeamDefeat;
 }
 
 abstract event NexusEvent {

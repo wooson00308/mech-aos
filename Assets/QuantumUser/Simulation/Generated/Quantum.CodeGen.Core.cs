@@ -1263,26 +1263,30 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Nexus : Quantum.IComponent {
-    public const Int32 SIZE = 16;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(4)]
-    public Team Team;
     [FieldOffset(8)]
+    public Team Team;
+    [FieldOffset(16)]
     public FP CurrentHealth;
     [FieldOffset(0)]
     public QBoolean IsDestroy;
+    [FieldOffset(4)]
+    public QBoolean IsTeamDefeat;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 2557;
         hash = hash * 31 + (Int32)Team;
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + IsDestroy.GetHashCode();
+        hash = hash * 31 + IsTeamDefeat.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Nexus*)ptr;
         QBoolean.Serialize(&p->IsDestroy, serializer);
+        QBoolean.Serialize(&p->IsTeamDefeat, serializer);
         serializer.Stream.Serialize((Int32*)&p->Team);
         FP.Serialize(&p->CurrentHealth, serializer);
     }
@@ -1465,11 +1469,23 @@ namespace Quantum {
   public unsafe partial interface ISignalOnGameEnded : ISignal {
     void OnGameEnded(Frame f, GameController* gameController);
   }
+  public unsafe partial interface ISignalGameStateChanged : ISignal {
+    void GameStateChanged(Frame f, GameState state);
+  }
+  public unsafe partial interface ISignalPlayerKilled : ISignal {
+    void PlayerKilled(Frame f, EntityRef target, EntityRef killer);
+  }
+  public unsafe partial interface ISignalPlayerNexusDestoryed : ISignal {
+    void PlayerNexusDestoryed(Frame f, Team team);
+  }
   public unsafe partial interface ISignalOnNexusHit : ISignal {
     void OnNexusHit(Frame f, EntityRef bullet, EntityRef nexus, FP damage);
   }
   public unsafe partial interface ISignalOnNexusDestroy : ISignal {
     void OnNexusDestroy(Frame f, EntityRef nexus, EntityRef killer);
+  }
+  public unsafe partial interface ISignalOnTeamDefeat : ISignal {
+    void OnTeamDefeat(Frame f, Team Team);
   }
   public static unsafe partial class Constants {
   }
@@ -1482,8 +1498,12 @@ namespace Quantum {
     private ISignalOnMechanicSkillHit[] _ISignalOnMechanicSkillHitSystems;
     private ISignalOnMechanicDeath[] _ISignalOnMechanicDeathSystems;
     private ISignalOnGameEnded[] _ISignalOnGameEndedSystems;
+    private ISignalGameStateChanged[] _ISignalGameStateChangedSystems;
+    private ISignalPlayerKilled[] _ISignalPlayerKilledSystems;
+    private ISignalPlayerNexusDestoryed[] _ISignalPlayerNexusDestoryedSystems;
     private ISignalOnNexusHit[] _ISignalOnNexusHitSystems;
     private ISignalOnNexusDestroy[] _ISignalOnNexusDestroySystems;
+    private ISignalOnTeamDefeat[] _ISignalOnTeamDefeatSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -1503,8 +1523,12 @@ namespace Quantum {
       _ISignalOnMechanicSkillHitSystems = BuildSignalsArray<ISignalOnMechanicSkillHit>();
       _ISignalOnMechanicDeathSystems = BuildSignalsArray<ISignalOnMechanicDeath>();
       _ISignalOnGameEndedSystems = BuildSignalsArray<ISignalOnGameEnded>();
+      _ISignalGameStateChangedSystems = BuildSignalsArray<ISignalGameStateChanged>();
+      _ISignalPlayerKilledSystems = BuildSignalsArray<ISignalPlayerKilled>();
+      _ISignalPlayerNexusDestoryedSystems = BuildSignalsArray<ISignalPlayerNexusDestoryed>();
       _ISignalOnNexusHitSystems = BuildSignalsArray<ISignalOnNexusHit>();
       _ISignalOnNexusDestroySystems = BuildSignalsArray<ISignalOnNexusDestroy>();
+      _ISignalOnTeamDefeatSystems = BuildSignalsArray<ISignalOnTeamDefeat>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AbilityInventory>();
@@ -1672,6 +1696,33 @@ namespace Quantum {
           }
         }
       }
+      public void GameStateChanged(GameState state) {
+        var array = _f._ISignalGameStateChangedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.GameStateChanged(_f, state);
+          }
+        }
+      }
+      public void PlayerKilled(EntityRef target, EntityRef killer) {
+        var array = _f._ISignalPlayerKilledSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.PlayerKilled(_f, target, killer);
+          }
+        }
+      }
+      public void PlayerNexusDestoryed(Team team) {
+        var array = _f._ISignalPlayerNexusDestoryedSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.PlayerNexusDestoryed(_f, team);
+          }
+        }
+      }
       public void OnNexusHit(EntityRef bullet, EntityRef nexus, FP damage) {
         var array = _f._ISignalOnNexusHitSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -1687,6 +1738,15 @@ namespace Quantum {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnNexusDestroy(_f, nexus, killer);
+          }
+        }
+      }
+      public void OnTeamDefeat(Team Team) {
+        var array = _f._ISignalOnTeamDefeatSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnTeamDefeat(_f, Team);
           }
         }
       }

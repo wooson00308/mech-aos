@@ -5,7 +5,7 @@ component Status {
 	FP RegenTimer;
 	FP InvincibleTimer;
 	Int32 DisconnectedTicks;
-
+	
 	asset_ref<StatusData> StatusData;
 	asset_ref<PlayerMovementData> PlayerMovementData;
 	

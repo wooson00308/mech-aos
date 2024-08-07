@@ -324,6 +324,7 @@ namespace Quantum.Prototypes {
     public Quantum.QEnum32<Team> Team;
     public FP CurrentHealth;
     public QBoolean IsDestroy;
+    public QBoolean IsTeamDefeat;
     partial void MaterializeUser(Frame frame, ref Quantum.Nexus result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.Nexus component = default;
@@ -334,6 +335,7 @@ namespace Quantum.Prototypes {
         result.Team = this.Team;
         result.CurrentHealth = this.CurrentHealth;
         result.IsDestroy = this.IsDestroy;
+        result.IsTeamDefeat = this.IsTeamDefeat;
         MaterializeUser(frame, ref result, in context);
     }
   }

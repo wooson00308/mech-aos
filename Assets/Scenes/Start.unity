@@ -5112,7 +5112,7 @@ MonoBehaviour:
       Id:
         Value: 1302707971285072803
     PlayerNickname: 
-  maxPlayers: 3
+  maxPlayers: 2
 --- !u!4 &2131968834
 Transform:
   m_ObjectHideFlags: 0

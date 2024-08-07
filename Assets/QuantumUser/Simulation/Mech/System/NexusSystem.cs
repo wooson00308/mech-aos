@@ -37,9 +37,15 @@ namespace Quantum.Mech
             nexusStatus->IsDestroy = true;
             var collider3D = frame.Unsafe.GetPointer<PhysicsCollider3D>(nexus);
             collider3D->Enabled = false;
-            frame.Signals.OnNexusDestroy(nexus, killer);
+            
+            
+            frame.Signals.OnNexusDestroy(nexus, killer); // 현재 안씀
             frame.Events.OnNexusDestroy(nexus, killer);
 
+            frame.Signals.OnTeamDefeat(nexusStatus->Team);
+            
         }
+        
+        
     }
 }
