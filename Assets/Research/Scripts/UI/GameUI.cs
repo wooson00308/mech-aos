@@ -41,7 +41,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public Button settingPopupCloseButton;
     public GameObject settingPanel;
     public KillLogStorage killLog;
-
+    public Chat ChatUI;
+    
     [Header("Controller")]
     public List<SkillButton> weaponSkillButtons;
 
@@ -102,6 +103,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             _localPlayerRef = playerLink.PlayerRef;
             _localEntityRef = e.Mechanic;
+            var runtimePlayer = f.GetPlayerData(_localPlayerRef);
+            ChatUI.Connect(runtimePlayer.PlayerNickname);
         }
 
         var players = QuantumRunner.DefaultGame.GetLocalPlayers();

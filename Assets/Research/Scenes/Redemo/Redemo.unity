@@ -6911,6 +6911,10 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4185880610563538982, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
+      propertyPath: ChatUI
+      value: 
+      objectReference: {fileID: 601195314}
     - target: {fileID: 4375560454481889844, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
       propertyPath: m_Interactable
       value: 0
@@ -6918,6 +6922,10 @@ PrefabInstance:
     - target: {fileID: 5091930263046377612, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
       propertyPath: m_Interactable
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117519252960142768, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8403241895869769898, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
       propertyPath: maxHealth
@@ -6945,6 +6953,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 620685373130455502, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
   m_PrefabInstance: {fileID: 601195312}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &601195314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2499822980245009294, guid: f55f35c860ca9eb46a2911c7b1f61cf6, type: 3}
+  m_PrefabInstance: {fileID: 601195312}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ea5b3fcd8c9774494212f5ac1d70b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642943724
 GameObject:
   m_ObjectHideFlags: 0
