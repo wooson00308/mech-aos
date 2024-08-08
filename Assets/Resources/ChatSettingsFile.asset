@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8078fb5ca219c34ea80805fec36beae, type: 3}
+  m_Script: {fileID: 11500000, guid: 37af2cf7764b5f34a8c6c7fccc5168a4, type: 3}
   m_Name: ChatSettingsFile
   m_EditorClassIdentifier: 
   AppId: 0539c950-cab5-4f7b-ad1b-ed26bb607fe3
-  WizardDone: 1
+  WizardDone: 0
