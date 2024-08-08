@@ -60,8 +60,6 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (_slot == InputSlot.Buttons.None)
-            return;
         if (!isCooldown)
             SendValueToControl(1.0f);
     }
