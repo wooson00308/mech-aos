@@ -5,6 +5,7 @@ using UnityEngine;
 public class TimerUI : QuantumMonoBehaviour
 {
     public TMP_Text timerText;
+    public TMP_Text titleText;
 
     public void UpdateTimerDisplay(float time)
     {

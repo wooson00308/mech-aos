@@ -108,7 +108,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         }
 
         var players = QuantumRunner.DefaultGame.GetLocalPlayers(); 
-        entityRefs.Add(e.Mechanic);
         Status* playerStatus = f.Unsafe.GetPointer<Status>(e.Mechanic);
 
         float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
@@ -149,12 +148,32 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     {
         settingButton.onClick.AddListener(OnSettingButtonClicked);
         settingPopupCloseButton.onClick.AddListener(OnSettingButtonClicked);
-
-        SetTimer(testTime);
     }
 
     private void FixedUpdate()
     {
+        float countdown = f.Global->StateTimer.AsFloat;
+        if (countdown > 0)
+        {
+            timer.UpdateTimerDisplay(countdown);
+            timer.titleText.text = "Wait for seconds..";
+        }
+        else
+        {
+            timer.titleText.text = "Limit Time";
+
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                timer.UpdateTimerDisplay(timeRemaining);
+            }
+            else
+            {
+                timeRemaining = 0;
+                TimerEnded();
+            }
+        }
+
         foreach (var entity in entityRefs)
         {
             var transform3D = f.Get<Transform3D>(entity);
@@ -204,35 +223,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
                 }
             }
         }
-
-        // Test Code
-        if (isTimerRunning)
-        {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                timer.UpdateTimerDisplay(timeRemaining);
-            }
-            else
-            {
-                timeRemaining = 0; 
-                isTimerRunning = false;
-                TimerEnded(); 
-            }
-        }
-    }
-
-    private void UpdateHUD(Vector3 position)
-    {
-
-    } 
-
-    public void SetTimer(float time)
-    {
-        timeRemaining = time;
-        timer.UpdateTimerDisplay(time);
-
-        isTimerRunning = true;
     }
 
     private void TimerEnded()
