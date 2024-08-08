@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using Button = UnityEngine.UI.Button;
 
 enum UIState
@@ -49,7 +50,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     [Header("Test")]
     public float testTime;
     private float timeRemaining; 
-    private bool isTimerRunning = false;
 
     private Frame f;
 
@@ -69,6 +69,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventOnNexusTakeDamage e) => OnNexusTakeDamage(e));
         QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
         QuantumEvent.Subscribe(this, (EventOnMechanicRespawn e) => OnMechanicRespawn(e));
+        QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
 
         foreach (var pair in _stateObjectPairs)
         {
@@ -76,6 +77,19 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         }
         f = QuantumRunner.DefaultGame.Frames.Predicted;
     }
+
+    private void OnGameStateChanged(EventGameStateChanged e)
+    {
+        float countdown = f.Global->StateTimer.AsFloat;
+        timer.SetTimerDisplay(countdown);
+
+        timer.titleText.text = string.Empty;
+
+        if (e.NewState == GameState.Countdown)
+        {
+            timer.titleText.text = "Wait for seconds..";
+        }
+    } 
 
     private void OnMechanicRespawn(EventOnMechanicRespawn e)
     {
@@ -152,28 +166,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void FixedUpdate()
     {
-        float countdown = f.Global->StateTimer.AsFloat;
-        if (countdown > 0)
-        {
-            timer.UpdateTimerDisplay(countdown);
-            timer.titleText.text = "Wait for seconds..";
-        }
-        else
-        {
-            timer.titleText.text = "Limit Time";
-
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                timer.UpdateTimerDisplay(timeRemaining);
-            }
-            else
-            {
-                timeRemaining = 0;
-                TimerEnded();
-            }
-        }
-
         foreach (var entity in entityRefs)
         {
             var transform3D = f.Get<Transform3D>(entity);
