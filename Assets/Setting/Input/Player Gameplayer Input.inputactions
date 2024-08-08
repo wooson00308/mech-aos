@@ -908,7 +908,7 @@
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "",
                     "action": "Primary Action",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -919,7 +919,7 @@
                     "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "",
                     "action": "Secondary Action",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -930,7 +930,7 @@
                     "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad",
+                    "groups": "",
                     "action": "Tertiary Action",
                     "isComposite": false,
                     "isPartOfComposite": false
