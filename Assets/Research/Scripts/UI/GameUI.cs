@@ -73,7 +73,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             _stateObjectDictionary.Add(pair.State, pair.Object);
         }
-        f = QuantumRunner.DefaultGame.Frames.Verified;
+        f = QuantumRunner.DefaultGame.Frames.Predicted;
     }
 
     private void OnMechanicRespawn(EventOnMechanicRespawn e)
@@ -98,7 +98,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     {
         var playerLink = f.Get<PlayerLink>(e.Mechanic);
 
-        if (_localEntityRef.IsValid && QuantumRunner.DefaultGame.PlayerIsLocal(playerLink.PlayerRef))
+        if (!_localEntityRef.IsValid && QuantumRunner.DefaultGame.PlayerIsLocal(playerLink.PlayerRef))
         {
             _localPlayerRef = playerLink.PlayerRef;
             _localEntityRef = e.Mechanic;
