@@ -10391,7 +10391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prototype:
     CurrentHealth:
-      RawValue: 13107200
+      RawValue: 65536000
     IsDead:
       Value: 0
     RespawnTimer:
@@ -10497,6 +10497,15 @@ MonoBehaviour:
       SkillData:
         Id:
           Value: 454821695443330579
+    - Status:
+        Value: 0
+      RemainingCastingTime:
+        RawValue: 0
+      RemainingCoolTime:
+        RawValue: 65536
+      SkillData:
+        Id:
+          Value: 311588689190184940
 --- !u!114 &3689414065753519254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10514,6 +10523,9 @@ MonoBehaviour:
     - AbilityData:
         Id:
           Value: 462760346344646320
+    - AbilityData:
+        Id:
+          Value: 448190493409595022
 --- !u!1 &3917550182542229095
 GameObject:
   m_ObjectHideFlags: 0

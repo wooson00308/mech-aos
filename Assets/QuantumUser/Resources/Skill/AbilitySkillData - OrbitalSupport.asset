@@ -9,17 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9ab1a7438ad4d6b82ad22028a703ba2, type: 3}
-  m_Name: BulletSkillData - ClusterMissile
+  m_Script: {fileID: 11500000, guid: 7a8d6cb8a9bd4ba183564bcbab13937a, type: 3}
+  m_Name: AbilitySkillData - OrbitalSupport
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Skill/BulletSkillData - ClusterMissile
+    Path: QuantumUser/Resources/Skill/AbilitySkillData - OrbitalSupport
     Guid:
-      Value: 295010614615602826
+      Value: 311588689190184940
   CastingTime:
-    RawValue: 6554
+    RawValue: 0
   CoolTime:
-    RawValue: 458752
-  WeaponData:
-    Id:
-      Value: 430511359408159528
+    RawValue: 65536
+  abilityType: 1

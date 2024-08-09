@@ -11,6 +11,7 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
     public Nexus* Nexus;
     public Transform Body;
     public Animator CharacterAnimator;
+    
     public override void OnActivate(Frame frame)
     {
         var playerLink = VerifiedFrame.Get<PlayerLink>(EntityRef);
@@ -18,11 +19,10 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
         {
             ViewContext.LocalPlayerView = this;
         }
-
         QuantumEvent.Subscribe<EventOnMechanicDeath>(this, Death);
         QuantumEvent.Subscribe<EventOnMechanicRespawn>(this, Respawn);
+
     }
-    
     private void Respawn(EventOnMechanicRespawn mechanicRespawn)
     {
         if (mechanicRespawn.Mechanic != EntityRef) return;
@@ -45,6 +45,9 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
         }
 
     }
+    
+
+    
     private void OnDestroy()
     {
         QuantumEvent.UnsubscribeListener(this);

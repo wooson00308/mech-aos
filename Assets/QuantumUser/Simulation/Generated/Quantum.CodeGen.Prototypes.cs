@@ -62,9 +62,9 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.AbilityInventory))]
   public unsafe partial class AbilityInventoryPrototype : ComponentPrototype<Quantum.AbilityInventory> {
-    [Header("Ability Order: Dash")]
-    [ArrayLengthAttribute(1)]
-    public Quantum.Prototypes.AbilityPrototype[] Abilities = new Quantum.Prototypes.AbilityPrototype[1];
+    [Header("Ability Order: Dash, OrbitalSupport")]
+    [ArrayLengthAttribute(2)]
+    public Quantum.Prototypes.AbilityPrototype[] Abilities = new Quantum.Prototypes.AbilityPrototype[2];
     partial void MaterializeUser(Frame frame, ref Quantum.AbilityInventory result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.AbilityInventory component = default;
@@ -72,7 +72,7 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.AbilityInventory result, in PrototypeMaterializationContext context = default) {
-        for (int i = 0, count = PrototypeValidator.CheckLength(Abilities, 1, in context); i < count; ++i) {
+        for (int i = 0, count = PrototypeValidator.CheckLength(Abilities, 2, in context); i < count; ++i) {
           this.Abilities[i].Materialize(frame, ref *result.Abilities.GetPointer(i), in context);
         }
         MaterializeUser(frame, ref result, in context);

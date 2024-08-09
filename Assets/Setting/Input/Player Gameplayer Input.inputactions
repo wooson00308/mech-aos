@@ -811,6 +811,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Quaternary Action",
+                    "type": "Button",
+                    "id": "e96d9ec9-29e6-4e20-a01e-c120f4a1ed02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -820,7 +829,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -831,7 +840,7 @@
                     "path": "<Joystick>/stick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Joystick",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -932,6 +941,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Tertiary Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9aee6bdf-4cf5-488c-885b-9cf2c1ab43e9",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quaternary Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

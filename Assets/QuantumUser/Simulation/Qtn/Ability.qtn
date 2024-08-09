@@ -1,15 +1,16 @@
 // Order used for activation priority
 enum AbilityType
 {
-    Dash
+    Dash,
+    OrbitalSupport
 }
 component AbilityInventory
 {
     [ExcludeFromPrototype] ActiveAbilityInfo ActiveAbilityInfo;
         
     // Same order as AbilityType enum
-    [Header("Ability Order: Dash")]
-    array<Ability>[1] Abilities;
+    [Header("Ability Order: Dash, OrbitalSupport")]
+    array<Ability>[2] Abilities;
 }
 
 struct ActiveAbilityInfo
@@ -40,3 +41,9 @@ struct CountdownTimer
 
 signal OnCooldownsReset(entity_ref playerEntityRef);
 signal OnActiveAbilityStopped(entity_ref playerEntityRef);
+
+enum EAbilityEndCondition
+{
+    Duration = 0,    // 일정 시간이 지나면 스킬이 종료됩니다.
+    Event = 1        // 특정 이벤트가 발생하면 스킬이 종료됩니다.
+}

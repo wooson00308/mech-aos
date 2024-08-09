@@ -17,6 +17,7 @@ namespace Quantum.Mech
             QuantumCallback.Subscribe(this, (CallbackPollInput callback) => PollInput(callback),
                 onlyIfActiveAndEnabled: true);
             _playerInput = GetComponent<PlayerInput>();
+            ViewContext.LocalplayerInput = _playerInput;
         }
 
         public override void OnUpdateView()
@@ -50,7 +51,7 @@ namespace Quantum.Mech
             input.MainWeaponFire = _playerInput.actions["Primary Action"].IsPressed();
             input.FirstSkill = _playerInput.actions["Secondary Action"].IsPressed();
             input.SecondSkill = _playerInput.actions["Tertiary Action"].IsPressed();
-            
+            input.ThirdSkill = _playerInput.actions["Quaternary Action"].IsPressed();
             callback.SetInput(input, DeterministicInputFlags.Repeatable);
         }
     }

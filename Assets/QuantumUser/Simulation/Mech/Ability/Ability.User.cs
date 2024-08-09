@@ -93,21 +93,26 @@ namespace Quantum
                     {
                         state.IsActiveStartTick = true;
                         AbilityData abilityData = frame.FindAsset<AbilityData>(AbilityData.Id);
-                        DurationTimer.Start(abilityData.Duration);
+                        if(abilityData.EndCondition == EAbilityEndCondition.Duration)
+                            DurationTimer.Start(abilityData.Duration);
                     }
                 }
 
                 if (IsActive)
                 {
                     state.IsActive = true;
-
-                    DurationTimer.Tick(frame.DeltaTime - delayTimeLeft);
-
-                    if (DurationTimer.IsDone)
+                    var abilityData = frame.FindAsset<AbilityData>(AbilityData.Id);
+                    
+                    if (abilityData.EndCondition == EAbilityEndCondition.Duration)
                     {
-                        state.IsActiveEndTick = true;
+                        DurationTimer.Tick(frame.DeltaTime - delayTimeLeft);
 
-                        StopAbility(frame, entityRef);
+                        if (DurationTimer.IsDone)
+                        {
+                            state.IsActiveEndTick = true;
+
+                            StopAbility(frame, entityRef);
+                        }
                     }
                 }
             }

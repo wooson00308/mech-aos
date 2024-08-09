@@ -20,10 +20,10 @@ MonoBehaviour:
   Prefab: {fileID: 0}
   RootName: 
   FireRate:
-    RawValue: 327680
+    RawValue: 1310720
   ShootForce:
     RawValue: 5242880
-  MaxAmmo: 1
+  MaxAmmo: 20
   RechargeTimer:
     RawValue: 65536
   TimeToRecharge:

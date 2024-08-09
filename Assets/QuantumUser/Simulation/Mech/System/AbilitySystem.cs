@@ -1,4 +1,5 @@
 
+using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace Quantum.Mech
@@ -18,6 +19,7 @@ namespace Quantum.Mech
             for (int i = 0; i < filter.AbilityInventory->Abilities.Length; i++)
             {
                 ref Ability ability = ref filter.AbilityInventory->Abilities[i];
+                Debug.Log($"{ability.AbilityType}");
                 AbilityData abilityData = frame.FindAsset<AbilityData>(ability.AbilityData.Id);
 
                 abilityData.UpdateAbility(frame, filter.EntityRef, ref ability);
@@ -45,18 +47,14 @@ namespace Quantum.Mech
                 }
             }
         }
-        
 
-         public void OnAdded(Frame frame, EntityRef entity, AbilityInventory* abilityInventory)
+        public void OnAdded(Frame frame, EntityRef entity, AbilityInventory* abilityInventory)
         {
             abilityInventory->ActiveAbilityInfo.ActiveAbilityIndex = -1;
 
             for (int i = 0; i < abilityInventory->Abilities.Length; i++)
             {
-                AbilityType abilityType = (AbilityType)i;
-                Ability ability = abilityInventory->Abilities[i];
-
-                ability.AbilityType = abilityType;
+                abilityInventory->Abilities[i].AbilityType = (AbilityType)i;
             }
         }
     }

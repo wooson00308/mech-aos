@@ -15,6 +15,7 @@ namespace Quantum.Mech
             public PlayerLink* PlayerLink;
             public Status* Status;
             public SkillInventory* SkillInventory;
+            public WeaponInventory* WeaponInventory;
         }
 
         public override void Update(Frame frame, ref Filter filter)
@@ -23,14 +24,18 @@ namespace Quantum.Mech
             var playerLink = filter.PlayerLink;
             var status = filter.Status;
             var skillInventory = filter.SkillInventory;
+            var weaponInventory = filter.WeaponInventory;
+            
             if (status->IsDead)
             {
                 return;
             }
             
             var skills = frame.ResolveList(skillInventory->Skills);
+            var weapons = frame.ResolveList(weaponInventory->Weapons);
+            var currentWeapons = weapons[weaponInventory->CurrentWeaponIndex];
             
-            OnInput(frame, playerLink->PlayerRef, skills);
+            OnInput(frame, playerLink->PlayerRef, skills, currentWeapons);
             
             for (int i = 0; i < skills.Count; i++)
             {
@@ -57,33 +62,36 @@ namespace Quantum.Mech
                         break;
                 }
             }
-                
+
+  
 
         }
-        private void OnInput(Frame frame, PlayerRef playerRef, QList<Skill> skills)
+        private void OnInput(Frame frame, PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
         {
             var input = frame.GetPlayerInput(playerRef);
+            var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
+
             if (input->FirstSkill.WasPressed)
             {
-                ActionSkill(skills, 0);
+                ActionSkill(weaponData, skills, 0);
             }
             if (input->SecondSkill.WasPressed)
             {
-                ActionSkill(skills, 1);
+                ActionSkill(weaponData, skills, 1);
             }
             if (input->ThirdSkill.WasPressed)
             {
-                ActionSkill(skills, 2);
+                ActionSkill(weaponData, skills, 2);
             }
         }
-        private void ActionSkill(QList<Skill> skills, int index)
+        private void ActionSkill(PrimaryWeaponData data, QList<Skill> skills, int index)
         {
-            if (skills.Count < index) return;  
-            var skill = skills.GetPointer(index);
+            if (data.Skills.Count <= index) return;
+            if (skills.Count <= data.Skills[index]) return;  
+            var skill = skills.GetPointer(data.Skills[index]);
             if (skill->Status != SkillStatus.Ready) return;
             skill->Status = SkillStatus.Casting;
         }
-        
         public void OnMechanicRespawn(Frame frame, EntityRef robot)
         {
             // throw new System.NotImplementedException();

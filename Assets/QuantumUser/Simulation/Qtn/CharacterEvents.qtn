@@ -13,4 +13,8 @@ synced event OnMechanicDeath : MechanicEvent {
 event OnMechanicCreated : MechanicEvent {}
 event OnMechanicRespawn : MechanicEvent {}
 event OnMechanicChangeWeapon : MechanicEvent {}
+
+// SKill
 event OnMechanicDashed : MechanicEvent {}
+event OnMechanicOrbitalSupport : MechanicEvent {}
+event OnMechanicOrbitalSupportEnd : MechanicEvent {}

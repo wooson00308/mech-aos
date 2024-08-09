@@ -11,7 +11,7 @@ namespace Quantum
         public override void Action(Frame frame, EntityRef mechanic)
         {
             if (!frame.Unsafe.TryGetPointer(mechanic, out AbilityInventory* abilityInventory)) return;
-            if (_abilityIndex == -1) _abilityIndex = GetAbility(abilityInventory->Abilities);
+            _abilityIndex = GetAbility(abilityInventory->Abilities);
             if (_abilityIndex == -2) return;
 
             Debug.Log("어빌리티 스킬 실행!");
@@ -19,6 +19,7 @@ namespace Quantum
             
             var abilityData = frame.FindAsset<AbilityData>(ability.AbilityData.Id);
             
+            Debug.Log(abilityData.name);
             abilityData.UpdateInput(frame, ref ability);
         }
 

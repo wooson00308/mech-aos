@@ -51,6 +51,11 @@ namespace Quantum {
   
   public enum AbilityType : int {
     Dash,
+    OrbitalSupport,
+  }
+  public enum EAbilityEndCondition : int {
+    Duration = 0,
+    Event = 1,
   }
   public enum EHitTargetType : int {
     None,
@@ -1111,18 +1116,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct AbilityInventory : Quantum.IComponent {
-    public const Int32 SIZE = 152;
+    public const Int32 SIZE = 216;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(64)]
+    [FieldOffset(128)]
     [ExcludeFromPrototype()]
     public ActiveAbilityInfo ActiveAbilityInfo;
     [FieldOffset(0)]
-    [Header("Ability Order: Dash")]
-    [FramePrinter.FixedArrayAttribute(typeof(Ability), 1)]
-    private fixed Byte _Abilities_[64];
+    [Header("Ability Order: Dash, OrbitalSupport")]
+    [FramePrinter.FixedArrayAttribute(typeof(Ability), 2)]
+    private fixed Byte _Abilities_[128];
     public FixedArray<Ability> Abilities {
       get {
-        fixed (byte* p = _Abilities_) { return new FixedArray<Ability>(p, 64, 1); }
+        fixed (byte* p = _Abilities_) { return new FixedArray<Ability>(p, 64, 2); }
       }
     }
     public override Int32 GetHashCode() {
@@ -1797,6 +1802,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum.CountdownTimer), Quantum.CountdownTimer.SIZE);
       typeRegistry.Register(typeof(DistanceJoint), DistanceJoint.SIZE);
       typeRegistry.Register(typeof(DistanceJoint3D), DistanceJoint3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.EAbilityEndCondition), 4);
       typeRegistry.Register(typeof(Quantum.EHitTargetType), 4);
       typeRegistry.Register(typeof(Quantum.EKCCCollisionSource), 1);
       typeRegistry.Register(typeof(Quantum.EKCCIgnoreSource), 1);
@@ -1905,6 +1911,7 @@ namespace Quantum {
     public static void EnsureNotStrippedGen() {
       FramePrinter.EnsureNotStripped();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.AbilityType>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.EAbilityEndCondition>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EHitTargetType>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCCollisionSource>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.EKCCIgnoreSource>();
