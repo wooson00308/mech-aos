@@ -182,8 +182,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4661191233189047701}
   - {fileID: 8345737714803039942}
+  - {fileID: 4661191233189047701}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b77ae3e67484f3499ffdceb26945afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 3603833659643297152}
   cooltimeImage: {fileID: 1528046466132015196}
+  isSkillButton: 1
   _controlPath: 

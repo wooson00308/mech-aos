@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 7034825971310756322}
   - component: {fileID: 7105169602852131754}
   - component: {fileID: 172474533842318739}
-  - component: {fileID: 956191102466370172}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -344,50 +343,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &956191102466370172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283912474860254246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 172474533842318739}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &391729644960426278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,7 +3462,7 @@ GameObject:
   - component: {fileID: 7830369033119134728}
   - component: {fileID: 6552480866672988943}
   - component: {fileID: 3632709541152823038}
-  - component: {fileID: 2505519566187922314}
+  - component: {fileID: 8538122391873377511}
   m_Layer: 5
   m_Name: Attack
   m_TagString: Untagged
@@ -3614,7 +3569,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2505519566187922314
+--- !u!114 &8538122391873377511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5580,7 +5535,7 @@ GameObject:
   - component: {fileID: 396753799554298868}
   - component: {fileID: 7428843977545914394}
   m_Layer: 5
-  m_Name: JoyStick
+  m_Name: Joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5603,7 +5558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -719, y: 54}
+  m_AnchoredPosition: {x: -729, y: 46}
   m_SizeDelta: {x: 312, y: 312}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &396753799554298868
@@ -6120,7 +6075,7 @@ GameObject:
   - component: {fileID: 658871526204452191}
   - component: {fileID: 2130093212699478528}
   - component: {fileID: 7937233171647831242}
-  - component: {fileID: 274796278291177868}
+  - component: {fileID: 2192495304637249760}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -6142,11 +6097,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 233113852187223081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 120, y: 120}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 220, y: 220}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &2130093212699478528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6185,7 +6140,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &274796278291177868
+--- !u!114 &2192495304637249760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6197,16 +6152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovementRange: 160
+  m_MovementRange: 170
   m_DynamicOriginRange: 100
-  m_ControlPath: <AndroidJoystick>/stick
+  m_ControlPath: 
   m_Behaviour: 0
   m_UseIsolatedInputActions: 0
   m_PointerDownAction:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: f79ac2ee-fe94-46c0-bacb-0e0273421337
+    m_Id: c5de42ba-8c6b-42c9-9d08-9e5b88a481a3
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -6215,7 +6170,7 @@ MonoBehaviour:
     m_Name: 
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: ff2fb74a-b57a-46b4-8500-5adb22a65162
+    m_Id: 8da07131-30a5-46f4-94f3-bf0f35b22186
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -7246,6 +7201,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6963324806408734183, guid: bb896ec07c558084e89060c9be278098, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8320310075834037137, guid: bb896ec07c558084e89060c9be278098, type: 3}
       propertyPath: m_Name
       value: Character
@@ -7272,6 +7231,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7579295705933772860}
     m_Modifications:
+    - target: {fileID: 1528046466132015196, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628695099954995170, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2685995934360384381, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -7371,7 +7338,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1061299829575104436}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b77ae3e67484f3499ffdceb26945afb, type: 3}
   m_Name: 
@@ -7670,6 +7637,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7579295705933772860}
     m_Modifications:
+    - target: {fileID: 1528046466132015196, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628695099954995170, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2685995934360384381, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -7890,6 +7865,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7579295705933772860}
     m_Modifications:
+    - target: {fileID: 1528046466132015196, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628695099954995170, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2685995934360384381, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -8747,6 +8730,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7579295705933772860}
     m_Modifications:
+    - target: {fileID: 1528046466132015196, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628695099954995170, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2685995934360384381, guid: 456f8e71698b39d4d9df7c71fc18aa7b, type: 3}
       propertyPath: m_Pivot.x
       value: 1

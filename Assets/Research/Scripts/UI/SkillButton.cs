@@ -18,6 +18,11 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     private Button button;
     public Image cooltimeImage;
     private bool isCooldown = false;
+    public bool IsCooldown
+    {
+        set { isCooldown = value; }
+        get { return isCooldown; }
+    }
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -37,7 +42,6 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     }
     public void UpdateCooltime(float currentCooltime, float maxCooltime)
     {
-        isCooldown = currentCooltime > 0;
         if (maxCooltime == 0)
         {
             cooltimeImage.fillAmount = 0;

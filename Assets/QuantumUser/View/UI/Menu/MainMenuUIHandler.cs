@@ -41,7 +41,7 @@ namespace QuantumUser
             InitGraphicsDropdown();
             bgmSlider.SetValueWithoutNotify(AudioManager.Instance.bgmVol);
             sfxSlider.SetValueWithoutNotify(AudioManager.Instance.sfxVol);
-            PlayerPrefs.DeleteAll();
+
             if (PlayerPrefs.HasKey("Nickname"))
             {
                 Debug.Log("Nickname loaded");
