@@ -271,10 +271,11 @@ namespace QuantumUser
             Log($"Properties updated for player: {targetPlayer}, {changedProps.ToStringFull()}");
             if (Client.CurrentRoom.PlayerCount == Client.CurrentRoom.MaxPlayers)
             {
-                Debug.Log("실행!!!!!!");
+                Client.CurrentRoom.IsOpen = false;
                 StartQuantumGame();
             }else if (Client.CurrentRoom.PlayerCount > Client.CurrentRoom.MaxPlayers)
             {
+                Client.CurrentRoom.IsOpen = false;
                 Disconnect();
             }
 
