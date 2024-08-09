@@ -204,12 +204,14 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
                 switch (skill->Status)
                 {
                     case SkillStatus.Casting:
+                        weaponSkillButtons[i].IsCooldown = true;
                         weaponSkillButtons[i].OnActivate(false);
                         break;
                     case SkillStatus.CoolTime:
                         weaponSkillButtons[i].UpdateCooltime(skill->RemainingCoolTime.AsFloat, skillData.CoolTime.AsFloat);
                         break;
                     case SkillStatus.Ready:
+                        weaponSkillButtons[i].IsCooldown = false;
                         weaponSkillButtons[i].OnActivate(true);
                         break;
                 }
