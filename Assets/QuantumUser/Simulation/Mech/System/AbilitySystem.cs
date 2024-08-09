@@ -19,7 +19,6 @@ namespace Quantum.Mech
             for (int i = 0; i < filter.AbilityInventory->Abilities.Length; i++)
             {
                 ref Ability ability = ref filter.AbilityInventory->Abilities[i];
-                Debug.Log($"{ability.AbilityType}");
                 AbilityData abilityData = frame.FindAsset<AbilityData>(ability.AbilityData.Id);
 
                 abilityData.UpdateAbility(frame, filter.EntityRef, ref ability);

@@ -33,7 +33,13 @@ namespace Quantum
                 FP newNormalizedPosition = DashMovementCurve.Evaluate(newNormalizedTime);
                 FPVector3 newRelativePosition = abilityInventory->ActiveAbilityInfo.CastDirection * DashDistance * newNormalizedPosition;
 
-                transform->Position += newRelativePosition - lastRelativePosition;
+                var direction = newRelativePosition - lastRelativePosition;
+                var hits = frame.Physics3D.RaycastAll(transform->Position, direction.Normalized, direction.Magnitude);
+                // for (int i = 0; i < hits.Count; i++)
+                // {
+                    // var entity = hits[i].Entity;
+                // }
+                if(hits.Count <= 0) transform->Position += newRelativePosition - lastRelativePosition;
                 Debug.Log($"{newRelativePosition - lastRelativePosition}");
                 if (abilityState.IsActiveEndTick)
                 {

@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 3838720455377683376}
   - component: {fileID: 8351603166282645522}
   - component: {fileID: 2625355173174470688}
-  - component: {fileID: 1096973711211820194}
+  - component: {fileID: 8883082317819271786}
   m_Layer: 0
   m_Name: E_Wall (2)
   m_TagString: Untagged
@@ -453,7 +453,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000038146973}
---- !u!114 &1096973711211820194
+--- !u!114 &8883082317819271786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1338122426799939594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SourceCollider: {fileID: 2625355173174470688}
@@ -471,15 +471,22 @@ MonoBehaviour:
       RawValue: 65536
     Y:
       RawValue: 65536
+    Z:
+      RawValue: 65536
   PositionOffset:
     X:
       RawValue: 0
     Y:
       RawValue: 0
+    Z:
+      RawValue: 0
   RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
     MutableMode: 0
     PhysicsMaterial:
@@ -1150,7 +1157,7 @@ GameObject:
   - component: {fileID: 3942518413630368073}
   - component: {fileID: 6687623483035600637}
   - component: {fileID: 1354480822387356560}
-  - component: {fileID: 1450561130489218046}
+  - component: {fileID: 1834013448350469520}
   m_Layer: 0
   m_Name: E_Wall (3)
   m_TagString: Untagged
@@ -1202,7 +1209,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000038146973}
---- !u!114 &1450561130489218046
+--- !u!114 &1834013448350469520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1211,7 +1218,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3149534179742538968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SourceCollider: {fileID: 1354480822387356560}
@@ -1220,15 +1227,22 @@ MonoBehaviour:
       RawValue: 65536
     Y:
       RawValue: 65536
+    Z:
+      RawValue: 65536
   PositionOffset:
     X:
       RawValue: 0
     Y:
       RawValue: 0
+    Z:
+      RawValue: 0
   RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
     MutableMode: 0
     PhysicsMaterial:
@@ -3789,7 +3803,7 @@ GameObject:
   - component: {fileID: 7474884674899502747}
   - component: {fileID: 2184525004716924347}
   - component: {fileID: 7757111892589690491}
-  - component: {fileID: 4747417586270751526}
+  - component: {fileID: 3264949396070704110}
   m_Layer: 0
   m_Name: E_Wall (4)
   m_TagString: Untagged
@@ -3841,7 +3855,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000038146973}
---- !u!114 &4747417586270751526
+--- !u!114 &3264949396070704110
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3850,7 +3864,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7993075520304260231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SourceCollider: {fileID: 7757111892589690491}
@@ -3859,15 +3873,22 @@ MonoBehaviour:
       RawValue: 65536
     Y:
       RawValue: 65536
+    Z:
+      RawValue: 65536
   PositionOffset:
     X:
       RawValue: 0
     Y:
       RawValue: 0
+    Z:
+      RawValue: 0
   RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
     MutableMode: 0
     PhysicsMaterial:
@@ -4148,7 +4169,7 @@ GameObject:
   - component: {fileID: 4969380405990754871}
   - component: {fileID: 4871814560786821946}
   - component: {fileID: 3703372994257108136}
-  - component: {fileID: 4647818113391591753}
+  - component: {fileID: 3883531802604862297}
   m_Layer: 0
   m_Name: E_Wall
   m_TagString: Untagged
@@ -4200,7 +4221,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000038146973}
---- !u!114 &4647818113391591753
+--- !u!114 &3883531802604862297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4209,7 +4230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8622452621785942198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SourceCollider: {fileID: 3703372994257108136}
@@ -4218,15 +4239,22 @@ MonoBehaviour:
       RawValue: 65536
     Y:
       RawValue: 65536
+    Z:
+      RawValue: 65536
   PositionOffset:
     X:
       RawValue: 0
     Y:
       RawValue: 0
+    Z:
+      RawValue: 0
   RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
     MutableMode: 0
     PhysicsMaterial:
@@ -4247,7 +4275,7 @@ GameObject:
   - component: {fileID: 8063444445435381306}
   - component: {fileID: 1097787999174238230}
   - component: {fileID: 2749365264900543436}
-  - component: {fileID: 3053781142136838030}
+  - component: {fileID: 2417850852776314971}
   m_Layer: 0
   m_Name: E_Wall (1)
   m_TagString: Untagged
@@ -4299,7 +4327,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.0000038146973}
---- !u!114 &3053781142136838030
+--- !u!114 &2417850852776314971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4308,7 +4336,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9175976185653460107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b488b62207097a04392bf63c707ab9c5, type: 3}
+  m_Script: {fileID: 11500000, guid: adc94c3ce6de4c74989839aecde663d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SourceCollider: {fileID: 2749365264900543436}
@@ -4317,15 +4345,22 @@ MonoBehaviour:
       RawValue: 65536
     Y:
       RawValue: 65536
+    Z:
+      RawValue: 65536
   PositionOffset:
     X:
       RawValue: 0
     Y:
       RawValue: 0
+    Z:
+      RawValue: 0
   RotationOffset:
-    RawValue: 0
-  Height:
-    RawValue: 0
+    X:
+      RawValue: 0
+    Y:
+      RawValue: 0
+    Z:
+      RawValue: 0
   Settings:
     MutableMode: 0
     PhysicsMaterial:
