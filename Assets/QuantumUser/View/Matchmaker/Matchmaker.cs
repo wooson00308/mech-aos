@@ -269,10 +269,13 @@ namespace QuantumUser
         public void OnPlayerPropertiesUpdate(Player targetPlayer, PhotonHashtable changedProps)
         {
             Log($"Properties updated for player: {targetPlayer}, {changedProps.ToStringFull()}");
-            if (Client.CurrentRoom.PlayerCount >= Client.CurrentRoom.MaxPlayers)
+            if (Client.CurrentRoom.PlayerCount == Client.CurrentRoom.MaxPlayers)
             {
                 Debug.Log("실행!!!!!!");
                 StartQuantumGame();
+            }else if (Client.CurrentRoom.PlayerCount > Client.CurrentRoom.MaxPlayers)
+            {
+                Disconnect();
             }
 
         }
