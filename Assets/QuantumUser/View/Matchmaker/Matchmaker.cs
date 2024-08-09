@@ -138,7 +138,7 @@ namespace QuantumUser
 
         void SendData()
         {
-            runtimePlayer.PlayerNickname = LocalData.nickname;
+            runtimePlayer.PlayerNickname = LocalData.Nickname;
             QuantumRunner.Default.Game.AddPlayer(runtimePlayer);
         }
 

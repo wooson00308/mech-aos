@@ -6,7 +6,18 @@ namespace QuantumUser
 
     public static class LocalData
     {
-        public static string nickname;
+        private static string _nickname;
+        public static string Nickname 
+        { 
+            get 
+            { 
+                if (string.IsNullOrEmpty(_nickname)) return "Unknown"; return _nickname; 
+            }  
+            set 
+            { 
+                _nickname = value; 
+            } 
+        }
     }
 
 }
