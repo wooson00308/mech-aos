@@ -181,14 +181,6 @@ namespace QuantumUser
             if (Client.OpJoinRandomOrCreateRoom(joinRandomParams, enterRoomParams))
             {
                 onStatusUpdated?.Invoke(new ConnectionStatus("Connecting To Room", State.ConnectingToRoom));
-                if (Client.CurrentRoom.PlayerCount == Client.CurrentRoom.MaxPlayers)
-                {
-                    Client.CurrentRoom.IsOpen = false;
-                }
-                else if (Client.CurrentRoom.PlayerCount > Client.CurrentRoom.MaxPlayers)
-                {
-                    Disconnect();
-                }
                 Log("Joining a room");
             }
             else
