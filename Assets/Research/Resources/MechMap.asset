@@ -19,9 +19,9 @@ MonoBehaviour:
   UserAsset:
     Id:
       Value: 0
-  Scene: Redemo
-  ScenePath: Assets/Research/Scenes/Redemo/Redemo.unity
-  SceneGuid: 223351feacea45749af38216ac9064d1
+  Scene: Redemo 1
+  ScenePath: Assets/Research/Scenes/Redemo 1.unity
+  SceneGuid: 03ea0a0bc8f124f4c977416ea58eb0b0
   WorldSize: 256
   BucketsCount: 16
   BucketsSubdivisions: 8
@@ -37,7 +37,3232 @@ MonoBehaviour:
   GridNodeSize: 4
   NavMeshLinks: []
   Regions: []
-  StaticColliders2D: []
+  StaticColliders2D:
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -19437978
+      Y:
+        RawValue: -13818266
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 819200
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 0
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -19437978
+      Y:
+        RawValue: -9440461
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 819200
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (2)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 1
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -25038028
+      Y:
+        RawValue: -11599872
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 3276800
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (4)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 2
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -22351052
+      Y:
+        RawValue: -14375322
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 3276800
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (1)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 3
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -22351052
+      Y:
+        RawValue: -8775271
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 3276800
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (3)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 4
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -17019700
+      Y:
+        RawValue: -10099098
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2575810
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_10
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 5
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -17019700
+      Y:
+        RawValue: -13117032
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2575810
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_11
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 6
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -14591591
+      Y:
+        RawValue: -9211086
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_12
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 7
+      MutableMode: 0
+  - Rotation:
+      RawValue: -358951
+    Position:
+      X:
+        RawValue: -14303232
+      Y:
+        RawValue: -7969833
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_13
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 8
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -13536461
+      Y:
+        RawValue: -7497319
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 518521
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_14
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 9
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -14591591
+      Y:
+        RawValue: -13998490
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_15
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 10
+      MutableMode: 0
+  - Rotation:
+      RawValue: -51705
+    Position:
+      X:
+        RawValue: -14168884
+      Y:
+        RawValue: -15345254
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 545853
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_16
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 11
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -12822119
+      Y:
+        RawValue: -15712256
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1046583
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_17
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 12
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -11917722
+      Y:
+        RawValue: -16603546
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_18
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 13
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -5387059
+      Y:
+        RawValue: -18785894
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 714239
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_18 (1)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 14
+      MutableMode: 0
+  - Rotation:
+      RawValue: -51705
+    Position:
+      X:
+        RawValue: -11510088
+      Y:
+        RawValue: -17950312
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 545853
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_19
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 15
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -8221491
+      Y:
+        RawValue: -18330420
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2997680
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_20
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 16
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -7474379
+      Y:
+        RawValue: 6577194
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 819200
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 17
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -3096575
+      Y:
+        RawValue: 6577194
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 819200
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (2)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 18
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -5255986
+      Y:
+        RawValue: 12177245
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 3276800
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (4)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 19
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -8031436
+      Y:
+        RawValue: 9490269
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 3276800
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (1)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 20
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -2431385
+      Y:
+        RawValue: 9490269
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 3276800
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (3)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 21
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -3755212
+      Y:
+        RawValue: 4158915
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2575810
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_10
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 22
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -6773146
+      Y:
+        RawValue: 4158916
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2575810
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_11
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 23
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -2867200
+      Y:
+        RawValue: 1730806
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_12
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 24
+      MutableMode: 0
+  - Rotation:
+      RawValue: -50120
+    Position:
+      X:
+        RawValue: -1625948
+      Y:
+        RawValue: 1442447
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_13
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 25
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -1153434
+      Y:
+        RawValue: 675676
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 518521
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_14
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 26
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -7654604
+      Y:
+        RawValue: 1730807
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_15
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 27
+      MutableMode: 0
+  - Rotation:
+      RawValue: -154648
+    Position:
+      X:
+        RawValue: -9001370
+      Y:
+        RawValue: 1308100
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 545853
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_16
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 28
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -9368372
+      Y:
+        RawValue: -38664
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1046583
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_17
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 29
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -10259662
+      Y:
+        RawValue: -943061
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_18
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 30
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -12442012
+      Y:
+        RawValue: -7473723
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 714239
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_18 (1)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 31
+      MutableMode: 0
+  - Rotation:
+      RawValue: -154648
+    Position:
+      X:
+        RawValue: -11606426
+      Y:
+        RawValue: -1350695
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 545853
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_19
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 32
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -11986536
+      Y:
+        RawValue: -4639292
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2997680
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_20
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 33
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 960104
+      Y:
+        RawValue: -25781864
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 819200
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 34
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -3417700
+      Y:
+        RawValue: -25781862
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 819200
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (2)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 35
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -1258289
+      Y:
+        RawValue: -31381912
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 163840
+      Y:
+        RawValue: 3276800
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (4)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 36
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 1517161
+      Y:
+        RawValue: -28694938
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 3276800
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (1)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 37
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -4082891
+      Y:
+        RawValue: -28694938
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 635699
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 3276800
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall (3)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 38
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -2759064
+      Y:
+        RawValue: -23363582
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2575811
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_10
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 39
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 258870
+      Y:
+        RawValue: -23363584
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2575811
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_11
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 40
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: -3647077
+      Y:
+        RawValue: -20935474
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025308
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_12
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 41
+      MutableMode: 0
+  - Rotation:
+      RawValue: -256008
+    Position:
+      X:
+        RawValue: -4888330
+      Y:
+        RawValue: -20647116
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025307
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_13
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 42
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -5360844
+      Y:
+        RawValue: -19880344
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 518521
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_14
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 43
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: 1140327
+      Y:
+        RawValue: -20935474
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025308
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_15
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 44
+      MutableMode: 0
+  - Rotation:
+      RawValue: -360536
+    Position:
+      X:
+        RawValue: 2487092
+      Y:
+        RawValue: -20512768
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 545853
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_16
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 45
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 2854094
+      Y:
+        RawValue: -19166000
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1046583
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_17
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 46
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: 3745384
+      Y:
+        RawValue: -18261604
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1025308
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_18
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 47
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: 5927732
+      Y:
+        RawValue: -11730940
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 714239
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_18 (1)
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 48
+      MutableMode: 0
+  - Rotation:
+      RawValue: -360536
+    Position:
+      X:
+        RawValue: 5092150
+      Y:
+        RawValue: -17853970
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 545853
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_19
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 49
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 5472258
+      Y:
+        RawValue: -14565373
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 684851
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 2997680
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_20
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 50
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: 6938952
+      Y:
+        RawValue: -11701454
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 392839
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_200
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 51
+      MutableMode: 0
+  - Rotation:
+      RawValue: -360837
+    Position:
+      X:
+        RawValue: 7631995
+      Y:
+        RawValue: -11346576
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 586155
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_201
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 52
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 8020296
+      Y:
+        RawValue: -9537782
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1497521
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_202
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 53
+      MutableMode: 0
+  - Rotation:
+      RawValue: -256881
+    Position:
+      X:
+        RawValue: 7646741
+      Y:
+        RawValue: -7775848
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 586155
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_203
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 54
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: 6273761
+      Y:
+        RawValue: -7425228
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1062469
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_204
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 55
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 5382472
+      Y:
+        RawValue: -6098126
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1497521
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_205
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 56
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: 4730388
+      Y:
+        RawValue: -4833280
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 802780
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_206
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 57
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 4094689
+      Y:
+        RawValue: -4191028
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 814352
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_207
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 58
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: 2669281
+      Y:
+        RawValue: -3516008
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1366653
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_208
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 59
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 1469973
+      Y:
+        RawValue: -2641100
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1048315
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_209
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 60
+      MutableMode: 0
+  - Rotation:
+      RawValue: -256881
+    Position:
+      X:
+        RawValue: 1073480
+      Y:
+        RawValue: -1284506
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 586155
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_210
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 61
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -247070
+      Y:
+        RawValue: -910950
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1062885
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_211
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 62
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: -1141637
+      Y:
+        RawValue: -386662
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 773324
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 694543
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_212
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 63
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -19988
+      Y:
+        RawValue: -7423918
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1308400
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_213
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 64
+      MutableMode: 0
+  - Rotation:
+      RawValue: -51230
+    Position:
+      X:
+        RawValue: 1362494
+      Y:
+        RawValue: -7581860
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 260816
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_214
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 65
+      MutableMode: 0
+  - Rotation:
+      RawValue: -308831
+    Position:
+      X:
+        RawValue: 1463419
+      Y:
+        RawValue: -8919450
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1308401
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_215
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 66
+      MutableMode: 0
+  - Rotation:
+      RawValue: -154728
+    Position:
+      X:
+        RawValue: 1356595
+      Y:
+        RawValue: -10292756
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 282765
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_216
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 67
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: 640942
+      Y:
+        RawValue: -10413670
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 650672
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_217
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 68
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: 159253
+      Y:
+        RawValue: -12192974
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1948759
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_218
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 69
+      MutableMode: 0
+  - Rotation:
+      RawValue: -154728
+    Position:
+      X:
+        RawValue: 25887
+      Y:
+        RawValue: -14233764
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 282765
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_219
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 70
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: -1360855
+      Y:
+        RawValue: -14354022
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1302264
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_220
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 71
+      MutableMode: 0
+  - Rotation:
+      RawValue: -205887
+    Position:
+      X:
+        RawValue: -5961810
+      Y:
+        RawValue: -14354022
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1940436
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_221
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 72
+      MutableMode: 0
+  - Rotation:
+      RawValue: -102943
+    Position:
+      X:
+        RawValue: -9369680
+      Y:
+        RawValue: -10230170
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1287460
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_222
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 73
+      MutableMode: 0
+  - Rotation:
+      RawValue: 0
+    Position:
+      X:
+        RawValue: -5940838
+      Y:
+        RawValue: -7408846
+    Height:
+      RawValue: 0
+    VerticalOffset:
+      RawValue: 809370
+    PhysicsMaterial:
+      Id:
+        Value: 0
+    Layer: 0
+    ShapeType: 4
+    CircleRadius:
+      RawValue: 0
+    BoxExtents:
+      X:
+        RawValue: 1946173
+      Y:
+        RawValue: 163840
+    CapsuleSize:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+    EdgeExtent:
+      RawValue: 0
+    PolygonCollider:
+      Vertices: []
+      Normals: []
+    StaticData:
+      Name: E_Wall_223
+      Tag: Untagged
+      Layer: 0
+      Asset:
+        Id:
+          Value: 0
+      IsTrigger: 0
+      ColliderIndex: 74
+      MutableMode: 0
   StaticColliders3D:
   - Rotation:
       X:
@@ -19146,7 +22371,7 @@ MonoBehaviour:
         RawValue: 0
     Position:
       X:
-        RawValue: -2053570
+        RawValue: -2029648
       Y:
         RawValue: 1720318
       Z:
@@ -19190,7 +22415,7 @@ MonoBehaviour:
         RawValue: 0
     Position:
       X:
-        RawValue: -2053571
+        RawValue: -2029648
       Y:
         RawValue: 675018
       Z:
@@ -19357,34 +22582,31 @@ MonoBehaviour:
       MutableMode: 0
   MapEntities:
   - Components:
-    - rid: 4508097911975837696
-    - rid: 4508097911975837697
-    - rid: 4508097911975837698
-    - rid: 4508097911975837699
+    - rid: 2620027649396834304
+    - rid: 2620027649396834305
   - Components:
-    - rid: 5727939716486004736
-    - rid: 5727939716486004737
+    - rid: 3607813698049015808
+    - rid: 3607813698049015809
   - Components:
-    - rid: 6387931060788789248
-    - rid: 6387931060788789249
-    - rid: 6387931060788789250
-    - rid: 6387931060788789251
+    - rid: 6086562508527632384
+    - rid: 6086562508527632385
   - Components:
-    - rid: 9194474575616802816
-    - rid: 9194474575616802817
+    - rid: 1400185844886667264
+    - rid: 1400185844886667265
+    - rid: 1400185844886667266
   - Components:
-    - rid: 8985831287784734720
-    - rid: 8985831287784734721
-    - rid: 8985831287784734722
-    - rid: 8985831287784734723
+    - rid: 3280018993699618816
+    - rid: 3280018993699618817
+    - rid: 3280018993699618818
   - Components:
-    - rid: 6715725765138186240
-    - rid: 6715725765138186241
+    - rid: 5877919220695564288
+    - rid: 5877919220695564289
+    - rid: 5877919220695564290
   SerializedTriangleDataUncompressedSize: 11662472
   references:
     version: 2
     RefIds:
-    - rid: 4508097911975837696
+    - rid: 1400185844886667264
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
@@ -19401,7 +22623,7 @@ MonoBehaviour:
             RawValue: 0
           Z:
             RawValue: 0
-    - rid: 4508097911975837697
+    - rid: 1400185844886667265
       type: {class: PhysicsCollider3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         ShapeConfig:
@@ -19441,45 +22663,34 @@ MonoBehaviour:
         PhysicsMaterial:
           Id:
             Value: 0
-    - rid: 4508097911975837698
+    - rid: 1400185844886667266
       type: {class: PhysicsCallbacks3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
           Value: 0
-    - rid: 4508097911975837699
-      type: {class: NexusPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
-      data:
-        Team:
-          Value: 0
-        CurrentHealth:
-          RawValue: 65536000
-        IsDestroy:
-          Value: 0
-        IsTeamDefeat:
-          Value: 0
-    - rid: 5727939716486004736
+    - rid: 2620027649396834304
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
           X:
-            RawValue: -5269094
+            RawValue: 655360
           Y:
-            RawValue: 196608
+            RawValue: 0
           Z:
-            RawValue: 7556301
+            RawValue: 0
         Rotation:
           X:
             RawValue: 0
           Y:
-            RawValue: 11796480
+            RawValue: 0
           Z:
             RawValue: 0
-    - rid: 5727939716486004737
+    - rid: 2620027649396834305
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
           Value: 0
-    - rid: 6387931060788789248
+    - rid: 3280018993699618816
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
@@ -19496,7 +22707,7 @@ MonoBehaviour:
             RawValue: 5933037
           Z:
             RawValue: 0
-    - rid: 6387931060788789249
+    - rid: 3280018993699618817
       type: {class: PhysicsCollider3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         ShapeConfig:
@@ -19536,45 +22747,34 @@ MonoBehaviour:
         PhysicsMaterial:
           Id:
             Value: 0
-    - rid: 6387931060788789250
+    - rid: 3280018993699618818
       type: {class: PhysicsCallbacks3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
           Value: 0
-    - rid: 6387931060788789251
-      type: {class: NexusPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
-      data:
-        Team:
-          Value: 2
-        CurrentHealth:
-          RawValue: 65536000
-        IsDestroy:
-          Value: 0
-        IsTeamDefeat:
-          Value: 0
-    - rid: 6715725765138186240
+    - rid: 3607813698049015808
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
           X:
-            RawValue: -20552090
+            RawValue: 0
           Y:
-            RawValue: 196608
+            RawValue: 0
           Z:
-            RawValue: -11620844
+            RawValue: 655360
         Rotation:
           X:
             RawValue: 0
           Y:
-            RawValue: 5898240
+            RawValue: 0
           Z:
             RawValue: 0
-    - rid: 6715725765138186241
+    - rid: 3607813698049015809
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
           Value: 1
-    - rid: 8985831287784734720
+    - rid: 5877919220695564288
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
@@ -19591,7 +22791,7 @@ MonoBehaviour:
             RawValue: 0
           Z:
             RawValue: 0
-    - rid: 8985831287784734721
+    - rid: 5877919220695564289
       type: {class: PhysicsCollider3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         ShapeConfig:
@@ -19631,40 +22831,29 @@ MonoBehaviour:
         PhysicsMaterial:
           Id:
             Value: 0
-    - rid: 8985831287784734722
+    - rid: 5877919220695564290
       type: {class: PhysicsCallbacks3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
           Value: 0
-    - rid: 8985831287784734723
-      type: {class: NexusPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
-      data:
-        Team:
-          Value: 1
-        CurrentHealth:
-          RawValue: 65536000
-        IsDestroy:
-          Value: 0
-        IsTeamDefeat:
-          Value: 0
-    - rid: 9194474575616802816
+    - rid: 6086562508527632384
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
           X:
-            RawValue: -1320762
+            RawValue: -655360
           Y:
-            RawValue: 196608
+            RawValue: 0
           Z:
-            RawValue: -27280252
+            RawValue: 0
         Rotation:
           X:
             RawValue: 0
           Y:
-            RawValue: 34797
+            RawValue: 0
           Z:
             RawValue: 0
-    - rid: 9194474575616802817
+    - rid: 6086562508527632385
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
