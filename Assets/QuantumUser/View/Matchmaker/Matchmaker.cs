@@ -181,6 +181,14 @@ namespace QuantumUser
             if (Client.OpJoinRandomOrCreateRoom(joinRandomParams, enterRoomParams))
             {
                 onStatusUpdated?.Invoke(new ConnectionStatus("Connecting To Room", State.ConnectingToRoom));
+                if (Client.CurrentRoom.PlayerCount == Client.CurrentRoom.MaxPlayers)
+                {
+                    Client.CurrentRoom.IsOpen = false;
+                }
+                else if (Client.CurrentRoom.PlayerCount > Client.CurrentRoom.MaxPlayers)
+                {
+                    Disconnect();
+                }
                 Log("Joining a room");
             }
             else
@@ -256,13 +264,21 @@ namespace QuantumUser
         {
             Log($"Player {newPlayer} entered the room");
             OnRealtimePlayerJoined?.Invoke(newPlayer);
-     
+            if (Client.CurrentRoom.PlayerCount >= Client.CurrentRoom.MaxPlayers)
+            {
+                Client.CurrentRoom.IsOpen = false;
+            }
         }
 
         public void OnPlayerLeftRoom(Player otherPlayer)
         {
             Log($"Player {otherPlayer} left the room");
             OnRealtimePlayerLeft?.Invoke(otherPlayer);
+            if (Client.CurrentRoom.PlayerCount < Client.CurrentRoom.MaxPlayers)
+            {
+                Client.CurrentRoom.IsOpen = true;
+            }
+
         }
 
 
@@ -271,11 +287,10 @@ namespace QuantumUser
             Log($"Properties updated for player: {targetPlayer}, {changedProps.ToStringFull()}");
             if (Client.CurrentRoom.PlayerCount == Client.CurrentRoom.MaxPlayers)
             {
-                Client.CurrentRoom.IsOpen = false;
                 StartQuantumGame();
-            }else if (Client.CurrentRoom.PlayerCount > Client.CurrentRoom.MaxPlayers)
+            }
+            else if (Client.CurrentRoom.PlayerCount > Client.CurrentRoom.MaxPlayers)
             {
-                Client.CurrentRoom.IsOpen = false;
                 Disconnect();
             }
 
