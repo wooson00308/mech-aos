@@ -41,11 +41,12 @@ namespace QuantumUser
             InitGraphicsDropdown();
             bgmSlider.SetValueWithoutNotify(AudioManager.Instance.bgmVol);
             sfxSlider.SetValueWithoutNotify(AudioManager.Instance.sfxVol);
+            PlayerPrefs.DeleteAll();
             if (PlayerPrefs.HasKey("Nickname"))
             {
                 Debug.Log("Nickname loaded");
                 string nickname = PlayerPrefs.GetString("Nickname");
-                LocalData.nickname = nickname;
+                LocalData.Nickname = nickname;
                 SetNicknameInput(nickname);
             }
             else
@@ -107,23 +108,23 @@ namespace QuantumUser
         {
             if (!string.IsNullOrWhiteSpace(nicknameInputField.text))
             {
-                LocalData.nickname = nicknameInputField.text;
+                LocalData.Nickname = nicknameInputField.text;
                 PlayerPrefs.SetString("Nickname", nicknameInputField.text);
             }
             else
             {
                 if (PlayerPrefs.HasKey("Nickname"))
                 {
-                    LocalData.nickname = PlayerPrefs.GetString("Nickname");
+                    LocalData.Nickname = PlayerPrefs.GetString("Nickname");
                     Debug.Log("Nickname loaded");
                 }
                 else
                 {
-                    LocalData.nickname = null;
+                    LocalData.Nickname = null;
                 }
             }
             
-            playerNickname.text = LocalData.nickname;
+            playerNickname.text = LocalData.Nickname;
 
         }
 
