@@ -14,7 +14,6 @@ namespace QuantumUser
         private void Destroy(EventOnNexusDestroy nexusDestroy)
         {
             if (nexusDestroy.Nexus != EntityRef) return;
-            var nexus = VerifiedFrame.Get<Nexus>(nexusDestroy.Nexus);
             Model.gameObject.SetActive(false);
         }
         

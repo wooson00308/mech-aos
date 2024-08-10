@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3930071065259564914}
   - component: {fileID: 8522647198376269589}
   - component: {fileID: 3498104415895566274}
+  - component: {fileID: 953024923892242143}
   m_Layer: 0
   m_Name: Nexus 1
   m_TagString: Untagged
@@ -280,6 +281,27 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &953024923892242143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750355175506190573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4afa2e97857e5448a96af44536ae1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    Team:
+      Value: 0
+    CurrentHealth:
+      RawValue: 0
+    IsDestroy:
+      Value: 0
+    IsTeamDefeat:
+      Value: 0
 --- !u!1001 &8619268250265573371
 PrefabInstance:
   m_ObjectHideFlags: 0
