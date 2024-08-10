@@ -7042,6 +7042,16 @@ MonoBehaviour:
   - {fileID: 7936885326786676329}
   - {fileID: 73184696551163412}
   - {fileID: 3080883079726835798}
+  weaponSkillAudioDatas:
+  - status: 0
+    castingClip: {fileID: 8300000, guid: 947719fd38845824ba3638af9d8e4e54, type: 3}
+    readyClip: {fileID: 8300000, guid: 8f268095f67575b44b10ea19a4482b2c, type: 3}
+  - status: 0
+    castingClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
+    readyClip: {fileID: 8300000, guid: 6a32a0d49cd240b4cb9934adf37a49a5, type: 3}
+  - status: 0
+    castingClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
+    readyClip: {fileID: 8300000, guid: 6a32a0d49cd240b4cb9934adf37a49a5, type: 3}
   resultPopup: {fileID: 5467070871522727202}
   testTime: 180
   hudOffset: {x: -100, y: -150, z: 0}
