@@ -33,7 +33,7 @@ MonoBehaviour:
     RawValue: 13107
   MaxContacts: 8
   LayerMask:
-    BitMask: 255
+    BitMask: 1023
   UseManifoldNormal: 1
   AirControl: 1
   Acceleration:
