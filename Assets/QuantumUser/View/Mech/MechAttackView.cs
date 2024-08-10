@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Deterministic;
 using Quantum;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Quantum.Mech
     {
         private QuantumEntityView _entityView;
         public Animator Aniamtor;
+        public AudioClip attackClip;
 
         int _targetHandle;
         public int TargetHandle => _targetHandle;
@@ -24,6 +26,8 @@ namespace Quantum.Mech
         
         private bool MainAttackInteractable;
         private bool SubAttackInteractable;
+
+        private Frame f;
 
         private void Awake()
         {
@@ -39,6 +43,8 @@ namespace Quantum.Mech
             Handle = playerHandle;
 
             QuantumEvent.Subscribe<EventWeaponFire>(this, WeaponFire);
+
+            f = QuantumRunner.DefaultGame.Frames.Predicted;
         }
 
         public override void OnUpdateView(QuantumGame game)
@@ -49,7 +55,8 @@ namespace Quantum.Mech
 
         public void WeaponFire(EventWeaponFire weaponFire)
         {
-            
+            AudioManager.Instance.PlaySfx(attackClip);
+
             var weaponData = _entityView.Game.Frames.Predicted.FindAsset<WeaponData>(weaponFire.WeaponData.Id);
             if (!_weaponDelayDic.ContainsKey(weaponData.RootName)) return;
             
@@ -62,25 +69,6 @@ namespace Quantum.Mech
                 weapon.OnAttack();
             }
 
-        }
-        
-        IEnumerator ProcessAttack(Weapon weapon, WeaponData weaponData)
-        {
-            if (IsCoolDowns[weapon]) yield break;
-            IsCoolDowns[weapon] = true;
-
-            yield return new WaitForSeconds((float)(1 / weaponData.FireRate));
-
-            weapon.OnAttack();
-            
-            Debug.Log($"TimeToRecharge : {(float)weaponData.TimeToRecharge}");
-
-            yield return new WaitForSeconds((float)weaponData.TimeToRecharge);
-
-            weapon.OnReadyAttack(true);
-
-            IsCoolDowns[weapon] = false;
-            Debug.Log("차징!");
         }
 
         public void OnDestroy()

@@ -22,11 +22,19 @@ enum UIState
     Result
 }
 
-[System.Serializable]
+[Serializable]
 struct StateObjectPair
 {
     public UIState State;
     public GameObject Object;
+}
+
+[Serializable]
+public class SkillAudioData
+{
+    public SkillStatus status;
+    public AudioClip castingClip;
+    public AudioClip readyClip;
 }
 
 [Preserve]
@@ -47,6 +55,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     
     [Header("Controller")]
     public List<SkillButton> weaponSkillButtons;
+    public List<SkillAudioData> weaponSkillAudioDatas;
 
     [Header("Popup")]
     public GameObject resultPopup;
@@ -241,7 +250,13 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void Update()
     {
-        if(_localEntityRef.IsValid)
+        UpdateLocalSkill();
+        UpdateSkillSFX();
+    }
+
+    private void UpdateLocalSkill()
+    {
+        if (_localEntityRef.IsValid)
         {
             SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
             var skills = f.ResolveList(skillInventory->Skills);
@@ -267,6 +282,33 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         }
     }
 
+    private void UpdateSkillSFX()
+    {
+        foreach (var entityRef in entityRefs)
+        {
+            SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(entityRef);
+            var skills = f.ResolveList(skillInventory->Skills);
+            for (int i = 0; i < skills.Count; i++)
+            {
+                var skill = skills.GetPointer(i);
+                var skillData = f.FindAsset(skill->SkillData);
+                var audioData = weaponSkillAudioDatas[i];
+                switch (skill->Status)
+                {
+                    case SkillStatus.Casting:
+                        if (weaponSkillAudioDatas[i].status == SkillStatus.Casting) return;
+                        audioData.status = SkillStatus.Casting;
+                        AudioManager.Instance.PlaySfx(audioData.castingClip);
+                        break;
+                    case SkillStatus.Ready:
+                        if (weaponSkillAudioDatas[i].status == SkillStatus.Ready) return;
+                        audioData.status = SkillStatus.Ready;
+                        AudioManager.Instance.PlaySfx(audioData.readyClip);
+                        break;
+                }
+            }
+        }
+    }
     private void TimerEnded()
     {
         Debug.Log("Time's up!");
