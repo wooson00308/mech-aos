@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -9,26 +10,49 @@ namespace Quantum.Mech
     {
         [SerializeField]
         private CinemachineVirtualCamera _localCamera;
+        
+        [SerializeField]
+        private CinemachineVirtualCamera _introCamera;
+        
         [SerializeField] 
         private CinemachineVirtualCamera _orbitalSupportCamera;
+
+        public void Awake()
+        {
+            QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
+            QuantumEvent.Subscribe(this, (EventOnMechanicOrbitalSupport e) => OnMechanicOrbitalSupport(e));
+            QuantumEvent.Subscribe(this, (EventOnMechanicOrbitalSupportEnd e) => OnMechanicOrbitalSupportEnd(e));
+        }
+
         public override void OnActivate(Frame frame)
         {
             base.OnActivate(frame);
             
-            _localCamera.gameObject.SetActive(true);
+            _introCamera.gameObject.SetActive(true);
+            _localCamera.gameObject.SetActive(false);
             _orbitalSupportCamera.gameObject.SetActive(false);
-            
-            QuantumEvent.Subscribe(this, (EventOnMechanicOrbitalSupport e) => OnMechanicOrbitalSupport(e));
-            QuantumEvent.Subscribe(this, (EventOnMechanicOrbitalSupportEnd e) => OnMechanicOrbitalSupportEnd(e));
 
+        }
+
+        public void OnGameStateChanged(EventGameStateChanged e)
+        {
+            Debug.Log($"@@@@@@@@@@@@@@@@ {e.NewState}");
+            if (e.NewState == GameState.Game)
+            {
+                _introCamera.gameObject.SetActive(false);
+                _localCamera.gameObject.SetActive(true);
+                _orbitalSupportCamera.gameObject.SetActive(false);
+            }
         }
         public void OnMechanicOrbitalSupport(EventOnMechanicOrbitalSupport e)
         {
+            _introCamera.gameObject.SetActive(false);
             _localCamera.gameObject.SetActive(false);
             _orbitalSupportCamera.gameObject.SetActive(true);
         }
         public void OnMechanicOrbitalSupportEnd(EventOnMechanicOrbitalSupportEnd e)
         {
+            _introCamera.gameObject.SetActive(false);
             _localCamera.gameObject.SetActive(true);
             _orbitalSupportCamera.gameObject.SetActive(false);
         }
