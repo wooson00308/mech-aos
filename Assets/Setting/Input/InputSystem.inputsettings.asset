@@ -17,6 +17,7 @@ MonoBehaviour:
   - Keyboard
   - Mouse
   - Gamepad
+  - Touchscreen
   m_UpdateMode: 2
   m_MaxEventBytesPerUpdate: 5242880
   m_MaxQueuedEventsPerUpdate: 1000
