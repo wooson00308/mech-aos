@@ -31,7 +31,19 @@ public class EventSubscriptions : MonoBehaviour
 				if (Matchmaker.Client?.CurrentRoom != null) Matchmaker.Client.CurrentRoom.IsOpen = false;
 
                 var f = QuantumRunner.DefaultGame.Frames.Predicted;
-                GameStateSystem.SetStateDelayed(f, GameState.Postgame, FP._180);
+                GameStateSystem.SetStateDelayed(f, GameState.Outro, FP._180);
+            }
+
+			if(evt.NewState == GameState.Outro)
+			{
+                var f = QuantumRunner.DefaultGame.Frames.Predicted;
+                GameStateSystem.SetStateDelayed(f, GameState.Postgame, FP._10);
+            }
+
+			if(evt.NewState == GameState.Postgame)
+			{
+                var f = QuantumRunner.DefaultGame.Frames.Predicted;
+                f.Events.Shutdown();
             }
         });
 

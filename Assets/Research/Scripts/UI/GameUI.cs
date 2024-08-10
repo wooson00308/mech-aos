@@ -48,6 +48,9 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     [Header("Controller")]
     public List<SkillButton> weaponSkillButtons;
 
+    [Header("Popup")]
+    public GameObject resultPopup;
+
     [Header("Test")]
     public float testTime;
     private float timeRemaining; 
@@ -71,12 +74,39 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
         QuantumEvent.Subscribe(this, (EventOnMechanicRespawn e) => OnMechanicRespawn(e));
         QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
 
         foreach (var pair in _stateObjectPairs)
         {
             _stateObjectDictionary.Add(pair.State, pair.Object);
         }
         f = QuantumRunner.DefaultGame.Frames.Predicted;
+    }
+
+    private void OnMechanicTakeDamage(EventOnMechanicTakeDamage e)
+    {
+        UpdateHUD(e.Mechanic);
+    }
+
+    private void UpdateHUD(EntityRef Mechanic, bool isDeath = false)
+    {
+        var hud = playerHUDs.Find(x => Mechanic == x.entityRef);
+        if (hud == null) return;
+
+        if(isDeath)
+        {
+            hud.gameObject.SetActive(false);
+            return;
+        }
+
+        hud.gameObject.SetActive(true);
+
+        Status* playerStatus = f.Unsafe.GetPointer<Status>(Mechanic);
+        float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
+        float maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
+
+        hud.UpdateHealth(currentHealthPlayer, maxHealthPlayer);
+        
     }
 
     private void OnGameStateChanged(EventGameStateChanged e)
@@ -90,6 +120,11 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             timer.titleText.text = "Wait for seconds..";
         }
+
+        if(e.NewState == GameState.Outro)
+        {
+            resultPopup.SetActive(true);
+        }
     } 
 
     private void OnMechanicRespawn(EventOnMechanicRespawn e)
@@ -99,6 +134,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void OnMechanicDeath(EventOnMechanicDeath e)
     {
+        UpdateHUD(e.Mechanic, true);
+
         var killedPlayerLink = f.Get<PlayerLink>(e.Mechanic);
         var runtimeKilledPlayer = f.GetPlayerData(killedPlayerLink.PlayerRef);
 
