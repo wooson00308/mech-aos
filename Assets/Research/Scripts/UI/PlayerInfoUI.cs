@@ -7,22 +7,26 @@ using UnityEngine.UI;
 
 public class PlayerInfoUI : QuantumMonoBehaviour
 {
+    public Team Team;
+
     public TMP_Text nicknameText;
     public TMP_Text healthText;           
     public Image healthImage;
 
-    [Header("Test")]
-    public string nickname;
-    public float health;
-    public float maxHealth;
+    private float maxHealth;
+    private bool isInitialized = false;
+    public bool IsInitialized => isInitialized;
 
-    private void Start()
+    public void Initialized(float health, Team team)
     {
-        //SetPlayer(nickname);
-        //UpdateHealth(health, maxHealth);
-    }
+        isInitialized = true;
 
-    public void UpdateHealth(float health, float maxHealth = 100)
+        Team = team;
+        maxHealth = health;
+        UpdateHealth(health);
+    } 
+
+    public void UpdateHealth(float health)
     {
         float healthPercentage = (health / maxHealth) * 100f;
         healthText.text = $"{healthPercentage:F1}%";

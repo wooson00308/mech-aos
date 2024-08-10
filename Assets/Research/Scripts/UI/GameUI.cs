@@ -3,6 +3,7 @@ using Photon.Client.StructWrapping;
 using Quantum;
 using Quantum.Mech;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -94,6 +95,30 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private void OnMechanicRespawn(EventOnMechanicRespawn e)
     {
         entityRefs.Add(e.Mechanic);
+
+        var playerLink = f.Get<PlayerLink>(e.Mechanic);
+
+        int playerIndex = playerLink.PlayerRef._index - 1;
+        var playerInfoUI = playerInfoUIs[playerIndex];
+
+        if (playerInfoUI.IsInitialized) return;
+
+        var playableMechanic = f.Get<PlayableMechanic>(e.Mechanic);
+
+        Nexus* Nexus = null;
+
+        var nexusComponents = f.Unsafe.GetComponentBlockIterator<Nexus>();
+
+        foreach (var nexus in nexusComponents)
+        {
+            if (nexus.Component->Team != playableMechanic.Team) continue;
+            Nexus = nexus.Component;
+        }
+
+        if (Nexus == null) return;
+
+        float currentHealthNexus = Nexus->CurrentHealth.AsFloat;
+        playerInfoUI.Initialized(currentHealthNexus, playableMechanic.Team);
     }
 
     private void OnMechanicDeath(EventOnMechanicDeath e)
@@ -127,35 +152,29 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
         float maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
 
-        playerHUDs[playerLink.PlayerRef._index - 1].SetPlayer(runtimePlayer.PlayerNickname, e.Mechanic);
-        playerHUDs[playerLink.PlayerRef._index - 1].UpdateHealth(currentHealthPlayer, maxHealthPlayer);
+        int playerIndex = playerLink.PlayerRef._index - 1;
+        var playerInfoUI = playerInfoUIs[playerIndex];
+        playerHUDs[playerIndex].SetPlayer(runtimePlayer.PlayerNickname, e.Mechanic);
+        playerHUDs[playerIndex].UpdateHealth(currentHealthPlayer, maxHealthPlayer);
 
-        var playableMechanic = f.Get<PlayableMechanic>(e.Mechanic);
+        
+        if (playerInfoUI.IsInitialized) return;
 
-        Nexus* Nexus = null;
-
-        foreach (var nexus in f.Unsafe.GetComponentBlockIterator<Nexus>())
-        {
-            if (nexus.Component->Team != playableMechanic.Team) continue;
-            Nexus = nexus.Component;
-        }
-
-        if (Nexus == null) return;
-
-        float currentHealthNexus = Nexus->CurrentHealth.AsFloat;
-
-        playerInfoUIs[playerLink.PlayerRef._index - 1].SetPlayer(runtimePlayer.PlayerNickname);
-        playerInfoUIs[playerLink.PlayerRef._index - 1].UpdateHealth(currentHealthNexus, currentHealthNexus);
+        playerInfoUI.SetPlayer(runtimePlayer.PlayerNickname);
     }
 
     private void OnNexusTakeDamage(EventOnNexusTakeDamage e)
     {
-        var playerLink = f.Get<PlayerLink>(e.Nexus);
-        Status* nexusStatus = f.Unsafe.GetPointer<Status>(e.Nexus);
+        var nexus = f.Get<Nexus>(e.Nexus);
 
-        float currentHealth = nexusStatus->CurrentHealth.AsFloat;
-        float maxHealth = f.FindAsset<StatusData>(nexusStatus->StatusData.Id).MaxHealth.AsFloat;
-        playerInfoUIs[playerLink.PlayerRef._index - 1].UpdateHealth(currentHealth, maxHealth);
+        foreach (var ui in playerInfoUIs)
+        {
+            if(ui.Team == nexus.Team)
+            {
+                ui.UpdateHealth(nexus.CurrentHealth.AsFloat);
+                return;
+            }
+        }
     }
 
     private void Start()
