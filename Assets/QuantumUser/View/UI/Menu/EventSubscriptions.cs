@@ -13,15 +13,10 @@ public class EventSubscriptions : MonoBehaviour
 	{
         QuantumEvent.Subscribe<EventShutdown>(this, evt =>
 		{
-	
-			// disconnect if we're connected, or just perform the logic if we're in singleplayer
-			if (Matchmaker.Client.IsConnected)
-				Matchmaker.Client.Disconnect();
-			else
-				Matchmaker.Instance.OnDisconnected(default);
-			
+            // disconnect if we're connected, or just perform the logic if we're in singleplayer
+            Shutdown();
+        });
 
-		});
 		QuantumEvent.Subscribe(this, (EventGameStateChanged evt) =>
 		{
 			Debug.Log($"Game State: {evt.OldState} => {evt.NewState}");
@@ -36,16 +31,31 @@ public class EventSubscriptions : MonoBehaviour
 
 			if(evt.NewState == GameState.Outro)
 			{
+                if (isShutdown) return;
                 var f = QuantumRunner.DefaultGame.Frames.Predicted;
-                GameStateSystem.SetStateDelayed(f, GameState.Postgame, FP._10);
-            }
-
-			if(evt.NewState == GameState.Postgame)
-			{
-                var f = QuantumRunner.DefaultGame.Frames.Predicted;
-                f.Events.Shutdown();
+                GameStateSystem.SetStateDelayed(f, GameState.Off, FP._10);
+                StartCoroutine(ProcessShutdown());
             }
         });
-
 	}
+
+    bool isShutdown;
+
+    private IEnumerator ProcessShutdown()
+    {
+        isShutdown = true;
+
+        yield return new WaitForSeconds(10f);
+        Shutdown();
+
+        isShutdown = false;
+    }
+
+	private void Shutdown()
+	{
+        if (Matchmaker.Client.IsConnected)
+            Matchmaker.Client.Disconnect();
+        else
+            Matchmaker.Instance.OnDisconnected(default);
+    }
 }
