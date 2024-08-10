@@ -24616,15 +24616,6 @@ MonoBehaviour:
   - Components:
     - rid: 7639863155832651776
     - rid: 7639863155832651777
-  - Components:
-    - rid: 5727939716486004736
-    - rid: 5727939716486004737
-  - Components:
-    - rid: 9194474575616802816
-    - rid: 9194474575616802817
-  - Components:
-    - rid: 6715725765138186240
-    - rid: 6715725765138186241
   SerializedTriangleDataUncompressedSize: 11668208
   references:
     version: 2
@@ -24647,28 +24638,6 @@ MonoBehaviour:
           Z:
             RawValue: 0
     - rid: 3848204334013612033
-      type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
-      data:
-        Team:
-          Value: 0
-    - rid: 5727939716486004736
-      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
-      data:
-        Position:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 199555
-          Z:
-            RawValue: -1572864
-        Rotation:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 11796480
-          Z:
-            RawValue: 0
-    - rid: 5727939716486004737
       type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Team:
@@ -24746,28 +24715,6 @@ MonoBehaviour:
           Value: 0
         IsTeamDefeat:
           Value: 0
-    - rid: 6715725765138186240
-      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
-      data:
-        Position:
-          X:
-            RawValue: 1572864
-          Y:
-            RawValue: 199555
-          Z:
-            RawValue: 0
-        Rotation:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 5898240
-          Z:
-            RawValue: 0
-    - rid: 6715725765138186241
-      type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
-      data:
-        Team:
-          Value: 1
     - rid: 7639863155832651776
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
@@ -24958,25 +24905,3 @@ MonoBehaviour:
           Value: 0
         IsTeamDefeat:
           Value: 0
-    - rid: 9194474575616802816
-      type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
-      data:
-        Position:
-          X:
-            RawValue: -1572864
-          Y:
-            RawValue: 199555
-          Z:
-            RawValue: 0
-        Rotation:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 17694720
-          Z:
-            RawValue: 0
-    - rid: 9194474575616802817
-      type: {class: SpawnIdentifierPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
-      data:
-        Team:
-          Value: 2
