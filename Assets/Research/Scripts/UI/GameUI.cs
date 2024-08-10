@@ -95,30 +95,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private void OnMechanicRespawn(EventOnMechanicRespawn e)
     {
         entityRefs.Add(e.Mechanic);
-
-        var playerLink = f.Get<PlayerLink>(e.Mechanic);
-
-        int playerIndex = playerLink.PlayerRef._index - 1;
-        var playerInfoUI = playerInfoUIs[playerIndex];
-
-        if (playerInfoUI.IsInitialized) return;
-
-        var playableMechanic = f.Get<PlayableMechanic>(e.Mechanic);
-
-        Nexus* Nexus = null;
-
-        var nexusComponents = f.Unsafe.GetComponentBlockIterator<Nexus>();
-
-        foreach (var nexus in nexusComponents)
-        {
-            if (nexus.Component->Team != playableMechanic.Team) continue;
-            Nexus = nexus.Component;
-        }
-
-        if (Nexus == null) return;
-
-        float currentHealthNexus = Nexus->CurrentHealth.AsFloat;
-        playerInfoUI.Initialized(currentHealthNexus, playableMechanic.Team);
     }
 
     private void OnMechanicDeath(EventOnMechanicDeath e)
@@ -156,11 +132,27 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         var playerInfoUI = playerInfoUIs[playerIndex];
         playerHUDs[playerIndex].SetPlayer(runtimePlayer.PlayerNickname, e.Mechanic);
         playerHUDs[playerIndex].UpdateHealth(currentHealthPlayer, maxHealthPlayer);
-
         
         if (playerInfoUI.IsInitialized) return;
 
         playerInfoUI.SetPlayer(runtimePlayer.PlayerNickname);
+
+        var playableMechanic = f.Get<PlayableMechanic>(e.Mechanic);
+
+        Nexus* Nexus = null;
+
+        var nexusComponents = f.Unsafe.GetComponentBlockIterator<Nexus>();
+
+        foreach (var nexus in nexusComponents)
+        {
+            if (nexus.Component->Team != playableMechanic.Team) continue;
+            Nexus = nexus.Component;
+        }
+
+        if (Nexus == null) return;
+
+        float currentHealthNexus = Nexus->CurrentHealth.AsFloat;
+        playerInfoUI.Initialized(currentHealthNexus, playableMechanic.Team);
     }
 
     private void OnNexusTakeDamage(EventOnNexusTakeDamage e)
