@@ -103,12 +103,10 @@ namespace Quantum.Mech
                 if (entity == EntityRef.None)
                 {
                     // var map = frame.FindAsset(hits[i].StaticColliderIndex);
-                    Debug.Log($"{hits[i].IsStatic} / {hits[i].IsDynamic}");
                     if (hits[i].IsStatic)
                     {
                         var staticCollider = frame.Map.StaticColliders3D[hits[i].StaticColliderIndex];
                         var projectilePassageLayer = frame.Layers.GetLayerMask("ProjectilePassageEnvironment");
-                        Debug.Log($"{staticCollider.StaticData.Layer} / {projectilePassageLayer}");
                         if ((1 << staticCollider.StaticData.Layer) == projectilePassageLayer)
                         {
                             return false;

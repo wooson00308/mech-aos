@@ -34,9 +34,9 @@ namespace Quantum.Mech
                 return;
             }
             
+            
             // Note: Use GetKey() instead of GetKeyDown/Up. Quantum calculates up/down internally.
             Vector2 movementInput = _playerInput.actions["Movement"].ReadValue<Vector2>();
-
             /*
                 Tertiary Action
                 Quaternary Action
@@ -47,6 +47,7 @@ namespace Quantum.Mech
                 Nonary Action
                 Denary Action
              */
+        
             input.Movement = movementInput.ToFPVector2();
             input.MainWeaponFire = _playerInput.actions["Primary Action"].IsPressed();
             input.FirstSkill = _playerInput.actions["Secondary Action"].IsPressed();
