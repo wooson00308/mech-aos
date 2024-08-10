@@ -37,10 +37,10 @@ namespace Quantum.Mech
             if (IsOnlyOneTeamNotDefeated())
             {
                 Debug.Log("게임 끝났어요!!!! 호호호!!");
-                f.Events.Shutdown();
+                //f.Events.Shutdown();
                 // 게임 종료
+                GameStateSystem.SetState(f, GameState.Outro);
             }    
-            
         }
         
         public bool IsOnlyOneTeamNotDefeated()
