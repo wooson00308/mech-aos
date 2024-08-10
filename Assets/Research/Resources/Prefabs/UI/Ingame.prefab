@@ -507,12 +507,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1501f6cd6a8340b591170e5583030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 0
   nicknameText: {fileID: 6325753770382851431}
   healthText: {fileID: 4716112278748836305}
   healthImage: {fileID: 6658431457968887310}
-  nickname: Connecting..
-  health: 0
-  maxHealth: 100
 --- !u!1 &477000788944474414
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,12 +3939,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1501f6cd6a8340b591170e5583030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 0
   nicknameText: {fileID: 3874081967701197389}
   healthText: {fileID: 8361647824996492628}
   healthImage: {fileID: 2548827862578438087}
-  nickname: Connecting..
-  health: 0
-  maxHealth: 100
 --- !u!1 &4262404370534134984
 GameObject:
   m_ObjectHideFlags: 0
@@ -4536,12 +4532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1501f6cd6a8340b591170e5583030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 0
   nicknameText: {fileID: 7274381824799455014}
   healthText: {fileID: 1853800012319869081}
   healthImage: {fileID: 1592191676249678358}
-  nickname: Connecting..
-  health: 0
-  maxHealth: 100
 --- !u!1 &5480536646712144895
 GameObject:
   m_ObjectHideFlags: 0
@@ -7004,12 +6998,12 @@ RectTransform:
   m_Children:
   - {fileID: 805597928939805080}
   - {fileID: 8975374656114201644}
-  - {fileID: 8005587660338098040}
   - {fileID: 7579295705933772860}
   - {fileID: 1348084491650081938}
   - {fileID: 6943961708128074508}
   - {fileID: 5309440848866728977}
   - {fileID: 3019279401363987261}
+  - {fileID: 8005587660338098040}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
