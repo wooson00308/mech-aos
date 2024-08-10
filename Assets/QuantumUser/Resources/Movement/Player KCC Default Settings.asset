@@ -24,13 +24,13 @@ MonoBehaviour:
     Z:
       RawValue: 0
   Radius:
-    RawValue: 155976
+    RawValue: 65536
   MaxPenetration:
-    RawValue: 222167
+    RawValue: 66
   PenetrationCorrection:
-    RawValue: -249037
+    RawValue: 32768
   Extent:
-    RawValue: 347341
+    RawValue: 13107
   MaxContacts: 8
   LayerMask:
     BitMask: 1023
@@ -49,6 +49,7 @@ MonoBehaviour:
       RawValue: 0
     Y:
       RawValue: -3276800
+      RawValue: 114425856
     Z:
       RawValue: 0
   MaxSlope:
