@@ -96,8 +96,8 @@ MonoBehaviour:
     - UI
     - Player
     - Enemy
-    - 
-    - 
+    - PostProcessingVolumes
+    - ProjectilePassageEnvironment
     - 
     - 
     - 
