@@ -55,7 +55,7 @@ namespace Quantum.Mech
 
         public void WeaponFire(EventWeaponFire weaponFire)
         {
-            AudioManager.Instance.PlaySfx(attackClip);
+            AudioManager.Instance.PlaySfx(attackClip, gameObject);
 
             var weaponData = _entityView.Game.Frames.Predicted.FindAsset<WeaponData>(weaponFire.WeaponData.Id);
             if (!_weaponDelayDic.ContainsKey(weaponData.RootName)) return;

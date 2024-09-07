@@ -80,7 +80,7 @@ namespace Quantum.Mech
             while (isMoving)
             {
                 if (MoveParticle != null) MoveParticle.Play(); // 파티클 재생
-                AudioManager.Instance.PlaySfx(moveClip, false, speed, .3f);
+                AudioManager.Instance.PlaySfx(moveClip, gameObject, false, speed, .3f);
                 yield return new WaitForSeconds(sfxPlayInterval);
             }
         }

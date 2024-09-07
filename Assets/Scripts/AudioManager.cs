@@ -1,3 +1,4 @@
+using Quantum.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,19 +55,38 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetFloat("BGM Volume", vol);
         PlayerPrefs.Save();
     }
-    public void PlaySfx(AudioClip clip, bool loop = false, float pitch = 1f, float volume = 1f)
+    public void PlaySfx(AudioClip clip, GameObject obj = null, bool loop = false, float pitch = 1f, float volume = 1f)
     {
         if (clip == null) return;
-        GameObject sfxObject = new GameObject("SFX Source");
-        sfxObject.transform.parent = transform;
-        AudioSource sfxSource = sfxObject.AddComponent<AudioSource>();
+
+        GameObject sfxObj = new GameObject("SFX Source"); ;
+        sfxObj.transform.parent = obj == null ? transform : obj.transform;
+        sfxObj.transform.localPosition = Vector3.zero;
+
+        AudioSource sfxSource = sfxObj.AddComponent<AudioSource>();
+        if(obj != null)
+        {
+            sfxSource.rolloffMode = AudioRolloffMode.Linear;
+            sfxSource.maxDistance = 50;
+            sfxSource.spatialBlend = 1f;
+        }
         sfxSource.loop = loop;
         sfxSource.clip = clip;
         sfxSource.pitch = pitch;
         sfxSource.volume = sfxVol;
         sfxSource.Play();
         sfxSources.Add(sfxSource);
+
+        StartCoroutine(ProcessOnDelayRemoveSfx(sfxSource));
     }
+
+    private IEnumerator ProcessOnDelayRemoveSfx(AudioSource source)
+    {
+        yield return new WaitForSeconds(source.clip.length + .5f);
+        sfxSources.Remove(source);
+        Destroy(source.gameObject);
+    }
+
     public void SfxVol(float vol)
     {
         sfxVol = vol;

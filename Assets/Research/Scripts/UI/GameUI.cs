@@ -75,6 +75,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private PlayerRef _localPlayerRef;
     private EntityRef _localEntityRef = default;
 
+    bool _isInitializedLocalEntitySetup = false;
+
     private void Awake()
     {
         _camera = FindObjectOfType<Camera>();
@@ -130,6 +132,16 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
             timer.titleText.text = "Wait for seconds..";
         }
 
+        if(e.NewState == GameState.Game)
+        {
+            if (!_isInitializedLocalEntitySetup)
+            {
+                _isInitializedLocalEntitySetup = true;
+                var unit = GameObject.Find(_localEntityRef.ToString());
+                unit.AddComponent<AudioListener>();
+            }
+        }
+
         if(e.NewState == GameState.Outro)
         {
             resultPopup.SetActive(true);
@@ -165,6 +177,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             _localPlayerRef = playerLink.PlayerRef;
             _localEntityRef = e.Mechanic;
+
             ChatUI.Connect(runtimePlayer.PlayerNickname);
         }
 
@@ -293,17 +306,18 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
                 var skill = skills.GetPointer(i);
                 var skillData = f.FindAsset(skill->SkillData);
                 var audioData = weaponSkillAudioDatas[i];
+                var unit = GameObject.Find(_localEntityRef.ToString());
                 switch (skill->Status)
                 {
                     case SkillStatus.Casting:
                         if (weaponSkillAudioDatas[i].status == SkillStatus.Casting) return;
                         audioData.status = SkillStatus.Casting;
-                        AudioManager.Instance.PlaySfx(audioData.castingClip);
+                        AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
                         break;
                     case SkillStatus.Ready:
                         if (weaponSkillAudioDatas[i].status == SkillStatus.Ready) return;
                         audioData.status = SkillStatus.Ready;
-                        AudioManager.Instance.PlaySfx(audioData.readyClip);
+                        AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
                         break;
                 }
             }

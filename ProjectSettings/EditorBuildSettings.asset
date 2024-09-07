@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Start.unity
+    path: Assets/Research/Scenes/Redemo/Start.unity
     guid: 91ab8c0cc34bb1c478c866547f1274c6
   - enabled: 1
     path: Assets/Research/Scenes/Redemo/Redemo.unity
