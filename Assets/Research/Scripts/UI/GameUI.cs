@@ -306,7 +306,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
                 var skill = skills.GetPointer(i);
                 var skillData = f.FindAsset(skill->SkillData);
                 var audioData = weaponSkillAudioDatas[i];
-                var unit = GameObject.Find(_localEntityRef.ToString());
+                var unit = ViewContext.LocalPlayerView.gameObject;
                 switch (skill->Status)
                 {
                     case SkillStatus.Casting:
