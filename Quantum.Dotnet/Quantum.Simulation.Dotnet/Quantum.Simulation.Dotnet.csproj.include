@@ -1,0 +1,19 @@
+<Project>
+  <!--Properties-->
+  <PropertyGroup>
+    <QuantumCodeGenOutput>..\..\Assets\QuantumUser\Simulation\Generated</QuantumCodeGenOutput>
+  </PropertyGroup>
+  <!--Includes-->
+  <ItemGroup>
+    <None Include="../../Assets/Photon/QuantumAsteroids/Simulation/Asteroids.qtn">
+      <Link>Photon/QuantumAsteroids/Simulation/Asteroids.qtn</Link>
+    </None>
+    <Compile Include="../../Assets/Photon/QuantumAsteroids/Simulation/AsteroidsGameConfig.cs">
+      <Link>Photon/QuantumAsteroids/Simulation/AsteroidsGameConfig.cs</Link>
+    </Compile>
+    <Compile Include="../../Assets/QuantumUser/Simulation/**/*.cs" LinkBase="QuantumUser/Simulation" />
+    <None Include="../../Assets/QuantumUser/Simulation/**/*.qtn" LinkBase="QuantumUser/Simulation" />
+    <Compile Include="../../Assets/Photon/Quantum/Simulation/**/*.cs" LinkBase="Photon/Quantum/Simulation" />
+    <None Include="../../Assets/Photon/Quantum/Simulation/**/*.qtn" LinkBase="Photon/Quantum/Simulation" />
+  </ItemGroup>
+</Project>

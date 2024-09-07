@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597b4d5b3d5a44ceba693f5ad55fb3d7, type: 3}
+  m_Name: PlayerMovementData
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/Movement/PlayerMovementData
+    Guid:
+      Value: 496965797641885118
+  NoMovementBraking:
+    RawValue: 327680
+  DefaultKCCSettings:
+    Id:
+      Value: 346772831293918014
+  NoMovementKCCSettings:
+    Id:
+      Value: 422276103473209206

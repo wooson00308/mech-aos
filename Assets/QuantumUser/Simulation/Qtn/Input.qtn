@@ -1,0 +1,30 @@
+input {
+    Byte MovementEncoded;
+	button MainWeaponFire;
+	button FirstSkill;
+    button SecondSkill;
+    button ThirdSkill;
+    button FourthSkill;
+    button FifthSkill;
+    button SixthSkill;
+    button SeventhSkill;
+    button EighthSkill;
+    button NinthSkill;
+    button TenthSkill;
+}
+enum EWeaponType 
+{
+    MainWeapon,
+    SubWeapon,
+}
+event Movement
+{ 
+    EntityRef Owner; 
+    FP Velocity;
+}
+
+event WeaponFire
+{
+    EntityRef Owner;
+    asset_ref<WeaponData> WeaponData;
+}

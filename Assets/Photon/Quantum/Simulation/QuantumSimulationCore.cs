@@ -2060,10 +2060,10 @@ namespace Quantum {
     /// and the server accepted the RuntimePlayer data. 
     /// </summary>
     /// <para>The signal is always called from a verified frame.</para>
-    /// <param name="f">The frame reference.</param>
+    /// <param name="frame">The frame reference.</param>
     /// <param name="player">The player that was added.</param>
     /// <param name="firstTime">The first time that this player ref was assigned to a player at all. When firstTime is false the player ref is being reused by a different player. See documentation.</param>
-    void OnPlayerAdded(Frame f, PlayerRef player, bool firstTime);
+    void OnPlayerAdded(Frame frame, PlayerRef player, bool firstTime);
   }
 
   /// <inheritdoc cref="ISignalOnPlayerRemoved.OnPlayerRemoved(Frame, PlayerRef)"/>/>

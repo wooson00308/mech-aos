@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Quantum.Mech;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -78,10 +79,10 @@ public class MechAttack : MonoBehaviour
             enemyHandle = enemy.Attack.Handle;
         }
 
-        // Å¸°ÙÀÌ º¯ÇßÀ½
+        // íƒ€ê²Ÿì´ ë³€í–ˆìŒ
         if (_targetHandle != enemyHandle)
         {
-            // ÀÌÀü Å¸°ÙÀÇ ¾Æ¿ô¶óÀÎÀ» Á¦°Å
+            // ì´ì „ íƒ€ê²Ÿì˜ ì•„ì›ƒë¼ì¸ì„ ì œê±°
             var prevTarget = mech.Map.GetEnemy(_targetHandle);
             if (prevTarget != null)
             {
@@ -91,7 +92,7 @@ public class MechAttack : MonoBehaviour
                     outline.enabled = false;
                 }
             }
-            // »õ·Î¿î Å¸°ÙÀÇ ¾Æ¿ô¶óÀÎÀ» Ç¥½Ã
+            // ìƒˆë¡œìš´ íƒ€ê²Ÿì˜ ì•„ì›ƒë¼ì¸ì„ í‘œì‹œ
             if (enemy != null)
             {
                 var outline = enemy.GetComponent<Outline>();
@@ -107,17 +108,18 @@ public class MechAttack : MonoBehaviour
 
     IEnumerator ProcessAttack(Mech mech, Weapon weapon)
     {
-        if (_weaponDelayDic[weapon]) yield break;
-        _weaponDelayDic[weapon] = true;
-
-        yield return new WaitForSeconds(weapon.AttackInitDelay);
-
-        weapon.OnAttack();
-
-        yield return new WaitForSeconds(weapon.AttackCooltime);
-
-        weapon.OnReadyAttack(true);
-
-        _weaponDelayDic[weapon] = false;
+        // if (_weaponDelayDic[weapon]) yield break;
+        // _weaponDelayDic[weapon] = true;
+        //
+        // yield return new WaitForSeconds(weapon.AttackInitDelay);
+        //
+        // weapon.OnAttack();
+        //
+        // yield return new WaitForSeconds(weapon.AttackCooltime);
+        //
+        // weapon.OnReadyAttack(true);
+        //
+        // _weaponDelayDic[weapon] = false;
+        yield break;
     }
 }

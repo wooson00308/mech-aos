@@ -1,0 +1,8 @@
+component PlayableMechanic
+{
+    Team Team;
+}
+event PlayerLeft
+{
+	player_ref Player;
+}

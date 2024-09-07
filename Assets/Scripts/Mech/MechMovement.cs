@@ -8,7 +8,7 @@ public class MechMovement : MonoBehaviour
     public Animator Animator;
     public NavMeshAgent Agent;
     public Joystick Joystick;
-    public ParticleSystem MoveParticle; // ÆÄÆ¼Å¬ ½Ã½ºÅÛ ÇÊµå Ãß°¡
+    public ParticleSystem MoveParticle; // íŒŒí‹°í´ ì‹œìŠ¤í…œ í•„ë“œ ì¶”ê°€
 
     private Vector3 _currentMoveDir;
     public Vector3 CurrentMoveDir => _currentMoveDir;
@@ -16,9 +16,9 @@ public class MechMovement : MonoBehaviour
     public AudioClip moveClip;
     private bool isMoving = false;
 
-    private float sfxPlayIntervalBase = 0.55f; // SFX ±âº» Àç»ı °£°İ
-    private float moveAnimationMultiplierBase = 0.7f; // ±âº» ¾Ö´Ï¸ŞÀÌ¼Ç ¼Óµµ
-    private float moveSpeedMultiplierBase = 10f; // ±âº» ÀÌµ¿ ¼Óµµ
+    private float sfxPlayIntervalBase = 0.55f; // SFX ê¸°ë³¸ ì¬ìƒ ê°„ê²©
+    private float moveAnimationMultiplierBase = 0.7f; // ê¸°ë³¸ ì• ë‹ˆë©”ì´ì…˜ ì†ë„
+    private float moveSpeedMultiplierBase = 10f; // ê¸°ë³¸ ì´ë™ ì†ë„
 
     private float sfxPlayInterval;
     private float moveAnimationMultiplier;
@@ -48,7 +48,7 @@ public class MechMovement : MonoBehaviour
             var targetDir = target.transform.position - this.transform.position;
             RotateToTargetDir(mech, targetDir);
 
-            // ÀÌµ¿ ¹æÇâ¿¡ ¸Â´Â ¾Ö´Ï¸ŞÀÌ¼Ç Àû¿ë
+            // ì´ë™ ë°©í–¥ì— ë§ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì ìš©
             var targetDirNorm = targetDir.normalized;
             var angle = Mathf.Acos(targetDirNorm.z);
             if (targetDirNorm.x < 0)
@@ -69,7 +69,7 @@ public class MechMovement : MonoBehaviour
         {
             if (_currentMoveDir != Vector3.zero)
             {
-                // ¾ÕÀ¸·Î ´Ş¸®´Â ¾Ö´Ï¸ŞÀÌ¼Ç
+                // ì•ìœ¼ë¡œ ë‹¬ë¦¬ëŠ” ì• ë‹ˆë©”ì´ì…˜
                 Animator.SetFloat("X", 0);
                 Animator.SetFloat("Y", 1);
 
@@ -77,7 +77,7 @@ public class MechMovement : MonoBehaviour
             }
             else
             {
-                // ¼­ÀÖ´Â ¾Ö´Ï¸ŞÀÌ¼Ç
+                // ì„œìˆëŠ” ì• ë‹ˆë©”ì´ì…˜
                 Animator.SetFloat("X", 0);
                 Animator.SetFloat("Y", 0);
             }
@@ -87,8 +87,8 @@ public class MechMovement : MonoBehaviour
     private void Move(Mech mech)
     {
         if (Joystick == null) return;
-
-        Vector3 moveDir = new(Joystick.Horizontal(), 0, Joystick.Vertical());
+        
+        Vector3 moveDir = new(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         _currentMoveDir = moveDir.normalized;
 
         var offset = _currentMoveDir * (mech.MoveSpeed * moveSpeedMultiplier) * Time.fixedDeltaTime;
@@ -118,7 +118,7 @@ public class MechMovement : MonoBehaviour
     {
         while (isMoving)
         {
-            if (MoveParticle != null) MoveParticle.Play(); // ÆÄÆ¼Å¬ Àç»ı
+            if (MoveParticle != null) MoveParticle.Play(); // íŒŒí‹°í´ ì¬ìƒ
             AudioManager.Instance.PlaySfx(moveClip, false, mech.MoveSpeed, .3f);
             yield return new WaitForSeconds(sfxPlayInterval);
         }

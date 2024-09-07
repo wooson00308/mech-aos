@@ -1,0 +1,32 @@
+component BulletFields{
+	FP Time;
+	entity_ref Source;
+	FPVector3 Direction;
+	asset_ref<BulletData> BulletData;
+}
+
+event OnBulletDestroyed {
+	Int32 BulletRefHashCode;
+	entity_ref Mechanic;
+	FPVector3 BulletPosition;
+	FPVector3 BulletDirection;
+	asset_ref<BulletData> BulletData;
+}
+
+enum ESpreadShape {
+    PLANE,   // 평면
+    CIRCULAR // 원형
+}
+
+enum ESpreadDirection {
+    HORIZONTAL,  // 가로
+    VERTICAL,    // 세로
+    GRID // 그리드
+}
+
+enum EHitTargetType
+{
+    None,
+    Mechanic,
+    Nexus
+}

@@ -1,0 +1,21 @@
+struct Weapon {
+	Boolean IsRecharging;
+	Int32 CurrentAmmo;
+	FP FireRateTimer;
+	FP DelayToStartRechargeTimer;
+	FP RechargeRate;
+	FP ChargeTime;
+	asset_ref<PrimaryWeaponData> WeaponData;
+}
+
+component WeaponInventory {
+	Int32 CurrentWeaponIndex;
+	list<Weapon> Weapons;
+}
+
+event OnWeaponShoot{
+ 	entity_ref Mechanic;
+}
+
+event DummyEvent {}
+

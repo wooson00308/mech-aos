@@ -1,0 +1,4 @@
+signal OnMechanicRespawn(entity_ref robot);
+signal OnMechanicHit(entity_ref bullet, entity_ref robot, FP damage);
+signal OnMechanicSkillHit(entity_ref skill, entity_ref robot);
+signal OnMechanicDeath(entity_ref deadRobot, entity_ref killer);

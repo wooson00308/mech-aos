@@ -1,0 +1,17 @@
+enum Team {
+	Red,
+	Blue,
+	Green 
+}
+component PlayerLink
+{
+    player_ref PlayerRef;
+}
+
+struct PlayerData
+{
+	bool ready;
+}
+
+signal SpawnMechanic(EntityRef mechanic);
+

@@ -1,0 +1,27 @@
+component Nexus
+{
+    Team Team;
+    FP CurrentHealth;
+    Boolean IsDestroy;
+    Boolean IsTeamDefeat;
+}
+
+abstract event NexusEvent {
+	entity_ref Nexus; 	
+}
+
+event OnNexusTakeDamage : NexusEvent {
+	FP Damage;
+	entity_ref Source; 	
+}
+
+synced event OnNexusDestroy : NexusEvent {
+	entity_ref Killer; 	
+}
+
+synced event OnTeamNexusDestroy{
+	Team Team; 	
+}
+
+signal OnNexusHit(entity_ref bullet, entity_ref nexus, FP damage);
+signal OnNexusDestroy(entity_ref nexus, entity_ref killer);

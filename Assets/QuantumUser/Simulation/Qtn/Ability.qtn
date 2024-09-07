@@ -1,0 +1,49 @@
+// Order used for activation priority
+enum AbilityType
+{
+    Dash,
+    OrbitalSupport
+}
+component AbilityInventory
+{
+    [ExcludeFromPrototype] ActiveAbilityInfo ActiveAbilityInfo;
+        
+    // Same order as AbilityType enum
+    [Header("Ability Order: Dash, OrbitalSupport")]
+    array<Ability>[2] Abilities;
+}
+
+struct ActiveAbilityInfo
+{
+    [ExcludeFromPrototype] int ActiveAbilityIndex;
+    [ExcludeFromPrototype] FPVector3 CastDirection;
+    [ExcludeFromPrototype] FPQuaternion CastRotation;
+    [ExcludeFromPrototype] FPVector3 CastVelocity;
+}
+
+struct Ability
+{
+    [ExcludeFromPrototype] AbilityType AbilityType;
+
+    [ExcludeFromPrototype] CountdownTimer InputBufferTimer;
+    [ExcludeFromPrototype] CountdownTimer DelayTimer;
+    [ExcludeFromPrototype] CountdownTimer DurationTimer;
+//    [ExcludeFromPrototype] CountdownTimer CooldownTimer;
+
+    asset_ref<AbilityData> AbilityData;
+}
+
+struct CountdownTimer
+{
+    FP TimeLeft;
+    FP StartTime;
+}
+
+signal OnCooldownsReset(entity_ref playerEntityRef);
+signal OnActiveAbilityStopped(entity_ref playerEntityRef);
+
+enum EAbilityEndCondition
+{
+    Duration = 0,    // 일정 시간이 지나면 스킬이 종료됩니다.
+    Event = 1        // 특정 이벤트가 발생하면 스킬이 종료됩니다.
+}
