@@ -132,15 +132,15 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
             timer.titleText.text = "Wait for seconds..";
         }
 
-        if(e.NewState == GameState.Game)
-        {
-            if (!_isInitializedLocalEntitySetup)
-            {
-                _isInitializedLocalEntitySetup = true;
-                var unit = GameObject.Find(_localEntityRef.ToString());
-                unit.AddComponent<AudioListener>();
-            }
-        }
+        //if(e.NewState == GameState.Game)
+        //{
+        //    if (!_isInitializedLocalEntitySetup)
+        //    {
+        //        _isInitializedLocalEntitySetup = true;
+        //        var unit = GameObject.Find(_localEntityRef.ToString());
+        //        unit.AddComponent<AudioListener>();
+        //    }
+        //}
 
         if(e.NewState == GameState.Outro)
         {
