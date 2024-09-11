@@ -36,7 +36,6 @@ namespace Quantum.Mech
 
         public void OnGameStateChanged(EventGameStateChanged e)
         {
-            Debug.Log($"@@@@@@@@@@@@@@@@ {e.NewState}");
             if (e.NewState == GameState.Game)
             {
                 _introCamera.gameObject.SetActive(false);
@@ -46,12 +45,15 @@ namespace Quantum.Mech
         }
         public void OnMechanicOrbitalSupport(EventOnMechanicOrbitalSupport e)
         {
+            if (e.Mechanic != ViewContext.EntityRef) return;
             _introCamera.gameObject.SetActive(false);
             _localCamera.gameObject.SetActive(false);
             _orbitalSupportCamera.gameObject.SetActive(true);
+
         }
         public void OnMechanicOrbitalSupportEnd(EventOnMechanicOrbitalSupportEnd e)
         {
+            if (e.Mechanic != ViewContext.EntityRef) return;
             _introCamera.gameObject.SetActive(false);
             _localCamera.gameObject.SetActive(true);
             _orbitalSupportCamera.gameObject.SetActive(false);

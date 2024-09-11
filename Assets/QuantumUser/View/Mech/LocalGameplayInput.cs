@@ -53,6 +53,12 @@ namespace Quantum.Mech
             input.FirstSkill = _playerInput.actions["Secondary Action"].IsPressed();
             input.SecondSkill = _playerInput.actions["Tertiary Action"].IsPressed();
             input.ThirdSkill = _playerInput.actions["Quaternary Action"].IsPressed();
+            input.Return = _playerInput.actions["Return Action"].IsPressed();
+            
+            input.MouseLeftButton = Mouse.current.leftButton.wasPressedThisFrame;
+            var screenPosition = Mouse.current.position.ReadValue();
+            input.MousePosition = screenPosition.ToFPVector2();
+            
             callback.SetInput(input, DeterministicInputFlags.Repeatable);
         }
     }

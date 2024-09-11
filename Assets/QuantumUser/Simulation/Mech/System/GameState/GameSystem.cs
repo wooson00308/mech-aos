@@ -8,20 +8,33 @@ using UnityEngine.Scripting;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class GameSystem : SystemSignalsOnly, IGameState_Game, ISignalOnTeamDefeat
+    public unsafe class GameSystem : SystemMainThread, IGameState_Game, ISignalOnTeamDefeat
     {
         public override bool StartEnabled => false;
         private Dictionary<Team, bool> isTeamDefeated;
+        
         public override void OnEnabled(Frame f)
         {
             isTeamDefeated = new Dictionary<Team, bool>();
+            f.Global->clock = 180;
             foreach (var pair in f.Unsafe.GetComponentBlockIterator<PlayableMechanic>())
             {
                 isTeamDefeated[pair.Component->Team] = false;
                 Debug.Log(pair.Component->Team);
             }
         }
-
+        public override void Update(Frame f)
+        {
+            if (f.Global->clock > 0)
+            {
+                f.Global->clock -= f.DeltaTime;
+                if (f.Global->clock <= 0)
+                {
+                    f.Global->clock = 0; ;
+                    GameStateSystem.SetState(f, GameState.Outro);
+                }
+            }
+        }
         public void OnTeamDefeat(Frame f, Team Team)
         {
             foreach (var mechanic in f.Unsafe.GetComponentBlockIterator<PlayableMechanic>())
@@ -59,5 +72,7 @@ namespace Quantum.Mech
             Debug.Log($"falseCount : {falseCount}");
             return falseCount == 1;
         }
+
+    
     }
 }

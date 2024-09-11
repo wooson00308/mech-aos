@@ -11,7 +11,7 @@ namespace Quantum.Mech
 {
     [Preserve]
     public unsafe class MovementSystem : SystemMainThreadFilter<MovementSystem.Filter>, 
-        ISignalOnGameEnded, IKCCCallbacks3D
+        ISignalOnGameEnded, IKCCCallbacks3D, ISignalOnMechanicTeleport
     {
         public struct Filter
         {
@@ -99,6 +99,13 @@ namespace Quantum.Mech
         public void OnCharacterTrigger3D(FrameBase f, EntityRef character, Hit3D hit)
         {
 
+        }
+
+        public void OnMechanicTeleport(Frame f, EntityRef mechanic, FPVector3 position)
+        {
+            var transform3D = f.Unsafe.GetPointer<Transform3D>(mechanic);
+            transform3D->Position = position;
+            transform3D->Teleport(f, position);
         }
     }
 }

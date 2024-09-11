@@ -1,6 +1,8 @@
 component PlayableMechanic
 {
     Team Team;
+    
+    Skill ReturnSkill;
 }
 event PlayerLeft
 {

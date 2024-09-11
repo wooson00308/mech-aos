@@ -37,19 +37,18 @@ MonoBehaviour:
   UseManifoldNormal: 1
   AirControl: 1
   Acceleration:
-    RawValue: 6553600
+    RawValue: 16384000
   Braking:
-    RawValue: 1310720
+    RawValue: 3276800
   BaseJumpImpulse:
-    RawValue: 1310720
+    RawValue: 3276800
   MaxSpeed:
-    RawValue: 720896
+    RawValue: 1802240
   Gravity:
     X:
       RawValue: 0
     Y:
       RawValue: -3276800
-      RawValue: 114425856
     Z:
       RawValue: 0
   MaxSlope:

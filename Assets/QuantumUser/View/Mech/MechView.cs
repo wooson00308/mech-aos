@@ -18,6 +18,7 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
         if (Game.PlayerIsLocal(playerLink.PlayerRef))
         {
             ViewContext.LocalPlayerView = this;
+            ViewContext.EntityRef = EntityRef;
         }
         QuantumEvent.Subscribe<EventOnMechanicDeath>(this, Death);
         QuantumEvent.Subscribe<EventOnMechanicRespawn>(this, Respawn);

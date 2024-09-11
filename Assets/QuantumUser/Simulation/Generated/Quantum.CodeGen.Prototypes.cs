@@ -62,9 +62,9 @@ namespace Quantum.Prototypes {
   [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.AbilityInventory))]
   public unsafe partial class AbilityInventoryPrototype : ComponentPrototype<Quantum.AbilityInventory> {
-    [Header("Ability Order: Dash, OrbitalSupport")]
-    [ArrayLengthAttribute(2)]
-    public Quantum.Prototypes.AbilityPrototype[] Abilities = new Quantum.Prototypes.AbilityPrototype[2];
+    [Header("Ability Order: Dash, OrbitalSupport, Return")]
+    [ArrayLengthAttribute(3)]
+    public Quantum.Prototypes.AbilityPrototype[] Abilities = new Quantum.Prototypes.AbilityPrototype[3];
     partial void MaterializeUser(Frame frame, ref Quantum.AbilityInventory result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.AbilityInventory component = default;
@@ -72,7 +72,7 @@ namespace Quantum.Prototypes {
         return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref Quantum.AbilityInventory result, in PrototypeMaterializationContext context = default) {
-        for (int i = 0, count = PrototypeValidator.CheckLength(Abilities, 2, in context); i < count; ++i) {
+        for (int i = 0, count = PrototypeValidator.CheckLength(Abilities, 3, in context); i < count; ++i) {
           this.Abilities[i].Materialize(frame, ref *result.Abilities.GetPointer(i), in context);
         }
         MaterializeUser(frame, ref result, in context);
@@ -135,6 +135,9 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.Input))]
   public unsafe partial class InputPrototype : StructPrototype {
     public Byte MovementEncoded;
+    public Button MouseLeftButton;
+    public FP ScreenPositionX;
+    public FP ScreenPositionY;
     public Button MainWeaponFire;
     public Button FirstSkill;
     public Button SecondSkill;
@@ -146,9 +149,13 @@ namespace Quantum.Prototypes {
     public Button EighthSkill;
     public Button NinthSkill;
     public Button TenthSkill;
+    public Button Return;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
         result.MovementEncoded = this.MovementEncoded;
+        result.MouseLeftButton = this.MouseLeftButton;
+        result.ScreenPositionX = this.ScreenPositionX;
+        result.ScreenPositionY = this.ScreenPositionY;
         result.MainWeaponFire = this.MainWeaponFire;
         result.FirstSkill = this.FirstSkill;
         result.SecondSkill = this.SecondSkill;
@@ -160,6 +167,7 @@ namespace Quantum.Prototypes {
         result.EighthSkill = this.EighthSkill;
         result.NinthSkill = this.NinthSkill;
         result.TenthSkill = this.TenthSkill;
+        result.Return = this.Return;
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -343,6 +351,7 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.PlayableMechanic))]
   public unsafe partial class PlayableMechanicPrototype : ComponentPrototype<Quantum.PlayableMechanic> {
     public Quantum.QEnum32<Team> Team;
+    public Quantum.Prototypes.SkillPrototype ReturnSkill;
     partial void MaterializeUser(Frame frame, ref Quantum.PlayableMechanic result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.PlayableMechanic component = default;
@@ -351,6 +360,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.PlayableMechanic result, in PrototypeMaterializationContext context = default) {
         result.Team = this.Team;
+        this.ReturnSkill.Materialize(frame, ref result.ReturnSkill, in context);
         MaterializeUser(frame, ref result, in context);
     }
   }

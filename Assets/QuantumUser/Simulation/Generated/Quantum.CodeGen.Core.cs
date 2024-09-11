@@ -52,6 +52,7 @@ namespace Quantum {
   public enum AbilityType : int {
     Dash,
     OrbitalSupport,
+    Return,
   }
   public enum EAbilityEndCondition : int {
     Duration = 0,
@@ -113,17 +114,19 @@ namespace Quantum {
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
-    MainWeaponFire = 1 << 0,
-    FirstSkill = 1 << 1,
-    SecondSkill = 1 << 2,
-    ThirdSkill = 1 << 3,
-    FourthSkill = 1 << 4,
-    FifthSkill = 1 << 5,
-    SixthSkill = 1 << 6,
-    SeventhSkill = 1 << 7,
-    EighthSkill = 1 << 8,
-    NinthSkill = 1 << 9,
-    TenthSkill = 1 << 10,
+    MouseLeftButton = 1 << 0,
+    MainWeaponFire = 1 << 1,
+    FirstSkill = 1 << 2,
+    SecondSkill = 1 << 3,
+    ThirdSkill = 1 << 4,
+    FourthSkill = 1 << 5,
+    FifthSkill = 1 << 6,
+    SixthSkill = 1 << 7,
+    SeventhSkill = 1 << 8,
+    EighthSkill = 1 << 9,
+    NinthSkill = 1 << 10,
+    TenthSkill = 1 << 11,
+    Return = 1 << 12,
   }
   public static unsafe partial class FlagsExtensions {
     public static Boolean IsFlagSet(this InputButtons self, InputButtons flag) {
@@ -488,6 +491,9 @@ namespace Quantum {
     [FieldOffset(32)]
     [ExcludeFromPrototype()]
     public CountdownTimer DurationTimer;
+    [FieldOffset(4)]
+    [ExcludeFromPrototype()]
+    public EAbilityEndCondition EndCondition;
     [FieldOffset(8)]
     public AssetRef<AbilityData> AbilityData;
     public override Int32 GetHashCode() {
@@ -497,6 +503,7 @@ namespace Quantum {
         hash = hash * 31 + InputBufferTimer.GetHashCode();
         hash = hash * 31 + DelayTimer.GetHashCode();
         hash = hash * 31 + DurationTimer.GetHashCode();
+        hash = hash * 31 + (Int32)EndCondition;
         hash = hash * 31 + AbilityData.GetHashCode();
         return hash;
       }
@@ -504,6 +511,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Ability*)ptr;
         serializer.Stream.Serialize((Int32*)&p->AbilityType);
+        serializer.Stream.Serialize((Int32*)&p->EndCondition);
         AssetRef.Serialize(&p->AbilityData, serializer);
         Quantum.CountdownTimer.Serialize(&p->DelayTimer, serializer);
         Quantum.CountdownTimer.Serialize(&p->DurationTimer, serializer);
@@ -590,36 +598,49 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
-    public const Int32 SIZE = 136;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 184;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(180)]
+    private fixed Byte _alignment_padding_[4];
     [FieldOffset(0)]
     public Byte MovementEncoded;
-    [FieldOffset(52)]
-    public Button MainWeaponFire;
-    [FieldOffset(28)]
-    public Button FirstSkill;
-    [FieldOffset(76)]
-    public Button SecondSkill;
-    [FieldOffset(124)]
-    public Button ThirdSkill;
-    [FieldOffset(40)]
-    public Button FourthSkill;
+    [FieldOffset(84)]
+    public Button MouseLeftButton;
+    [FieldOffset(8)]
+    public FP ScreenPositionX;
     [FieldOffset(16)]
+    public FP ScreenPositionY;
+    [FieldOffset(72)]
+    public Button MainWeaponFire;
+    [FieldOffset(48)]
+    public Button FirstSkill;
+    [FieldOffset(120)]
+    public Button SecondSkill;
+    [FieldOffset(168)]
+    public Button ThirdSkill;
+    [FieldOffset(60)]
+    public Button FourthSkill;
+    [FieldOffset(36)]
     public Button FifthSkill;
-    [FieldOffset(100)]
+    [FieldOffset(144)]
     public Button SixthSkill;
-    [FieldOffset(88)]
+    [FieldOffset(132)]
     public Button SeventhSkill;
-    [FieldOffset(4)]
+    [FieldOffset(24)]
     public Button EighthSkill;
-    [FieldOffset(64)]
+    [FieldOffset(96)]
     public Button NinthSkill;
-    [FieldOffset(112)]
+    [FieldOffset(156)]
     public Button TenthSkill;
+    [FieldOffset(108)]
+    public Button Return;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 19249;
         hash = hash * 31 + MovementEncoded.GetHashCode();
+        hash = hash * 31 + MouseLeftButton.GetHashCode();
+        hash = hash * 31 + ScreenPositionX.GetHashCode();
+        hash = hash * 31 + ScreenPositionY.GetHashCode();
         hash = hash * 31 + MainWeaponFire.GetHashCode();
         hash = hash * 31 + FirstSkill.GetHashCode();
         hash = hash * 31 + SecondSkill.GetHashCode();
@@ -631,6 +652,7 @@ namespace Quantum {
         hash = hash * 31 + EighthSkill.GetHashCode();
         hash = hash * 31 + NinthSkill.GetHashCode();
         hash = hash * 31 + TenthSkill.GetHashCode();
+        hash = hash * 31 + Return.GetHashCode();
         return hash;
       }
     }
@@ -639,6 +661,7 @@ namespace Quantum {
     }
     public Boolean IsDown(InputButtons button) {
       switch (button) {
+        case InputButtons.MouseLeftButton: return MouseLeftButton.IsDown;
         case InputButtons.MainWeaponFire: return MainWeaponFire.IsDown;
         case InputButtons.FirstSkill: return FirstSkill.IsDown;
         case InputButtons.SecondSkill: return SecondSkill.IsDown;
@@ -650,11 +673,13 @@ namespace Quantum {
         case InputButtons.EighthSkill: return EighthSkill.IsDown;
         case InputButtons.NinthSkill: return NinthSkill.IsDown;
         case InputButtons.TenthSkill: return TenthSkill.IsDown;
+        case InputButtons.Return: return Return.IsDown;
         default: return false;
       }
     }
     public Boolean WasPressed(InputButtons button) {
       switch (button) {
+        case InputButtons.MouseLeftButton: return MouseLeftButton.WasPressed;
         case InputButtons.MainWeaponFire: return MainWeaponFire.WasPressed;
         case InputButtons.FirstSkill: return FirstSkill.WasPressed;
         case InputButtons.SecondSkill: return SecondSkill.WasPressed;
@@ -666,18 +691,23 @@ namespace Quantum {
         case InputButtons.EighthSkill: return EighthSkill.WasPressed;
         case InputButtons.NinthSkill: return NinthSkill.WasPressed;
         case InputButtons.TenthSkill: return TenthSkill.WasPressed;
+        case InputButtons.Return: return Return.WasPressed;
         default: return false;
       }
     }
     static partial void SerializeCodeGen(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
         serializer.Stream.Serialize(&p->MovementEncoded);
+        FP.Serialize(&p->ScreenPositionX, serializer);
+        FP.Serialize(&p->ScreenPositionY, serializer);
         Button.Serialize(&p->EighthSkill, serializer);
         Button.Serialize(&p->FifthSkill, serializer);
         Button.Serialize(&p->FirstSkill, serializer);
         Button.Serialize(&p->FourthSkill, serializer);
         Button.Serialize(&p->MainWeaponFire, serializer);
+        Button.Serialize(&p->MouseLeftButton, serializer);
         Button.Serialize(&p->NinthSkill, serializer);
+        Button.Serialize(&p->Return, serializer);
         Button.Serialize(&p->SecondSkill, serializer);
         Button.Serialize(&p->SeventhSkill, serializer);
         Button.Serialize(&p->SixthSkill, serializer);
@@ -1005,7 +1035,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 1432;
+    public const Int32 SIZE = 1720;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -1027,34 +1057,34 @@ namespace Quantum {
     public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(536)]
     public Int32 PlayerConnectedCount;
-    [FieldOffset(540)]
+    [FieldOffset(544)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
-    private fixed Byte _input_[816];
-    [FieldOffset(1360)]
+    private fixed Byte _input_[1104];
+    [FieldOffset(1648)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(1416)]
+    [FieldOffset(1704)]
     public GameController GameController;
-    [FieldOffset(1380)]
+    [FieldOffset(1668)]
     public Int32 ClientConnectUsers;
-    [FieldOffset(1400)]
+    [FieldOffset(1688)]
     public FP StateTimer;
-    [FieldOffset(1372)]
+    [FieldOffset(1660)]
     public GameState DelayedState;
-    [FieldOffset(1368)]
+    [FieldOffset(1656)]
     public GameState CurrentState;
-    [FieldOffset(1376)]
+    [FieldOffset(1664)]
     public GameState PreviousState;
-    [FieldOffset(1408)]
+    [FieldOffset(1696)]
     public FP clock;
-    [FieldOffset(1384)]
+    [FieldOffset(1672)]
     public Int32 TeamIndex;
-    [FieldOffset(1392)]
+    [FieldOffset(1680)]
     public FP DisconnectTime;
-    [FieldOffset(1388)]
+    [FieldOffset(1676)]
     public QDictionaryPtr<Int32, PlayerData> teamData;
     public FixedArray<Input> input {
       get {
-        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 136, 6); }
+        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 184, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -1116,18 +1146,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct AbilityInventory : Quantum.IComponent {
-    public const Int32 SIZE = 216;
+    public const Int32 SIZE = 280;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(128)]
+    [FieldOffset(192)]
     [ExcludeFromPrototype()]
     public ActiveAbilityInfo ActiveAbilityInfo;
     [FieldOffset(0)]
-    [Header("Ability Order: Dash, OrbitalSupport")]
-    [FramePrinter.FixedArrayAttribute(typeof(Ability), 2)]
-    private fixed Byte _Abilities_[128];
+    [Header("Ability Order: Dash, OrbitalSupport, Return")]
+    [FramePrinter.FixedArrayAttribute(typeof(Ability), 3)]
+    private fixed Byte _Abilities_[192];
     public FixedArray<Ability> Abilities {
       get {
-        fixed (byte* p = _Abilities_) { return new FixedArray<Ability>(p, 64, 2); }
+        fixed (byte* p = _Abilities_) { return new FixedArray<Ability>(p, 64, 3); }
       }
     }
     public override Int32 GetHashCode() {
@@ -1298,20 +1328,24 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayableMechanic : Quantum.IComponent {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
+    public const Int32 SIZE = 40;
+    public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public Team Team;
+    [FieldOffset(8)]
+    public Skill ReturnSkill;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 8783;
         hash = hash * 31 + (Int32)Team;
+        hash = hash * 31 + ReturnSkill.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (PlayableMechanic*)ptr;
         serializer.Stream.Serialize((Int32*)&p->Team);
+        Quantum.Skill.Serialize(&p->ReturnSkill, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1471,6 +1505,9 @@ namespace Quantum {
   public unsafe partial interface ISignalOnMechanicDeath : ISignal {
     void OnMechanicDeath(Frame f, EntityRef deadRobot, EntityRef killer);
   }
+  public unsafe partial interface ISignalOnMechanicTeleport : ISignal {
+    void OnMechanicTeleport(Frame f, EntityRef mechanic, FPVector3 position);
+  }
   public unsafe partial interface ISignalOnGameEnded : ISignal {
     void OnGameEnded(Frame f, GameController* gameController);
   }
@@ -1502,6 +1539,7 @@ namespace Quantum {
     private ISignalOnMechanicHit[] _ISignalOnMechanicHitSystems;
     private ISignalOnMechanicSkillHit[] _ISignalOnMechanicSkillHitSystems;
     private ISignalOnMechanicDeath[] _ISignalOnMechanicDeathSystems;
+    private ISignalOnMechanicTeleport[] _ISignalOnMechanicTeleportSystems;
     private ISignalOnGameEnded[] _ISignalOnGameEndedSystems;
     private ISignalGameStateChanged[] _ISignalGameStateChangedSystems;
     private ISignalPlayerKilled[] _ISignalPlayerKilledSystems;
@@ -1527,6 +1565,7 @@ namespace Quantum {
       _ISignalOnMechanicHitSystems = BuildSignalsArray<ISignalOnMechanicHit>();
       _ISignalOnMechanicSkillHitSystems = BuildSignalsArray<ISignalOnMechanicSkillHit>();
       _ISignalOnMechanicDeathSystems = BuildSignalsArray<ISignalOnMechanicDeath>();
+      _ISignalOnMechanicTeleportSystems = BuildSignalsArray<ISignalOnMechanicTeleport>();
       _ISignalOnGameEndedSystems = BuildSignalsArray<ISignalOnGameEnded>();
       _ISignalGameStateChangedSystems = BuildSignalsArray<ISignalGameStateChanged>();
       _ISignalPlayerKilledSystems = BuildSignalsArray<ISignalPlayerKilled>();
@@ -1603,6 +1642,9 @@ namespace Quantum {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
       i->MovementEncoded = input.MovementEncoded;
+      i->MouseLeftButton = i->MouseLeftButton.Update(this.Number, input.MouseLeftButton);
+      i->ScreenPositionX = input.ScreenPositionX;
+      i->ScreenPositionY = input.ScreenPositionY;
       i->MainWeaponFire = i->MainWeaponFire.Update(this.Number, input.MainWeaponFire);
       i->FirstSkill = i->FirstSkill.Update(this.Number, input.FirstSkill);
       i->SecondSkill = i->SecondSkill.Update(this.Number, input.SecondSkill);
@@ -1614,6 +1656,7 @@ namespace Quantum {
       i->EighthSkill = i->EighthSkill.Update(this.Number, input.EighthSkill);
       i->NinthSkill = i->NinthSkill.Update(this.Number, input.NinthSkill);
       i->TenthSkill = i->TenthSkill.Update(this.Number, input.TenthSkill);
+      i->Return = i->Return.Update(this.Number, input.Return);
     }
     public Input* GetPlayerInput(PlayerRef player) {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -1689,6 +1732,15 @@ namespace Quantum {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnMechanicDeath(_f, deadRobot, killer);
+          }
+        }
+      }
+      public void OnMechanicTeleport(EntityRef mechanic, FPVector3 position) {
+        var array = _f._ISignalOnMechanicTeleportSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnMechanicTeleport(_f, mechanic, position);
           }
         }
       }

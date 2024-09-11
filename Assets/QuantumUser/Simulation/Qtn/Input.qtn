@@ -1,5 +1,9 @@
 input {
     Byte MovementEncoded;
+    
+    button MouseLeftButton;
+    FP ScreenPositionX;
+    FP ScreenPositionY;
 	button MainWeaponFire;
 	button FirstSkill;
     button SecondSkill;
@@ -11,6 +15,10 @@ input {
     button EighthSkill;
     button NinthSkill;
     button TenthSkill;
+    
+    button Return;
+    
+    
 }
 enum EWeaponType 
 {
