@@ -17,9 +17,9 @@ MonoBehaviour:
     Guid:
       Value: 448190493409595022
   InputBuffer:
-    RawValue: 9831
+    RawValue: 9830
   Delay:
-    RawValue: 9831
+    RawValue: 9830
   Duration:
     RawValue: 16384
   EndCondition: 1

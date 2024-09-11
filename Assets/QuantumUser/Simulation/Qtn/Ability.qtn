@@ -2,15 +2,16 @@
 enum AbilityType
 {
     Dash,
-    OrbitalSupport
+    OrbitalSupport,
+    Return,
 }
 component AbilityInventory
 {
     [ExcludeFromPrototype] ActiveAbilityInfo ActiveAbilityInfo;
         
     // Same order as AbilityType enum
-    [Header("Ability Order: Dash, OrbitalSupport")]
-    array<Ability>[2] Abilities;
+    [Header("Ability Order: Dash, OrbitalSupport, Return")]
+    array<Ability>[3] Abilities;
 }
 
 struct ActiveAbilityInfo
@@ -28,6 +29,7 @@ struct Ability
     [ExcludeFromPrototype] CountdownTimer InputBufferTimer;
     [ExcludeFromPrototype] CountdownTimer DelayTimer;
     [ExcludeFromPrototype] CountdownTimer DurationTimer;
+    [ExcludeFromPrototype] EAbilityEndCondition EndCondition;
 //    [ExcludeFromPrototype] CountdownTimer CooldownTimer;
 
     asset_ref<AbilityData> AbilityData;

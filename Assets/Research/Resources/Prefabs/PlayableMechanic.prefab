@@ -10067,8 +10067,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5293896108239647298}
   m_Father: {fileID: 0}
@@ -10194,23 +10194,23 @@ MonoBehaviour:
       SphereRadius:
         RawValue: 0
       CapsuleRadius:
-        RawValue: 76677
+        RawValue: 191692
       CapsuleHeight:
-        RawValue: 393216
+        RawValue: 983040
       PositionOffset:
         X:
           RawValue: 0
         Y:
-          RawValue: 196608
+          RawValue: 491520
         Z:
           RawValue: 0
       BoxExtents:
         X:
-          RawValue: 57344
+          RawValue: 143360
         Y:
-          RawValue: 196608
+          RawValue: 491520
         Z:
-          RawValue: 57344
+          RawValue: 143360
       RotationOffset:
         X:
           RawValue: 0
@@ -10334,6 +10334,16 @@ MonoBehaviour:
   Prototype:
     Team:
       Value: 0
+    ReturnSkill:
+      Status:
+        Value: 0
+      RemainingCastingTime:
+        RawValue: 0
+      RemainingCoolTime:
+        RawValue: 458752
+      SkillData:
+        Id:
+          Value: 346818657795686360
 --- !u!114 &6696619510866150947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10527,6 +10537,9 @@ MonoBehaviour:
     - AbilityData:
         Id:
           Value: 448190493409595022
+    - AbilityData:
+        Id:
+          Value: 470443979112314721
 --- !u!1 &3917550182542229095
 GameObject:
   m_ObjectHideFlags: 0

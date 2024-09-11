@@ -32,9 +32,9 @@ MonoBehaviour:
     X:
       RawValue: 0
     Y:
-      RawValue: 196608
+      RawValue: 786432
     Z:
-      RawValue: -294912
+      RawValue: 98304
   PositionOffset:
     X:
       RawValue: 0
@@ -45,4 +45,4 @@ MonoBehaviour:
   BulletData:
     Id:
       Value: 382308930789291948
-  Skills: 0000000001000000
+  Skills: 000000000100000002000000

@@ -12,6 +12,7 @@ namespace Quantum.Mech
         public struct Filter
         {
             public EntityRef Entity;
+            public PlayableMechanic* Mechanic;
             public PlayerLink* PlayerLink;
             public Status* Status;
             public SkillInventory* SkillInventory;
@@ -20,12 +21,12 @@ namespace Quantum.Mech
 
         public override void Update(Frame frame, ref Filter filter)
         {
-            var mechanic = filter.Entity;
+            var entity = filter.Entity;
             var playerLink = filter.PlayerLink;
             var status = filter.Status;
             var skillInventory = filter.SkillInventory;
             var weaponInventory = filter.WeaponInventory;
-            
+            var mechanic = filter.Mechanic;
             if (status->IsDead)
             {
                 return;
@@ -35,38 +36,47 @@ namespace Quantum.Mech
             var weapons = frame.ResolveList(weaponInventory->Weapons);
             var currentWeapons = weapons[weaponInventory->CurrentWeaponIndex];
             
-            OnInput(frame, playerLink->PlayerRef, skills, currentWeapons);
+            OnInput(frame, mechanic, playerLink->PlayerRef, skills, currentWeapons);
             
             for (int i = 0; i < skills.Count; i++)
             {
                 var skill = skills.GetPointer(i);
                 var skillData = frame.FindAsset(skill->SkillData);
-                switch (skill->Status)
-                {
-                    case SkillStatus.Casting:
-                        skill->RemainingCastingTime -= frame.DeltaTime;
-                        if (skill->RemainingCastingTime <= FP._0)
-                        {
-                            StartSkill(frame, mechanic, skill);
-                            skill->RemainingCastingTime = skillData.CastingTime;
-                            skill->Status = SkillStatus.CoolTime;
-                        }
-                        break;
-                    case SkillStatus.CoolTime:
-                        skill->RemainingCoolTime -= frame.DeltaTime;
-                        if (skill->RemainingCoolTime <= FP._0)
-                        {
-                            skill->RemainingCoolTime = skillData.CoolTime;
-                            skill->Status = SkillStatus.Ready;
-                        }
-                        break;
-                }
+                StatusApply(frame, entity, skill, skillData);
             }
+            
+            var returnSkillData = frame.FindAsset(mechanic->ReturnSkill.SkillData);
+            Debug.Log($"returnSkillData : {returnSkillData}");
+            StatusApply(frame, entity, &mechanic->ReturnSkill, returnSkillData);
 
-  
 
         }
-        private void OnInput(Frame frame, PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
+
+        public void StatusApply(Frame frame, EntityRef entity, Skill* skill, SkillData skillData)
+        {
+            switch (skill->Status)
+            {
+                case SkillStatus.Casting:
+                    skill->RemainingCastingTime -= frame.DeltaTime;
+                    Debug.Log(skill->RemainingCastingTime);
+                    if (skill->RemainingCastingTime <= FP._0)
+                    {
+                        StartSkill(frame, entity, skill);
+                        skill->RemainingCastingTime = skillData.CastingTime;
+                        skill->Status = SkillStatus.CoolTime;
+                    }
+                    break;
+                case SkillStatus.CoolTime:
+                    skill->RemainingCoolTime -= frame.DeltaTime;
+                    if (skill->RemainingCoolTime <= FP._0)
+                    {
+                        skill->RemainingCoolTime = skillData.CoolTime;
+                        skill->Status = SkillStatus.Ready;
+                    }
+                    break;
+            }
+        }
+        private void OnInput(Frame frame, PlayableMechanic* mechanic ,PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
         {
             var input = frame.GetPlayerInput(playerRef);
             var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
@@ -83,7 +93,18 @@ namespace Quantum.Mech
             {
                 ActionSkill(weaponData, skills, 2);
             }
+
+            if (input->Return.WasPressed)
+            {
+                Debug.Log("리턴 실행");
+                var skill = &mechanic->ReturnSkill;
+                if (skill->Status != SkillStatus.Ready) return;
+                skill->Status = SkillStatus.Casting;
+                
+                Debug.Log(skill->Status);
+            }
         }
+
         private void ActionSkill(PrimaryWeaponData data, QList<Skill> skills, int index)
         {
             if (data.Skills.Count <= index) return;
@@ -103,6 +124,7 @@ namespace Quantum.Mech
         private void StartSkill(Frame frame, EntityRef mechanic, Skill* skill)
         {
             var data = frame.FindAsset(skill->SkillData);
+            Debug.Log(data);
             data.Action(frame, mechanic);
 
         }

@@ -1,5 +1,6 @@
 using System;
 using Photon.Deterministic;
+using UnityEngine;
 
 namespace Quantum
 {
@@ -19,6 +20,7 @@ namespace Quantum
         public bool IsActive => DurationTimer.IsRunning;
         public bool IsDelayedOrActive => IsDelayed || IsActive;
 
+        
 
         public bool TryActivateAbility(Frame frame, EntityRef entityRef, PlayerRef playerRef)
         {
@@ -44,7 +46,8 @@ namespace Quantum
             
             InputBufferTimer.Reset();
             DelayTimer.Start(abilityData.Delay);
-
+            EndCondition = abilityData.EndCondition;
+            
             abilityInventory->ActiveAbilityInfo.ActiveAbilityIndex = (int)AbilityType;
             abilityInventory->ActiveAbilityInfo.CastDirection = GetCastDirection(frame, playerRef, abilityData, transform);
             abilityInventory->ActiveAbilityInfo.CastRotation = FPQuaternion.LookRotation(abilityInventory->ActiveAbilityInfo.CastDirection);
@@ -93,26 +96,20 @@ namespace Quantum
                     {
                         state.IsActiveStartTick = true;
                         AbilityData abilityData = frame.FindAsset<AbilityData>(AbilityData.Id);
-                        if(abilityData.EndCondition == EAbilityEndCondition.Duration)
-                            DurationTimer.Start(abilityData.Duration);
+                        DurationTimer.Start(abilityData.EndCondition == EAbilityEndCondition.Duration ? abilityData.Duration : FP._10000);
                     }
                 }
 
                 if (IsActive)
                 {
                     state.IsActive = true;
-                    var abilityData = frame.FindAsset<AbilityData>(AbilityData.Id);
-                    
-                    if (abilityData.EndCondition == EAbilityEndCondition.Duration)
+                    DurationTimer.Tick(frame.DeltaTime - delayTimeLeft);
+
+                    if (DurationTimer.IsDone)
                     {
-                        DurationTimer.Tick(frame.DeltaTime - delayTimeLeft);
+                        state.IsActiveEndTick = true;
 
-                        if (DurationTimer.IsDone)
-                        {
-                            state.IsActiveEndTick = true;
-
-                            StopAbility(frame, entityRef);
-                        }
+                        StopAbility(frame, entityRef);
                     }
                 }
             }

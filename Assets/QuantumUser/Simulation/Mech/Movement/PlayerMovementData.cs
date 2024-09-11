@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using UnityEngine;
 
 namespace Quantum
 {
@@ -18,10 +19,12 @@ namespace Quantum
 
             if (playerStatus->IsDead || abilityInventory->HasActiveAbility)
             {
+                Debug.Log("NoMovementKCCSettings");
                 config = frame.FindAsset<CharacterController3DConfig>(NoMovementKCCSettings.Id);
             }
             else
             {
+                Debug.Log("DefaultKCCSettings");
                 config = frame.FindAsset<CharacterController3DConfig>(DefaultKCCSettings.Id);
             }
 
