@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using Photon.Client.StructWrapping;
 using Quantum;
+using Quantum.Collections;
 using Quantum.Mech;
 using System;
 using System.Collections;
@@ -75,7 +76,25 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private PlayerRef _localPlayerRef;
     private EntityRef _localEntityRef = default;
 
+    private string _localEntityRefId;
+
+    private GameObject _localEntityRefObj;
+    private GameObject LocalEntityRefObj
+    {
+        get
+        {
+            if(_localEntityRefObj == null)
+            {
+                _localEntityRefObj = GameObject.Find(_localEntityRefId);
+            }
+
+            return _localEntityRefObj;
+        }
+    }
+
     bool _isInitializedLocalEntitySetup = false;
+
+    private Dictionary<string, GameObject> _entityObjDic = new();
 
     private void Awake()
     {
@@ -132,16 +151,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
             timer.titleText.text = "Wait for seconds..";
         }
 
-        //if(e.NewState == GameState.Game)
-        //{
-        //    if (!_isInitializedLocalEntitySetup)
-        //    {
-        //        _isInitializedLocalEntitySetup = true;
-        //        var unit = GameObject.Find(_localEntityRef.ToString());
-        //        unit.AddComponent<AudioListener>();
-        //    }
-        //}
-
         if(e.NewState == GameState.Outro)
         {
             resultPopup.SetActive(true);
@@ -177,6 +186,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             _localPlayerRef = playerLink.PlayerRef;
             _localEntityRef = e.Mechanic;
+
+            _localEntityRefId = _localEntityRef.ToString();
 
             ChatUI.Connect(runtimePlayer.PlayerNickname);
         }
@@ -236,6 +247,12 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void FixedUpdate()
     {
+        StartCoroutine(UpdateHUD());
+        UpdateSkill();
+    }
+
+    private IEnumerator UpdateHUD()
+    {
         foreach (var entity in entityRefs)
         {
             var transform3D = f.Get<Transform3D>(entity);
@@ -243,7 +260,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
             var hud = playerHUDs.Find(x => entity == x.entityRef);
 
-            if (hud == null) return;
+            if (hud == null) yield break;
 
             var hudRect = hud.GetComponent<RectTransform>();
 
@@ -259,70 +276,86 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
                 hudRect.gameObject.SetActive(false);
             }
         }
-    }
 
-    private void Update()
-    {
-        UpdateLocalSkill();
-        UpdateSkillSFX();
+        yield return null;
     }
-
-    private void UpdateLocalSkill()
-    {
-        if (_localEntityRef.IsValid)
-        {
-            SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
-            var skills = f.ResolveList(skillInventory->Skills);
-            for (int i = 0; i < skills.Count; i++)
-            {
-                var skill = skills.GetPointer(i);
-                var skillData = f.FindAsset(skill->SkillData);
-                switch (skill->Status)
-                {
-                    case SkillStatus.Casting:
-                        weaponSkillButtons[i].IsCooldown = true;
-                        weaponSkillButtons[i].OnActivate(false);
-                        break;
-                    case SkillStatus.CoolTime:
-                        weaponSkillButtons[i].UpdateCooltime(skill->RemainingCoolTime.AsFloat, skillData.CoolTime.AsFloat);
-                        break;
-                    case SkillStatus.Ready:
-                        weaponSkillButtons[i].IsCooldown = false;
-                        weaponSkillButtons[i].OnActivate(true);
-                        break;
-                }
-            }
-        }
-    }
-
-    private void UpdateSkillSFX()
+    private void UpdateSkill()
     {
         foreach (var entityRef in entityRefs)
         {
+            bool isLocal = entityRef.ToString().Equals(_localEntityRefId);
+
             SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(entityRef);
             var skills = f.ResolveList(skillInventory->Skills);
             for (int i = 0; i < skills.Count; i++)
             {
                 var skill = skills.GetPointer(i);
                 var skillData = f.FindAsset(skill->SkillData);
-                var audioData = weaponSkillAudioDatas[i];
-                var unit = ViewContext.LocalPlayerView.gameObject;
-                switch (skill->Status)
+
+                UpdateSkillSfx(i, skill, skillData, entityRef);
+
+                if (isLocal)
                 {
-                    case SkillStatus.Casting:
-                        if (weaponSkillAudioDatas[i].status == SkillStatus.Casting) return;
-                        audioData.status = SkillStatus.Casting;
-                        AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
-                        break;
-                    case SkillStatus.Ready:
-                        if (weaponSkillAudioDatas[i].status == SkillStatus.Ready) return;
-                        audioData.status = SkillStatus.Ready;
-                        AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
-                        break;
+                    UpdateSkillHUD(i, skill, skillData);
                 }
             }
         }
     }
+
+    private void UpdateSkillHUD(int i, Skill* skill, SkillData skillData)
+    {
+        switch (skill->Status)
+        {
+            case SkillStatus.Casting:
+                weaponSkillButtons[i].IsCooldown = true;
+                weaponSkillButtons[i].OnActivate(false);
+                break;
+            case SkillStatus.CoolTime:
+                weaponSkillButtons[i].UpdateCooltime(skill->RemainingCoolTime.AsFloat, skillData.CoolTime.AsFloat);
+                break;
+            case SkillStatus.Ready:
+                weaponSkillButtons[i].IsCooldown = false;
+                weaponSkillButtons[i].OnActivate(true);
+                break;
+        }
+    }
+
+    private void UpdateSkillSfx(int i, Skill* skill, SkillData skillData, EntityRef entity)
+    {
+        var audioData = weaponSkillAudioDatas[i];
+
+        GameObject unit;
+
+        string entitiyId = entity.ToString();
+
+        if(_entityObjDic.TryGetValue(entitiyId, out GameObject getUnit))
+        {
+            unit = getUnit;
+        }
+        else
+        {
+            unit = GameObject.Find(entitiyId);
+            if (unit == null) return;
+            _entityObjDic.Add(entitiyId, unit);
+        }
+
+        var skillStatus = skill->Status;
+
+        switch (skillStatus)
+        {
+            case SkillStatus.Casting:
+                if (audioData.status == SkillStatus.Casting) return;
+                weaponSkillAudioDatas[i].status = SkillStatus.Casting;
+                AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
+                break;
+            case SkillStatus.Ready:
+                if (audioData.status == SkillStatus.Ready) return;
+                weaponSkillAudioDatas[i].status = SkillStatus.Ready;
+                AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
+                break;
+        }
+    }
+
     private void TimerEnded()
     {
         Debug.Log("Time's up!");
