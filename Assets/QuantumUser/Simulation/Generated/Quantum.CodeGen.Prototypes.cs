@@ -108,6 +108,23 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.CenterTowerFields))]
+  public unsafe partial class CenterTowerFieldsPrototype : ComponentPrototype<Quantum.CenterTowerFields> {
+    public FP Time;
+    public FP Damage;
+    partial void MaterializeUser(Frame frame, ref Quantum.CenterTowerFields result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.CenterTowerFields component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.CenterTowerFields result, in PrototypeMaterializationContext context = default) {
+        result.Time = this.Time;
+        result.Damage = this.Damage;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.CountdownTimer))]
   public unsafe partial class CountdownTimerPrototype : StructPrototype {
     public FP TimeLeft;
@@ -116,6 +133,21 @@ namespace Quantum.Prototypes {
     public void Materialize(Frame frame, ref Quantum.CountdownTimer result, in PrototypeMaterializationContext context = default) {
         result.TimeLeft = this.TimeLeft;
         result.StartTime = this.StartTime;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.FootboardIdentifier))]
+  public unsafe partial class FootboardIdentifierPrototype : ComponentPrototype<Quantum.FootboardIdentifier> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref Quantum.FootboardIdentifier result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.FootboardIdentifier component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.FootboardIdentifier result, in PrototypeMaterializationContext context = default) {
         MaterializeUser(frame, ref result, in context);
     }
   }
@@ -333,6 +365,7 @@ namespace Quantum.Prototypes {
     public FP CurrentHealth;
     public QBoolean IsDestroy;
     public QBoolean IsTeamDefeat;
+    public QBoolean IsJoin;
     partial void MaterializeUser(Frame frame, ref Quantum.Nexus result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
         Quantum.Nexus component = default;
@@ -344,6 +377,7 @@ namespace Quantum.Prototypes {
         result.CurrentHealth = this.CurrentHealth;
         result.IsDestroy = this.IsDestroy;
         result.IsTeamDefeat = this.IsTeamDefeat;
+        result.IsJoin = this.IsJoin;
         MaterializeUser(frame, ref result, in context);
     }
   }

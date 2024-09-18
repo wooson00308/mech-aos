@@ -1,0 +1,7 @@
+component CenterTowerFields{
+	FP Time;
+	FP Damage;
+}
+
+component FootboardIdentifier{
+}

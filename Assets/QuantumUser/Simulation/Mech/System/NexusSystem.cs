@@ -8,11 +8,14 @@ namespace Quantum.Mech
     {
         public void OnNexusHit(Frame frame, EntityRef bullet, EntityRef nexus, FP damage)
         {
-            EntityRef shooter = frame.Get<BulletFields>(bullet).Source;
+            var isSuccess = frame.TryGet<BulletFields>(bullet, out var fields);
+            
+            // TODO 조심할것
+            var shooter = isSuccess ? fields.Source : bullet;
+            
             TakeDamage(frame, shooter, nexus, damage);
         }
-        
-        private static void TakeDamage(Frame frame, EntityRef attacker, EntityRef nexus, FP damage)
+        private void TakeDamage(Frame frame, EntityRef attacker, EntityRef nexus, FP damage)
         {
             var nexusStatus = frame.Unsafe.GetPointer<Nexus>(nexus);
 
@@ -31,7 +34,7 @@ namespace Quantum.Mech
             }
         }
         
-        private static void DestroyNexus(Frame frame, EntityRef killer, EntityRef nexus, Nexus* nexusStatus)
+        private void DestroyNexus(Frame frame, EntityRef killer, EntityRef nexus, Nexus* nexusStatus)
         {
             nexusStatus->CurrentHealth = FP._0;
             nexusStatus->IsDestroy = true;
@@ -45,7 +48,8 @@ namespace Quantum.Mech
             frame.Signals.OnTeamDefeat(nexusStatus->Team);
             
         }
-        
-        
+
+
+
     }
 }

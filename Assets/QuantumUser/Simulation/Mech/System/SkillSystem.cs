@@ -46,7 +46,6 @@ namespace Quantum.Mech
             }
             
             var returnSkillData = frame.FindAsset(mechanic->ReturnSkill.SkillData);
-            Debug.Log($"returnSkillData : {returnSkillData}");
             StatusApply(frame, entity, &mechanic->ReturnSkill, returnSkillData);
 
 

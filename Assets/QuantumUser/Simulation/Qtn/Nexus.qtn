@@ -4,6 +4,7 @@ component Nexus
     FP CurrentHealth;
     Boolean IsDestroy;
     Boolean IsTeamDefeat;
+    Boolean IsJoin;
 }
 
 abstract event NexusEvent {

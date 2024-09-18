@@ -8,11 +8,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 91ab8c0cc34bb1c478c866547f1274c6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Research/Scenes/Redemo/Redemo.unity
     guid: 223351feacea45749af38216ac9064d1
   - enabled: 0
     path: Assets/Demo Chat/Chat-Scene.unity
     guid: 34000188cb69376469c1894be10c5bc2
+  - enabled: 1
+    path: Assets/Research/Scenes/Redemo/RedemoCenterTower.unity
+    guid: e322aa7d41d9e1440b1c17f93d57edc7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 111e635832d81f34c9c4d9b4326ea4d2, type: 2}

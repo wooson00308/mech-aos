@@ -1205,6 +1205,44 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct CenterTowerFields : Quantum.IComponent {
+    public const Int32 SIZE = 16;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(8)]
+    public FP Time;
+    [FieldOffset(0)]
+    public FP Damage;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 139;
+        hash = hash * 31 + Time.GetHashCode();
+        hash = hash * 31 + Damage.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (CenterTowerFields*)ptr;
+        FP.Serialize(&p->Damage, serializer);
+        FP.Serialize(&p->Time, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct FootboardIdentifier : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    private fixed Byte _alignment_padding_[4];
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 5197;
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (FootboardIdentifier*)ptr;
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct KCC : Quantum.IComponent {
     public const Int32 SIZE = 552;
     public const Int32 ALIGNMENT = 8;
@@ -1300,14 +1338,16 @@ namespace Quantum {
   public unsafe partial struct Nexus : Quantum.IComponent {
     public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(12)]
     public Team Team;
     [FieldOffset(16)]
     public FP CurrentHealth;
     [FieldOffset(0)]
     public QBoolean IsDestroy;
-    [FieldOffset(4)]
+    [FieldOffset(8)]
     public QBoolean IsTeamDefeat;
+    [FieldOffset(4)]
+    public QBoolean IsJoin;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 2557;
@@ -1315,12 +1355,14 @@ namespace Quantum {
         hash = hash * 31 + CurrentHealth.GetHashCode();
         hash = hash * 31 + IsDestroy.GetHashCode();
         hash = hash * 31 + IsTeamDefeat.GetHashCode();
+        hash = hash * 31 + IsJoin.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Nexus*)ptr;
         QBoolean.Serialize(&p->IsDestroy, serializer);
+        QBoolean.Serialize(&p->IsJoin, serializer);
         QBoolean.Serialize(&p->IsTeamDefeat, serializer);
         serializer.Stream.Serialize((Int32*)&p->Team);
         FP.Serialize(&p->CurrentHealth, serializer);
@@ -1579,10 +1621,14 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.AbilityInventory>();
       BuildSignalsArrayOnComponentAdded<Quantum.BulletFields>();
       BuildSignalsArrayOnComponentRemoved<Quantum.BulletFields>();
+      BuildSignalsArrayOnComponentAdded<Quantum.CenterTowerFields>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.CenterTowerFields>();
       BuildSignalsArrayOnComponentAdded<CharacterController2D>();
       BuildSignalsArrayOnComponentRemoved<CharacterController2D>();
       BuildSignalsArrayOnComponentAdded<CharacterController3D>();
       BuildSignalsArrayOnComponentRemoved<CharacterController3D>();
+      BuildSignalsArrayOnComponentAdded<Quantum.FootboardIdentifier>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.FootboardIdentifier>();
       BuildSignalsArrayOnComponentAdded<Quantum.KCC>();
       BuildSignalsArrayOnComponentRemoved<Quantum.KCC>();
       BuildSignalsArrayOnComponentAdded<Quantum.KCCProcessorLink>();
@@ -1846,6 +1892,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum.BitSet6), Quantum.BitSet6.SIZE);
       typeRegistry.Register(typeof(Quantum.BulletFields), Quantum.BulletFields.SIZE);
       typeRegistry.Register(typeof(Button), Button.SIZE);
+      typeRegistry.Register(typeof(Quantum.CenterTowerFields), Quantum.CenterTowerFields.SIZE);
       typeRegistry.Register(typeof(CharacterController2D), CharacterController2D.SIZE);
       typeRegistry.Register(typeof(CharacterController3D), CharacterController3D.SIZE);
       typeRegistry.Register(typeof(ColorRGBA), ColorRGBA.SIZE);
@@ -1873,6 +1920,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(FPQuaternion), FPQuaternion.SIZE);
       typeRegistry.Register(typeof(FPVector2), FPVector2.SIZE);
       typeRegistry.Register(typeof(FPVector3), FPVector3.SIZE);
+      typeRegistry.Register(typeof(Quantum.FootboardIdentifier), Quantum.FootboardIdentifier.SIZE);
       typeRegistry.Register(typeof(FrameMetaData), FrameMetaData.SIZE);
       typeRegistry.Register(typeof(FrameTimer), FrameTimer.SIZE);
       typeRegistry.Register(typeof(Quantum.GameController), Quantum.GameController.SIZE);
@@ -1943,10 +1991,12 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 12)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 14)
         .AddBuiltInComponents()
         .Add<Quantum.AbilityInventory>(Quantum.AbilityInventory.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.BulletFields>(Quantum.BulletFields.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.CenterTowerFields>(Quantum.CenterTowerFields.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.FootboardIdentifier>(Quantum.FootboardIdentifier.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.KCC>(Quantum.KCC.Serialize, null, Quantum.KCC.OnRemoved, ComponentFlags.None)
         .Add<Quantum.KCCProcessorLink>(Quantum.KCCProcessorLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.MechProjectile>(Quantum.MechProjectile.Serialize, null, null, ComponentFlags.None)
