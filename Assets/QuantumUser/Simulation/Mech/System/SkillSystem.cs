@@ -3,6 +3,7 @@ using UnityEngine.Scripting;
 using Photon.Deterministic;
 using Quantum.Collections;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Quantum.Mech
 {
@@ -36,22 +37,22 @@ namespace Quantum.Mech
             var weapons = frame.ResolveList(weaponInventory->Weapons);
             var currentWeapons = weapons[weaponInventory->CurrentWeaponIndex];
             
-            OnInput(frame, mechanic, playerLink->PlayerRef, skills, currentWeapons);
+            OnInput(frame, entity, mechanic, playerLink->PlayerRef, skills, currentWeapons);
             
             for (int i = 0; i < skills.Count; i++)
             {
                 var skill = skills.GetPointer(i);
                 var skillData = frame.FindAsset(skill->SkillData);
-                StatusApply(frame, entity, skill, skillData);
+                StatusApply(frame, entity, skill, skillData, currentWeapons, i);
             }
             
             var returnSkillData = frame.FindAsset(mechanic->ReturnSkill.SkillData);
-            StatusApply(frame, entity, &mechanic->ReturnSkill, returnSkillData);
+            StatusApply(frame, entity, &mechanic->ReturnSkill, returnSkillData, currentWeapons, 11);
 
 
         }
 
-        public void StatusApply(Frame frame, EntityRef entity, Skill* skill, SkillData skillData)
+        public void StatusApply(Frame frame, EntityRef entity, Skill* skill, SkillData skillData, Weapon weapon, int index)
         {
             switch (skill->Status)
             {
@@ -60,9 +61,12 @@ namespace Quantum.Mech
                     Debug.Log(skill->RemainingCastingTime);
                     if (skill->RemainingCastingTime <= FP._0)
                     {
-                        StartSkill(frame, entity, skill);
+                        StartSkill(frame, entity, skill, weapon, index);
                         skill->RemainingCastingTime = skillData.CastingTime;
                         skill->Status = SkillStatus.CoolTime;
+
+                        //스킬 쿨타임 이벤트
+                        frame.Events.UseSkill(entity, skill, weapon, index);
                     }
                     break;
                 case SkillStatus.CoolTime:
@@ -71,11 +75,14 @@ namespace Quantum.Mech
                     {
                         skill->RemainingCoolTime = skillData.CoolTime;
                         skill->Status = SkillStatus.Ready;
+
+                        //스킬 준비완료 이벤트
+                        frame.Events.UseSkill(entity, skill, weapon, index);
                     }
                     break;
             }
         }
-        private void OnInput(Frame frame, PlayableMechanic* mechanic ,PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
+        private void OnInput(Frame frame, EntityRef entity, PlayableMechanic* mechanic ,PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
         {
             var input = frame.GetPlayerInput(playerRef);
             var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
@@ -120,11 +127,14 @@ namespace Quantum.Mech
         {
             frame.SystemDisable<SkillSystem>();
         }
-        private void StartSkill(Frame frame, EntityRef mechanic, Skill* skill)
+        private void StartSkill(Frame frame, EntityRef mechanic, Skill* skill, Weapon weapon, int index)
         {
             var data = frame.FindAsset(skill->SkillData);
             Debug.Log(data);
             data.Action(frame, mechanic);
+
+            //스킬 캐스팅 이벤트
+            frame.Events.UseSkill(mechanic, skill, weapon, index);
 
         }
         public void OnCooldownsReset(Frame frame, EntityRef playerEntityRef)

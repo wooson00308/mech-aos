@@ -36,3 +36,11 @@ event WeaponFire
     EntityRef Owner;
     asset_ref<WeaponData> WeaponData;
 }
+
+event UseSkill
+{
+    EntityRef Owner;
+    Skill* skill;
+    Weapon weapon;
+    FP index;
+}

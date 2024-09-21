@@ -32,7 +32,6 @@ struct StateObjectPair
 [Serializable]
 public class SkillAudioData
 {
-    public SkillStatus status;
     public AudioClip castingClip;
     public AudioClip readyClip;
 }
@@ -75,6 +74,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private PlayerRef _localPlayerRef;
     private EntityRef _localEntityRef = default;
 
+    private Dictionary<string, GameObject> _entityObjDic = new();
+
     private void Awake()
     {
         _camera = FindObjectOfType<Camera>();
@@ -84,6 +85,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventOnMechanicRespawn e) => OnMechanicRespawn(e));
         QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
         QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
+        QuantumEvent.Subscribe(this, (EventUseSkill e) => OnUseSkill(e));
 
         foreach (var pair in _stateObjectPairs)
         {
@@ -263,7 +265,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private void Update()
     {
         UpdateLocalSkill();
-        UpdateSkillSFX();
+        //UpdateSkillSFX();
     }
 
     private void UpdateLocalSkill()
@@ -294,31 +296,38 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         }
     }
 
-    private void UpdateSkillSFX()
+    private void OnUseSkill(EventUseSkill e)
     {
-        foreach (var entityRef in entityRefs)
+        var entity = e.Owner;
+        var skill = e.skill;
+        var weapon = e.weapon;
+        var audioData = weaponSkillAudioDatas[e.index.AsInt];
+
+        GameObject unit;
+
+        string entitiyId = entity.ToString();
+
+        if (_entityObjDic.TryGetValue(entitiyId, out GameObject getUnit))
         {
-            SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(entityRef);
-            var skills = f.ResolveList(skillInventory->Skills);
-            for (int i = 0; i < skills.Count; i++)
-            {
-                var skill = skills.GetPointer(i);
-                var skillData = f.FindAsset(skill->SkillData);
-                var audioData = weaponSkillAudioDatas[i];
-                switch (skill->Status)
-                {
-                    case SkillStatus.Casting:
-                        if (weaponSkillAudioDatas[i].status == SkillStatus.Casting) return;
-                        audioData.status = SkillStatus.Casting;
-                        AudioManager.Instance.PlaySfx(audioData.castingClip);
-                        break;
-                    case SkillStatus.Ready:
-                        if (weaponSkillAudioDatas[i].status == SkillStatus.Ready) return;
-                        audioData.status = SkillStatus.Ready;
-                        AudioManager.Instance.PlaySfx(audioData.readyClip);
-                        break;
-                }
-            }
+            unit = getUnit;
+        }
+        else
+        {
+            unit = GameObject.Find(entitiyId);
+            if (unit == null) return;
+            _entityObjDic.Add(entitiyId, unit);
+        }
+
+        switch (skill->Status)
+        {
+            case SkillStatus.Casting:
+                break;
+            case SkillStatus.CoolTime:
+                AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
+                break;
+            case SkillStatus.Ready:
+                AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
+                break;
         }
     }
     private void TimerEnded()
