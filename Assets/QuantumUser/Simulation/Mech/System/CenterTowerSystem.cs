@@ -71,8 +71,6 @@ namespace Quantum.Mech
 
         public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
         {
-            
-            
             if (f.Has<FootboardIdentifier>(info.Entity) &&
                 f.Has<PlayableMechanic>(info.Other))
             {

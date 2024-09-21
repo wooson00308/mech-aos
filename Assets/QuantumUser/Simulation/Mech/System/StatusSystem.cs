@@ -32,7 +32,6 @@ namespace Quantum.Mech
                 status->InvincibleTimer -= frame.DeltaTime;
             }
         }
-
         public void OnMechanicRespawn(Frame frame, EntityRef robot)
         {
             Status* status = frame.Unsafe.GetPointer<Status>(robot);
@@ -42,13 +41,11 @@ namespace Quantum.Mech
             status->CurrentHealth = statusData.MaxHealth;
             status->InvincibleTimer = statusData.InvincibleTime;
         }
-
         public void OnMechanicHit(Frame frame, EntityRef bullet, EntityRef robot, FP damage)
         {
             EntityRef shooter = frame.Get<BulletFields>(bullet).Source;
             TakeDamage(frame, shooter, robot, damage);
         }
-
         public void OnMechanicSkillHit(Frame frame, EntityRef skill, EntityRef robot)
         {
             // SkillFields skillFields = frame.Get<SkillFields>(skillRef);
@@ -56,7 +53,6 @@ namespace Quantum.Mech
             // EntityRef caster = skillFields.Source;
             // TakeDamage(frame, caster, robotRef, skillData.Damage);
         }
-        
         private static void TakeDamage(Frame frame, EntityRef attacker, EntityRef target, FP damage)
         {
             Status* mechanicStatus = frame.Unsafe.GetPointer<Status>(target);
@@ -78,7 +74,6 @@ namespace Quantum.Mech
                 KillMechanic(frame, attacker, target, mechanicStatus, statusData.RespawnTime);
             }
         }
-        
         private static void KillMechanic(Frame frame, EntityRef killer, EntityRef mechanic, Status* mechanicStatus, FP respawnTime)
         {
             CharacterController3D* characterController = frame.Unsafe.GetPointer<CharacterController3D>(mechanic);
