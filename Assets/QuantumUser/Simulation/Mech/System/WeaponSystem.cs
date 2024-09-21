@@ -22,19 +22,18 @@ namespace Quantum.Mech
         
         void ISignalOnMechanicRespawn.OnMechanicRespawn(Frame frame, EntityRef robot)
         {
-            // WeaponInventory* weaponInventory = frame.Unsafe.GetPointer<WeaponInventory>(robot);
-            //
-            // for (var i = 0; i < weaponInventory->Weapons.Length; i++)
-            // {
-            //     Weapon* weapon = weaponInventory->Weapons.GetPointer(i);
-            //     var weaponData = frame.FindAsset<WeaponData>(weapon->WeaponData.Id);
-            //
-            //     weapon->IsRecharging = false;
-            //     weapon->CurrentAmmo = weaponData.MaxAmmo;
-            //     weapon->FireRateTimer = FP._0;
-            //     weapon->DelayToStartRechargeTimer = FP._0;
-            //     weapon->RechargeRate = FP._0;
-            // }
+            var weaponInventory = frame.Unsafe.GetPointer<WeaponInventory>(robot);
+            var weapons = frame.ResolveList(weaponInventory->Weapons);
+            for (var i = 0; i < weapons.Count; i++)
+            {
+                var weapon = weapons.GetPointer(i);
+                var weaponData = frame.FindAsset<WeaponData>(weapon->WeaponData.Id);
+                weapon->IsRecharging = false;
+                weapon->CurrentAmmo = weaponData.MaxAmmo;
+                weapon->FireRateTimer = FP._0;
+                weapon->DelayToStartRechargeTimer = FP._0;
+                weapon->RechargeRate = FP._0;
+            }
         }
         
         public override void Update(Frame frame, ref Filter filter)

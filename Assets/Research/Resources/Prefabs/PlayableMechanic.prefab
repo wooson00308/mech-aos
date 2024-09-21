@@ -10476,6 +10476,20 @@ MonoBehaviour:
       WeaponData:
         Id:
           Value: 371428668789981554
+    - IsRecharging:
+        Value: 0
+      CurrentAmmo: 1
+      FireRateTimer:
+        RawValue: 65536
+      DelayToStartRechargeTimer:
+        RawValue: 65536
+      RechargeRate:
+        RawValue: 65536
+      ChargeTime:
+        RawValue: 0
+      WeaponData:
+        Id:
+          Value: 510453719922031493
 --- !u!114 &3341441360948631754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10517,6 +10531,15 @@ MonoBehaviour:
       SkillData:
         Id:
           Value: 311588689190184940
+    - Status:
+        Value: 0
+      RemainingCastingTime:
+        RawValue: 0
+      RemainingCoolTime:
+        RawValue: 655360
+      SkillData:
+        Id:
+          Value: 514735857753292721
 --- !u!114 &3689414065753519254
 MonoBehaviour:
   m_ObjectHideFlags: 0

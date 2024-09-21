@@ -60,5 +60,13 @@ namespace Quantum
             bulletFields->Source = mechanic;
             bulletFields->Time = FP._0;
         }
+
+        public virtual unsafe void Move(Frame frame, EntityRef bullet)
+        {
+            var fields = frame.Unsafe.GetPointer<BulletFields>(bullet);
+            var transform3D = frame.Unsafe.GetPointer<Transform3D>(bullet);
+            transform3D->Position += fields->Direction * frame.DeltaTime;
+        }
+        
     }
 }

@@ -127,6 +127,7 @@ namespace Quantum {
     NinthSkill = 1 << 10,
     TenthSkill = 1 << 11,
     Return = 1 << 12,
+    ChangeWeapon = 1 << 13,
   }
   public static unsafe partial class FlagsExtensions {
     public static Boolean IsFlagSet(this InputButtons self, InputButtons flag) {
@@ -598,42 +599,42 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
-    public const Int32 SIZE = 184;
+    public const Int32 SIZE = 192;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(180)]
-    private fixed Byte _alignment_padding_[4];
     [FieldOffset(0)]
     public Byte MovementEncoded;
-    [FieldOffset(84)]
+    [FieldOffset(96)]
     public Button MouseLeftButton;
     [FieldOffset(8)]
     public FP ScreenPositionX;
     [FieldOffset(16)]
     public FP ScreenPositionY;
-    [FieldOffset(72)]
+    [FieldOffset(84)]
     public Button MainWeaponFire;
-    [FieldOffset(48)]
-    public Button FirstSkill;
-    [FieldOffset(120)]
-    public Button SecondSkill;
-    [FieldOffset(168)]
-    public Button ThirdSkill;
     [FieldOffset(60)]
-    public Button FourthSkill;
-    [FieldOffset(36)]
-    public Button FifthSkill;
-    [FieldOffset(144)]
-    public Button SixthSkill;
+    public Button FirstSkill;
     [FieldOffset(132)]
-    public Button SeventhSkill;
-    [FieldOffset(24)]
-    public Button EighthSkill;
-    [FieldOffset(96)]
-    public Button NinthSkill;
+    public Button SecondSkill;
+    [FieldOffset(180)]
+    public Button ThirdSkill;
+    [FieldOffset(72)]
+    public Button FourthSkill;
+    [FieldOffset(48)]
+    public Button FifthSkill;
     [FieldOffset(156)]
-    public Button TenthSkill;
+    public Button SixthSkill;
+    [FieldOffset(144)]
+    public Button SeventhSkill;
+    [FieldOffset(36)]
+    public Button EighthSkill;
     [FieldOffset(108)]
+    public Button NinthSkill;
+    [FieldOffset(168)]
+    public Button TenthSkill;
+    [FieldOffset(120)]
     public Button Return;
+    [FieldOffset(24)]
+    public Button ChangeWeapon;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 19249;
@@ -653,6 +654,7 @@ namespace Quantum {
         hash = hash * 31 + NinthSkill.GetHashCode();
         hash = hash * 31 + TenthSkill.GetHashCode();
         hash = hash * 31 + Return.GetHashCode();
+        hash = hash * 31 + ChangeWeapon.GetHashCode();
         return hash;
       }
     }
@@ -674,6 +676,7 @@ namespace Quantum {
         case InputButtons.NinthSkill: return NinthSkill.IsDown;
         case InputButtons.TenthSkill: return TenthSkill.IsDown;
         case InputButtons.Return: return Return.IsDown;
+        case InputButtons.ChangeWeapon: return ChangeWeapon.IsDown;
         default: return false;
       }
     }
@@ -692,6 +695,7 @@ namespace Quantum {
         case InputButtons.NinthSkill: return NinthSkill.WasPressed;
         case InputButtons.TenthSkill: return TenthSkill.WasPressed;
         case InputButtons.Return: return Return.WasPressed;
+        case InputButtons.ChangeWeapon: return ChangeWeapon.WasPressed;
         default: return false;
       }
     }
@@ -700,6 +704,7 @@ namespace Quantum {
         serializer.Stream.Serialize(&p->MovementEncoded);
         FP.Serialize(&p->ScreenPositionX, serializer);
         FP.Serialize(&p->ScreenPositionY, serializer);
+        Button.Serialize(&p->ChangeWeapon, serializer);
         Button.Serialize(&p->EighthSkill, serializer);
         Button.Serialize(&p->FifthSkill, serializer);
         Button.Serialize(&p->FirstSkill, serializer);
@@ -1035,7 +1040,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 1720;
+    public const Int32 SIZE = 1768;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -1059,32 +1064,32 @@ namespace Quantum {
     public Int32 PlayerConnectedCount;
     [FieldOffset(544)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
-    private fixed Byte _input_[1104];
-    [FieldOffset(1648)]
-    public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(1704)]
-    public GameController GameController;
-    [FieldOffset(1668)]
-    public Int32 ClientConnectUsers;
-    [FieldOffset(1688)]
-    public FP StateTimer;
-    [FieldOffset(1660)]
-    public GameState DelayedState;
-    [FieldOffset(1656)]
-    public GameState CurrentState;
-    [FieldOffset(1664)]
-    public GameState PreviousState;
+    private fixed Byte _input_[1152];
     [FieldOffset(1696)]
+    public BitSet6 PlayerLastConnectionState;
+    [FieldOffset(1752)]
+    public GameController GameController;
+    [FieldOffset(1716)]
+    public Int32 ClientConnectUsers;
+    [FieldOffset(1736)]
+    public FP StateTimer;
+    [FieldOffset(1708)]
+    public GameState DelayedState;
+    [FieldOffset(1704)]
+    public GameState CurrentState;
+    [FieldOffset(1712)]
+    public GameState PreviousState;
+    [FieldOffset(1744)]
     public FP clock;
-    [FieldOffset(1672)]
+    [FieldOffset(1720)]
     public Int32 TeamIndex;
-    [FieldOffset(1680)]
+    [FieldOffset(1728)]
     public FP DisconnectTime;
-    [FieldOffset(1676)]
+    [FieldOffset(1724)]
     public QDictionaryPtr<Int32, PlayerData> teamData;
     public FixedArray<Input> input {
       get {
-        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 184, 6); }
+        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 192, 6); }
       }
     }
     public override Int32 GetHashCode() {
@@ -1703,6 +1708,7 @@ namespace Quantum {
       i->NinthSkill = i->NinthSkill.Update(this.Number, input.NinthSkill);
       i->TenthSkill = i->TenthSkill.Update(this.Number, input.TenthSkill);
       i->Return = i->Return.Update(this.Number, input.Return);
+      i->ChangeWeapon = i->ChangeWeapon.Update(this.Number, input.ChangeWeapon);
     }
     public Input* GetPlayerInput(PlayerRef player) {
       if ((int)player >= (int)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }

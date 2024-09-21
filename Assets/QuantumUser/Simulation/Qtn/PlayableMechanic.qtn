@@ -8,3 +8,7 @@ event PlayerLeft
 {
 	player_ref Player;
 }
+event OnChangeWeapon
+{
+    entity_ref Mechanic;
+}

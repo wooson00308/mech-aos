@@ -28,13 +28,12 @@ namespace Quantum.Mech
             {
                 return;
             }
-
-            bulletTransform->Position += bulletFields->Direction * frame.DeltaTime;
-            bulletFields->Time += frame.DeltaTime;
-
             FPVector3 sourcePosition = frame.Unsafe.GetPointer<Transform3D>(bulletFields->Source)->Position;
             BulletData bulletData = frame.FindAsset<BulletData>(bulletFields->BulletData.Id);
-
+            
+            bulletData.Move(frame, bullet);
+            bulletFields->Time += frame.DeltaTime;
+            
             FP distanceSquared = FPVector3.DistanceSquared(bulletTransform->Position, sourcePosition);
             bool bulletIsTooFar = FPMath.Sqrt(distanceSquared) > bulletData.Range;
             bool bulletIsOld = bulletData.Duration > FP._0 && bulletFields->Time >= bulletData.Duration;
@@ -65,7 +64,7 @@ namespace Quantum.Mech
             var shooter = frame.Unsafe.GetPointer<PlayableMechanic>(bulletFields.Source);
             
                 
-            Physics3D.HitCollection3D hits = frame.Physics3D.OverlapShape(*bulletTransform, data.ShapeConfig.CreateShape(frame));
+            var hits = frame.Physics3D.OverlapShape(*bulletTransform, data.ShapeConfig.CreateShape(frame));
             for (int i = 0; i < hits.Count; i++)
             {
                 var entity = hits[i].Entity;

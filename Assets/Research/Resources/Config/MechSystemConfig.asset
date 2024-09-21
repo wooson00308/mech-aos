@@ -141,3 +141,8 @@ MonoBehaviour:
     SystemName: 
     StartDisabled: 0
     Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.Mech.WeaponInventorySystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []

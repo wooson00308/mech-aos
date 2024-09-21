@@ -28,7 +28,6 @@ namespace Quantum
             {
                 ShootInCircle(frame, weaponData, bulletData, mechanic, direction);
             }
-            
         }
         private void ShootInPlane(Frame frame, WeaponData weaponData, BulletData bulletData, EntityRef mechanic, FPVector3 direction)
         {

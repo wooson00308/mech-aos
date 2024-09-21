@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f5a0a9fd134a858e9a91ecf46334ba, type: 3}
-  m_Name: PrimaryWeaponData - Shotgun
+  m_Script: {fileID: 11500000, guid: 671feb7b1a8e4f5c99bfb9d32285bc70, type: 3}
+  m_Name: WeaponData - Laser
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Weapon/PrimaryWeaponData - Shotgun
+    Path: QuantumUser/Resources/Weapon/WeaponData - Laser
     Guid:
-      Value: 371428668789981554
-  UIIcon: {fileID: 0}
+      Value: 288650639995920917
+  UIIcon: {fileID: 21300000, guid: c700d3fb7193c184cb816d64ea117c89, type: 3}
   Prefab: {fileID: 0}
   RootName: 
   FireRate:
     RawValue: 1310720
   ShootForce:
     RawValue: 5242880
-  MaxAmmo: 20
+  MaxAmmo: 1
   RechargeTimer:
     RawValue: 65536
   TimeToRecharge:
@@ -44,5 +44,4 @@ MonoBehaviour:
       RawValue: 0
   BulletData:
     Id:
-      Value: 382308930789291948
-  Skills: 030000000100000002000000
+      Value: 306229054593975343

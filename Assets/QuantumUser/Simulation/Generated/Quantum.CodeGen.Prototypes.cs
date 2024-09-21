@@ -182,6 +182,7 @@ namespace Quantum.Prototypes {
     public Button NinthSkill;
     public Button TenthSkill;
     public Button Return;
+    public Button ChangeWeapon;
     partial void MaterializeUser(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Quantum.Input result, in PrototypeMaterializationContext context = default) {
         result.MovementEncoded = this.MovementEncoded;
@@ -200,6 +201,7 @@ namespace Quantum.Prototypes {
         result.NinthSkill = this.NinthSkill;
         result.TenthSkill = this.TenthSkill;
         result.Return = this.Return;
+        result.ChangeWeapon = this.ChangeWeapon;
         MaterializeUser(frame, ref result, in context);
     }
   }
