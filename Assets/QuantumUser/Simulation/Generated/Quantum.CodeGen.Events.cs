@@ -93,12 +93,12 @@ namespace Quantum {
           case EventGameStateChanged.ID: result = typeof(EventGameStateChanged); return;
           case EventMovement.ID: result = typeof(EventMovement); return;
           case EventWeaponFire.ID: result = typeof(EventWeaponFire); return;
+          case EventUseSkill.ID: result = typeof(EventUseSkill); return;
           case EventNexusEvent.ID: result = typeof(EventNexusEvent); return;
           case EventOnNexusTakeDamage.ID: result = typeof(EventOnNexusTakeDamage); return;
           case EventOnNexusDestroy.ID: result = typeof(EventOnNexusDestroy); return;
           case EventOnTeamNexusDestroy.ID: result = typeof(EventOnTeamNexusDestroy); return;
           case EventPlayerLeft.ID: result = typeof(EventPlayerLeft); return;
-          case EventOnChangeWeapon.ID: result = typeof(EventOnChangeWeapon); return;
           case EventOnWeaponShoot.ID: result = typeof(EventOnWeaponShoot); return;
           case EventDummyEvent.ID: result = typeof(EventDummyEvent); return;
           default: break;
@@ -248,6 +248,15 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
+      public EventUseSkill UseSkill(EntityRef Owner, Skill* skill, Weapon weapon, FP index) {
+        var ev = _f.Context.AcquireEvent<EventUseSkill>(EventUseSkill.ID);
+        ev.Owner = Owner;
+        ev.skill = skill;
+        ev.weapon = weapon;
+        ev.index = index;
+        _f.AddEvent(ev);
+        return ev;
+      }
       public EventOnNexusTakeDamage OnNexusTakeDamage(EntityRef Nexus, FP Damage, EntityRef Source) {
         var ev = _f.Context.AcquireEvent<EventOnNexusTakeDamage>(EventOnNexusTakeDamage.ID);
         ev.Nexus = Nexus;
@@ -274,12 +283,6 @@ namespace Quantum {
       public EventPlayerLeft PlayerLeft(PlayerRef Player) {
         var ev = _f.Context.AcquireEvent<EventPlayerLeft>(EventPlayerLeft.ID);
         ev.Player = Player;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventOnChangeWeapon OnChangeWeapon(EntityRef Mechanic) {
-        var ev = _f.Context.AcquireEvent<EventOnChangeWeapon>(EventOnChangeWeapon.ID);
-        ev.Mechanic = Mechanic;
         _f.AddEvent(ev);
         return ev;
       }
@@ -787,8 +790,39 @@ namespace Quantum {
       }
     }
   }
-  public abstract unsafe partial class EventNexusEvent : EventBase {
+  public unsafe partial class EventUseSkill : EventBase {
     public new const Int32 ID = 23;
+    public EntityRef Owner;
+    public Skill* skill;
+    public Weapon weapon;
+    public FP index;
+    protected EventUseSkill(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventUseSkill() : 
+        base(23, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 149;
+        hash = hash * 31 + Owner.GetHashCode();
+        hash = hash * 31 + skill->GetHashCode();
+        hash = hash * 31 + weapon.GetHashCode();
+        hash = hash * 31 + index.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public abstract unsafe partial class EventNexusEvent : EventBase {
+    public new const Int32 ID = 24;
     public EntityRef Nexus;
     protected EventNexusEvent(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -803,25 +837,25 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked {
-        var hash = 149;
+        var hash = 151;
         hash = hash * 31 + Nexus.GetHashCode();
         return hash;
       }
     }
   }
   public unsafe partial class EventOnNexusTakeDamage : EventNexusEvent {
-    public new const Int32 ID = 24;
+    public new const Int32 ID = 25;
     public FP Damage;
     public EntityRef Source;
     protected EventOnNexusTakeDamage(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
     public EventOnNexusTakeDamage() : 
-        base(24, EventFlags.Server|EventFlags.Client) {
+        base(25, EventFlags.Server|EventFlags.Client) {
     }
     public override Int32 GetHashCode() {
       unchecked {
-        var hash = 151;
+        var hash = 157;
         hash = hash * 31 + Nexus.GetHashCode();
         hash = hash * 31 + Damage.GetHashCode();
         hash = hash * 31 + Source.GetHashCode();
@@ -830,17 +864,17 @@ namespace Quantum {
     }
   }
   public unsafe partial class EventOnNexusDestroy : EventNexusEvent {
-    public new const Int32 ID = 25;
+    public new const Int32 ID = 26;
     public EntityRef Killer;
     protected EventOnNexusDestroy(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
     public EventOnNexusDestroy() : 
-        base(25, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+        base(26, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public override Int32 GetHashCode() {
       unchecked {
-        var hash = 157;
+        var hash = 163;
         hash = hash * 31 + Nexus.GetHashCode();
         hash = hash * 31 + Killer.GetHashCode();
         return hash;
@@ -848,38 +882,13 @@ namespace Quantum {
     }
   }
   public unsafe partial class EventOnTeamNexusDestroy : EventBase {
-    public new const Int32 ID = 26;
+    public new const Int32 ID = 27;
     public Team Team;
     protected EventOnTeamNexusDestroy(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
     public EventOnTeamNexusDestroy() : 
-        base(26, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 163;
-        hash = hash * 31 + Team.GetHashCode();
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventPlayerLeft : EventBase {
-    public new const Int32 ID = 27;
-    public PlayerRef Player;
-    protected EventPlayerLeft(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventPlayerLeft() : 
-        base(27, EventFlags.Server|EventFlags.Client) {
+        base(27, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
       get {
@@ -892,18 +901,18 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 167;
-        hash = hash * 31 + Player.GetHashCode();
+        hash = hash * 31 + Team.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnChangeWeapon : EventBase {
+  public unsafe partial class EventPlayerLeft : EventBase {
     public new const Int32 ID = 28;
-    public EntityRef Mechanic;
-    protected EventOnChangeWeapon(Int32 id, EventFlags flags) : 
+    public PlayerRef Player;
+    protected EventPlayerLeft(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnChangeWeapon() : 
+    public EventPlayerLeft() : 
         base(28, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -917,7 +926,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 173;
-        hash = hash * 31 + Mechanic.GetHashCode();
+        hash = hash * 31 + Player.GetHashCode();
         return hash;
       }
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3708985, g: 0.3783704, b: 0.35722548, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1035,6 +1035,7 @@ GameObject:
   m_Component:
   - component: {fileID: 676738162}
   - component: {fileID: 676738161}
+  - component: {fileID: 676738163}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1108,6 +1109,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &676738163
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676738159}
+  m_Enabled: 1
 --- !u!1 &698797342
 GameObject:
   m_ObjectHideFlags: 0
@@ -5042,7 +5051,6 @@ GameObject:
   - component: {fileID: 2131968833}
   - component: {fileID: 2131968835}
   - component: {fileID: 2131968836}
-  - component: {fileID: 2131968837}
   m_Layer: 0
   m_Name: Matchmaker
   m_TagString: Untagged
@@ -5081,7 +5089,7 @@ MonoBehaviour:
       Id:
         Value: 1302707971285072803
     PlayerNickname: 
-  maxPlayers: 1
+  maxPlayers: 3
   menuScene: Start
 --- !u!4 &2131968834
 Transform:
@@ -5123,14 +5131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0940cf2072a3346b8273078a81c407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &2131968837
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131968832}
-  m_Enabled: 1
 --- !u!224 &28306240682769716
 RectTransform:
   m_ObjectHideFlags: 0

@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
         if (obj != null)
         {
             sfxSource.rolloffMode = AudioRolloffMode.Linear;
-            sfxSource.maxDistance = 50;
+            sfxSource.maxDistance = 100;
             sfxSource.spatialBlend = 1f;
         }
         sfxSource.loop = loop;
