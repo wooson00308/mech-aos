@@ -9,39 +9,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef24756fcdc842d181fbf58e15c650a9, type: 3}
-  m_Name: BulletDataPenetrating - Laser
+  m_Script: {fileID: 11500000, guid: 7867e4c94e4e47778bd1dab4a1b01fb5, type: 3}
+  m_Name: BulletData - Laser
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Bullet/BulletDataPenetrating - Laser
+    Path: QuantumUser/Resources/Bullet/BulletData - Laser
     Guid:
-      Value: 306229054593975343
-  BulletDestroyFxGameObject: {fileID: 0}
+      Value: 384656997452621020
+  BulletDestroyFxGameObject: {fileID: 4156065313240209359, guid: 4a3e5a4a9db28034abd3d4dba18e76b6, type: 3}
   BulletPrototype:
     Id:
-      Value: 1359633457972454521
+      Value: 1530798938469091314
   ShapeConfig:
     ShapeType: 2
     SphereRadius:
-      RawValue: 0
+      RawValue: 51118
     CapsuleRadius:
-      RawValue: 0
+      RawValue: 65536
     CapsuleHeight:
-      RawValue: 0
+      RawValue: 32768
     PositionOffset:
       X:
         RawValue: 0
       Y:
         RawValue: 0
       Z:
-        RawValue: 0
+        RawValue: 3620
     BoxExtents:
       X:
-        RawValue: 32768
+        RawValue: 13208
       Y:
-        RawValue: 32768
+        RawValue: 15754
       Z:
-        RawValue: 6553600
+        RawValue: 11439
     RotationOffset:
       X:
         RawValue: 0
@@ -53,10 +53,8 @@ MonoBehaviour:
     IsPersistent: 1
     CompoundShapes: []
   Damage:
-    RawValue: 6553600
+    RawValue: 3932160
   Range:
     RawValue: 6553600
   Duration:
-    RawValue: 1966080
-  penetratingCount:
-    RawValue: 655360
+    RawValue: 6553600

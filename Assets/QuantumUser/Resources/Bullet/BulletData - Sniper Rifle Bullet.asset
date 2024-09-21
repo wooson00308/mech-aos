@@ -19,7 +19,7 @@ MonoBehaviour:
   BulletDestroyFxGameObject: {fileID: 4156065313240209359, guid: 4a3e5a4a9db28034abd3d4dba18e76b6, type: 3}
   BulletPrototype:
     Id:
-      Value: 1530798938469091314
+      Value: 1357247699860056667
   ShapeConfig:
     ShapeType: 2
     SphereRadius:
@@ -53,7 +53,7 @@ MonoBehaviour:
     IsPersistent: 1
     CompoundShapes: []
   Damage:
-    RawValue: 3932160
+    RawValue: 32768000
   Range:
     RawValue: 6553600
   Duration:
