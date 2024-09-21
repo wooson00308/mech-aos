@@ -1,16 +1,9 @@
-using JetBrains.Annotations;
-using Photon.Client.StructWrapping;
 using Quantum;
 using Quantum.Mech;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting;
-using UnityEngine.UI;
-using UnityEngine.Video;
 using Button = UnityEngine.UI.Button;
 
 enum UIState
@@ -320,8 +313,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
         switch (skill->Status)
         {
-            case SkillStatus.Casting:
-                break;
             case SkillStatus.CoolTime:
                 AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
                 break;

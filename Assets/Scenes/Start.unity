@@ -5089,7 +5089,7 @@ MonoBehaviour:
       Id:
         Value: 1302707971285072803
     PlayerNickname: 
-  maxPlayers: 1
+  maxPlayers: 3
   menuScene: Start
 --- !u!4 &2131968834
 Transform:
