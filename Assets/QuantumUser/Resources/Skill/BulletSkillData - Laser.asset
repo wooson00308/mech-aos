@@ -19,7 +19,7 @@ MonoBehaviour:
   CastingTime:
     RawValue: 0
   CoolTime:
-    RawValue: 13107
+    RawValue: 655360
   WeaponData:
     Id:
       Value: 288650639995920917

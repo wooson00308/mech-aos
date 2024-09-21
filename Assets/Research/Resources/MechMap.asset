@@ -12275,7 +12275,7 @@ MonoBehaviour:
       type: {class: CenterTowerFieldsPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Time:
-          RawValue: 65536
+          RawValue: 655360
         Damage:
           RawValue: 6553600
     - rid: 2526659116978405376
@@ -12301,7 +12301,7 @@ MonoBehaviour:
         ShapeConfig:
           ShapeType: 1
           SphereRadius:
-            RawValue: 838864
+            RawValue: 1258296
           CapsuleRadius:
             RawValue: 0
           CapsuleHeight:
@@ -12315,9 +12315,9 @@ MonoBehaviour:
               RawValue: 0
           BoxExtents:
             X:
-              RawValue: 2097152
+              RawValue: 3145728
             Y:
-              RawValue: 2097152
+              RawValue: 3145728
             Z:
               RawValue: 0
           RotationOffset:

@@ -25,6 +25,7 @@ struct StateObjectPair
 [Serializable]
 public class SkillAudioData
 {
+    public int index;
     public AudioClip castingClip;
     public AudioClip readyClip;
 }
@@ -267,7 +268,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
             var skills = f.ResolveList(skillInventory->Skills);
-            for (int i = 0; i < skills.Count; i++)
+            for (int i = 0; i < 2; i++)
             {
                 var skill = skills.GetPointer(i);
                 var skillData = f.FindAsset(skill->SkillData);
@@ -294,7 +295,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         var entity = e.Owner;
         var skill = e.skill;
         var weapon = e.weapon;
-        var audioData = weaponSkillAudioDatas[e.index.AsInt];
+        var audioData = weaponSkillAudioDatas.Find(x => x.index == e.index.AsInt);
 
         GameObject unit;
 

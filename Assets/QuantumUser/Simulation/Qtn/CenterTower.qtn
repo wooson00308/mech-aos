@@ -5,3 +5,15 @@ component CenterTowerFields{
 
 component FootboardIdentifier{
 }
+
+event TowerActivate 
+{
+	bool isActive;
+}
+
+event TowerAttack 
+{
+	entity_ref bullet;
+	entity_ref nexus;
+	FP damage;
+}
