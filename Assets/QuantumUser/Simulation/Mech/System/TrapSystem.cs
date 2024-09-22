@@ -39,6 +39,7 @@ namespace Quantum.Mech
             
                 
             var hits = frame.Physics3D.OverlapShape(*trapTransform, data.ShapeConfig.CreateShape(frame));
+            var isSuccess = false;
             for (var i = 0; i < hits.Count; i++)
             {
                 var entity = hits[i].Entity;
@@ -55,9 +56,9 @@ namespace Quantum.Mech
                 trapTransform->Position = hits[i].Point;
                 // Applies polymorphic behavior on the trap action
                 data.Action(frame, trap, entity);
-                return true;
+                isSuccess = true;
             }
-            return false;
+            return isSuccess;
         }
         void ISignalOnGameEnded.OnGameEnded(Frame frame, GameController* gameController)
         {
