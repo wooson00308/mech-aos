@@ -1,14 +1,16 @@
 using JetBrains.Annotations;
 using Quantum;
+using Quantum.Mech;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
-
-public class FixPopupUI : QuantumMonoBehaviour
+[Preserve]
+public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
 {
     public GameUI gameUI;
     public CanvasGroup canvasGroup;
@@ -21,6 +23,14 @@ public class FixPopupUI : QuantumMonoBehaviour
     public ItmeUI weapon;
 
     private bool _isShow;
+
+    private Frame f;
+
+    private void Awake()
+    {
+        f = QuantumRunner.DefaultGame.Frames.Predicted;
+        QuantumEvent.Subscribe(this, (EventFix e) => { ShowAndClose(); });
+    }
 
     public void OnSelectCockpit()
     {

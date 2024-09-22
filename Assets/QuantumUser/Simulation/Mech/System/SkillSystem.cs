@@ -99,6 +99,10 @@ namespace Quantum.Mech
             {
                 ActionSkill(weaponData, skills, 2);
             }
+            if(input->Fix.WasPressed)
+            {
+                frame.Events.Fix();
+            }
 
             if (input->Return.WasPressed)
             {

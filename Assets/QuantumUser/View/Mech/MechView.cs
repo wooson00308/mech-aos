@@ -11,6 +11,7 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
     public Nexus* Nexus;
     public Transform Body;
     public Animator CharacterAnimator;
+    public List<GameObject> HitFxs;
     
     public override void OnActivate(Frame frame)
     {
@@ -22,8 +23,17 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
         }
         QuantumEvent.Subscribe<EventOnMechanicDeath>(this, Death);
         QuantumEvent.Subscribe<EventOnMechanicRespawn>(this, Respawn);
+        QuantumEvent.Subscribe<EventOnMechanicTakeDamage>(this, Hit);
 
     }
+    private void Hit(EventOnMechanicTakeDamage e)
+    {
+        if (e.Mechanic.ToString() != gameObject.name) return;
+        int randomIndex = Random.Range(0, HitFxs.Count);
+        HitFxs[randomIndex].SetActive(false);
+        HitFxs[randomIndex].SetActive(true);
+    }
+
     private void Respawn(EventOnMechanicRespawn mechanicRespawn)
     {
         if (mechanicRespawn.Mechanic != EntityRef) return;
