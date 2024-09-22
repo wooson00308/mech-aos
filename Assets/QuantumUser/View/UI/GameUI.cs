@@ -2,6 +2,7 @@ using Quantum;
 using Quantum.Mech;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Scripting;
 using Button = UnityEngine.UI.Button;
@@ -39,12 +40,14 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     [Header("Header")]
     public List<PlayerInfoUI> playerInfoUIs;
     public List<CharacterHUD> playerHUDs;
+    public List<TMP_Text> playerResultTexts;
     public TimerUI timer;
     public Button settingButton;
     public Button settingPopupCloseButton;
     public GameObject settingPanel;
     public KillLogStorage killLog;
     public Chat ChatUI;
+    public TMP_Text ResultNotiText; 
     
     [Header("Controller")]
     public List<SkillButton> weaponSkillButtons;
@@ -132,7 +135,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
         if(e.NewState == GameState.Outro)
         {
-            resultPopup.SetActive(true);
+            resultPopup.GetComponent<CanvasGroup>().alpha = 1;
+            timer.timerText = ResultNotiText;
         }
     } 
 
@@ -184,6 +188,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
         int playerIndex = playerLink.PlayerRef._index - 1;
         var playerInfoUI = playerInfoUIs[playerIndex];
+        playerResultTexts[playerIndex].text = runtimePlayer.PlayerNickname;
         playerHUDs[playerIndex].SetPlayer(runtimePlayer.PlayerNickname, e.Mechanic);
         playerHUDs[playerIndex].UpdateHealth(currentHealthPlayer, maxHealthPlayer);
         
