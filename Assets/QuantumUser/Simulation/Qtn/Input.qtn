@@ -40,7 +40,7 @@ event WeaponFire
 event UseSkill
 {
     EntityRef Owner;
-    Skill* skill;
+    Skill skill;
     Weapon weapon;
     FP index;
 }

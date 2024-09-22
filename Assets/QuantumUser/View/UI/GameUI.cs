@@ -311,16 +311,16 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
             if (unit == null) return;
             _entityObjDic.Add(entitiyId, unit);
         }
-        
-        // switch (skill->Status)
-        // {
-        //     case SkillStatus.CoolTime:
-        //         AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
-        //         break;
-        //     case SkillStatus.Ready:
-        //         AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
-        //         break;
-        // }
+
+        switch (skill.Status)
+        {
+            case SkillStatus.CoolTime:
+                AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
+                break;
+            case SkillStatus.Ready:
+                AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
+                break;
+        }
     }
     private void TimerEnded()
     {

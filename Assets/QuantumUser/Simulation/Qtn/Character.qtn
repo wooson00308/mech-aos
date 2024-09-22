@@ -1,7 +1,8 @@
 enum Team {
-	Red,
 	Blue,
-	Green 
+	Green,
+	Red,
+	None
 }
 component PlayerLink
 {

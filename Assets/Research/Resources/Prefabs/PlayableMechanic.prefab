@@ -10387,7 +10387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Aniamtor: {fileID: 4310478064254187992}
-  attackClip: {fileID: 8300000, guid: 1e940d15337ad1e43b0cc1b2430d7c06, type: 3}
+  attackClip: {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
 --- !u!114 &-4665663476530734917
 MonoBehaviour:
   m_ObjectHideFlags: 0

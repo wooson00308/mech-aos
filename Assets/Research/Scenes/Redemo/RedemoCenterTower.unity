@@ -9944,7 +9944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1501f6cd6a8340b591170e5583030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Team: 0
+  Team: 1
   nicknameText: {fileID: 6325753769901719127}
   healthText: {fileID: 4716112278158258913}
   healthImage: {fileID: 6658431458519029054}
@@ -12105,12 +12105,18 @@ MonoBehaviour:
   - {fileID: 2701879796976605895}
   - {fileID: 1061299829035250821}
   weaponSkillAudioDatas:
-  - index: 3
+  - index: 0
     castingClip: {fileID: 8300000, guid: ee4ef2f8f89f0834d8c92266456d0922, type: 3}
     readyClip: {fileID: 8300000, guid: 8f268095f67575b44b10ea19a4482b2c, type: 3}
   - index: 1
     castingClip: {fileID: 8300000, guid: e196615aab553a14ab4e1aeb462c195c, type: 3}
     readyClip: {fileID: 8300000, guid: 6a32a0d49cd240b4cb9934adf37a49a5, type: 3}
+  - index: 2
+    castingClip: {fileID: 8300000, guid: e196615aab553a14ab4e1aeb462c195c, type: 3}
+    readyClip: {fileID: 8300000, guid: 6a32a0d49cd240b4cb9934adf37a49a5, type: 3}
+  - index: 3
+    castingClip: {fileID: 8300000, guid: ee4ef2f8f89f0834d8c92266456d0922, type: 3}
+    readyClip: {fileID: 8300000, guid: 8f268095f67575b44b10ea19a4482b2c, type: 3}
   resultPopup: {fileID: 4297263994379800643}
   testTime: 0
   hudOffset: {x: 0, y: 0, z: 0}
@@ -12621,9 +12627,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1162537185}
     m_Modifications:
+    - target: {fileID: 658874470886489165, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 658874470886489165, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 658874470886489165, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1896676352755636733, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
       propertyPath: Prototype.Time.RawValue
-      value: 655360
+      value: 327680
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896676352755636733, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: Prototype.FirstDelayTime.RawValue
+      value: 65536
       objectReference: {fileID: 0}
     - target: {fileID: 3102513743225668165, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
       propertyPath: PhysicsCollider.ScaledShape3D.BoxExtents.X.RawValue
@@ -12693,6 +12715,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4475941265633231100, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: fireClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ff823f546b52574a931e1d9b44290a6, type: 3}
+    - target: {fileID: 4475941265633231100, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: activeClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 434255a455bb6114b89536ca11d81805, type: 3}
+    - target: {fileID: 4475941265633231100, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
+      propertyPath: deactiveClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 19b9a8e562a53ab4894a0651be7aec93, type: 3}
     - target: {fileID: 7358795548886077143, guid: 5ef0f55be0eb4044986f0936b398f6a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -45
@@ -14790,7 +14824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c1501f6cd6a8340b591170e5583030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Team: 0
+  Team: 2
   nicknameText: {fileID: 7274381824207303702}
   healthText: {fileID: 1853800012826626985}
   healthImage: {fileID: 1592191676815221030}

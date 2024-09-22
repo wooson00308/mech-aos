@@ -111,6 +111,7 @@ namespace Quantum.Prototypes {
   [Quantum.Prototypes.Prototype(typeof(Quantum.CenterTowerFields))]
   public unsafe partial class CenterTowerFieldsPrototype : ComponentPrototype<Quantum.CenterTowerFields> {
     public FP Time;
+    public FP FirstDelayTime;
     public FP Damage;
     partial void MaterializeUser(Frame frame, ref Quantum.CenterTowerFields result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
@@ -120,6 +121,7 @@ namespace Quantum.Prototypes {
     }
     public void Materialize(Frame frame, ref Quantum.CenterTowerFields result, in PrototypeMaterializationContext context = default) {
         result.Time = this.Time;
+        result.FirstDelayTime = this.FirstDelayTime;
         result.Damage = this.Damage;
         MaterializeUser(frame, ref result, in context);
     }

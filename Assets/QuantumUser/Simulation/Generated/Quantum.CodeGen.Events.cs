@@ -118,16 +118,18 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventTowerActivate TowerActivate(QBoolean isActive) {
+      public EventTowerActivate TowerActivate(Team team, QBoolean isActive) {
         var ev = _f.Context.AcquireEvent<EventTowerActivate>(EventTowerActivate.ID);
+        ev.team = team;
         ev.isActive = isActive;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventTowerAttack TowerAttack(EntityRef bullet, EntityRef nexus, FP damage) {
+      public EventTowerAttack TowerAttack(EntityRef bullet, EntityRef nexus, FP FirstDelayTime, FP damage) {
         var ev = _f.Context.AcquireEvent<EventTowerAttack>(EventTowerAttack.ID);
         ev.bullet = bullet;
         ev.nexus = nexus;
+        ev.FirstDelayTime = FirstDelayTime;
         ev.damage = damage;
         _f.AddEvent(ev);
         return ev;
@@ -266,7 +268,7 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventUseSkill UseSkill(EntityRef Owner, Skill* skill, Weapon weapon, FP index) {
+      public EventUseSkill UseSkill(EntityRef Owner, Skill skill, Weapon weapon, FP index) {
         var ev = _f.Context.AcquireEvent<EventUseSkill>(EventUseSkill.ID);
         ev.Owner = Owner;
         ev.skill = skill;
@@ -367,6 +369,7 @@ namespace Quantum {
   }
   public unsafe partial class EventTowerActivate : EventBase {
     public new const Int32 ID = 2;
+    public Team team;
     public QBoolean isActive;
     protected EventTowerActivate(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -385,6 +388,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 43;
+        hash = hash * 31 + team.GetHashCode();
         hash = hash * 31 + isActive.GetHashCode();
         return hash;
       }
@@ -394,6 +398,7 @@ namespace Quantum {
     public new const Int32 ID = 3;
     public EntityRef bullet;
     public EntityRef nexus;
+    public FP FirstDelayTime;
     public FP damage;
     protected EventTowerAttack(Int32 id, EventFlags flags) : 
         base(id, flags) {
@@ -414,6 +419,7 @@ namespace Quantum {
         var hash = 47;
         hash = hash * 31 + bullet.GetHashCode();
         hash = hash * 31 + nexus.GetHashCode();
+        hash = hash * 31 + FirstDelayTime.GetHashCode();
         hash = hash * 31 + damage.GetHashCode();
         return hash;
       }
@@ -880,7 +886,7 @@ namespace Quantum {
   public unsafe partial class EventUseSkill : EventBase {
     public new const Int32 ID = 25;
     public EntityRef Owner;
-    public Skill* skill;
+    public Skill skill;
     public Weapon weapon;
     public FP index;
     protected EventUseSkill(Int32 id, EventFlags flags) : 
@@ -901,7 +907,7 @@ namespace Quantum {
       unchecked {
         var hash = 157;
         hash = hash * 31 + Owner.GetHashCode();
-        hash = hash * 31 + skill->GetHashCode();
+        hash = hash * 31 + skill.GetHashCode();
         hash = hash * 31 + weapon.GetHashCode();
         hash = hash * 31 + index.GetHashCode();
         return hash;
