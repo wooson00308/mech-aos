@@ -10549,6 +10549,15 @@ MonoBehaviour:
       SkillData:
         Id:
           Value: 458669881816257346
+    - Status:
+        Value: 0
+      RemainingCastingTime:
+        RawValue: 0
+      RemainingCoolTime:
+        RawValue: 196608
+      SkillData:
+        Id:
+          Value: 410706647872118585
 --- !u!114 &3689414065753519254
 MonoBehaviour:
   m_ObjectHideFlags: 0

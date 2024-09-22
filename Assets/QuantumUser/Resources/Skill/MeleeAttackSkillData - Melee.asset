@@ -9,20 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 435849021e2e4ef390e20d4ab71e9a13, type: 3}
-  m_Name: TrapSkillData - Trap
+  m_Script: {fileID: 11500000, guid: 2ab61a4b39d94d6c91ed2647464a9e78, type: 3}
+  m_Name: MeleeAttackSkillData - Melee
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Skill/TrapSkillData - Trap
+    Path: QuantumUser/Resources/Skill/MeleeAttackSkillData - Melee
     Guid:
-      Value: 458669881816257346
+      Value: 410706647872118585
   CastingTime:
-    RawValue: 6554
+    RawValue: 0
   CoolTime:
-    RawValue: 65536
-  trapPrototype:
+    RawValue: 196608
+  Data:
     Id:
-      Value: 1395264018499343594
-  trapData:
-    Id:
-      Value: 364480435604879198
+      Value: 275747592812375411
