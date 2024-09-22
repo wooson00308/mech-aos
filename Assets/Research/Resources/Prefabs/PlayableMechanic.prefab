@@ -20297,6 +20297,8 @@ MonoBehaviour:
     InvincibleTimer:
       RawValue: 0
     DisconnectedTicks: 100
+    IsDisconnect:
+      Value: 0
     StatusData:
       Id:
         Value: 334589176256660519
@@ -20336,6 +20338,7 @@ MonoBehaviour:
   - {fileID: 7662388367251246075}
   - {fileID: 9053126731932394732}
   - {fileID: 4493627797417430292}
+  hitSfxClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
 --- !u!114 &7967047471337578445
 MonoBehaviour:
   m_ObjectHideFlags: 0

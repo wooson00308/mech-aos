@@ -126,8 +126,9 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventTowerAttack TowerAttack(EntityRef bullet, EntityRef nexus, FP FirstDelayTime, FP damage) {
+      public EventTowerAttack TowerAttack(Team Team, EntityRef bullet, EntityRef nexus, FP FirstDelayTime, FP damage) {
         var ev = _f.Context.AcquireEvent<EventTowerAttack>(EventTowerAttack.ID);
+        ev.Team = Team;
         ev.bullet = bullet;
         ev.nexus = nexus;
         ev.FirstDelayTime = FirstDelayTime;
@@ -402,6 +403,7 @@ namespace Quantum {
   }
   public unsafe partial class EventTowerAttack : EventBase {
     public new const Int32 ID = 3;
+    public Team Team;
     public EntityRef bullet;
     public EntityRef nexus;
     public FP FirstDelayTime;
@@ -423,6 +425,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 47;
+        hash = hash * 31 + Team.GetHashCode();
         hash = hash * 31 + bullet.GetHashCode();
         hash = hash * 31 + nexus.GetHashCode();
         hash = hash * 31 + FirstDelayTime.GetHashCode();

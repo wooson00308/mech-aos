@@ -12,6 +12,8 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
     public Transform Body;
     public Animator CharacterAnimator;
     public List<GameObject> HitFxs;
+
+    public AudioClip hitSfxClip;
     
     public override void OnActivate(Frame frame)
     {
@@ -32,6 +34,8 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
         int randomIndex = Random.Range(0, HitFxs.Count);
         HitFxs[randomIndex].SetActive(false);
         HitFxs[randomIndex].SetActive(true);
+
+        AudioManager.Instance.PlaySfx(hitSfxClip, gameObject);
     }
 
     private void Respawn(EventOnMechanicRespawn mechanicRespawn)

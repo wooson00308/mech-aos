@@ -15,6 +15,7 @@ event TowerActivate
 
 event TowerAttack 
 {
+	Team Team;
 	entity_ref bullet;
 	entity_ref nexus;
 	FP FirstDelayTime;

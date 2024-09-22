@@ -66,7 +66,7 @@ namespace Quantum.Mech
                         if(f.Global->TeamsHitByCentreTower == entityComponentPointerPair.Component->Team) continue;
                         f.Global->TeamsHitByCentreTower = entityComponentPointerPair.Component->Team;
                         // Debug.Log($"CenterTower Attack Complete: {entityComponentPointerPair.Component->Team} -> {f.Unsafe.GetPointer<Nexus>(entityComponentPointerPair.Entity)->CurrentHealth - filter.CenterTowerFields->Damage}");
-                        f.Events.TowerAttack(filter.Entity, entityComponentPointerPair.Entity, filter.CenterTowerFields->FirstDelayTime, filter.CenterTowerFields->Damage);
+                        f.Events.TowerAttack(playableMechanic->Team, filter.Entity, entityComponentPointerPair.Entity, filter.CenterTowerFields->FirstDelayTime, filter.CenterTowerFields->Damage);
                         f.Signals.OnNexusHit(filter.Entity, entityComponentPointerPair.Entity, filter.CenterTowerFields->Damage);
                         
                         break;
@@ -127,6 +127,7 @@ namespace Quantum.Mech
                 Debug.Log($"{enterEntityRefs[0]} / {info.Other}");
                 f.Global->CenterTowerIsOccupy = true;
                 Debug.Log("CenterTower Start!");
+
             }
             else if (f.Has<FootboardIdentifier>(info.Other) &&
                      f.Has<PlayableMechanic>(info.Entity))
@@ -158,7 +159,6 @@ namespace Quantum.Mech
                     f.Global->CenterTowerRunningElapsedTime = 0;
                     f.Global->TeamsHitByCentreTower = Team.None;
                     Debug.Log("CenterTower Changed!");
-
                 }
                 enterEntityRefs.Remove(info.Other);
                 if (enterEntityRefs.Count <= 0)
@@ -180,7 +180,6 @@ namespace Quantum.Mech
                     f.Global->CenterTowerRunningElapsedTime = 0;
                     f.Global->TeamsHitByCentreTower = Team.None;
                     Debug.Log("CenterTower Changed!");
-
                 }
                 enterEntityRefs.Remove(info.Entity);
                 if (enterEntityRefs.Count <= 0)

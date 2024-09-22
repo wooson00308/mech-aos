@@ -32,6 +32,10 @@ public class CenterTowerView : QuantumEntityViewComponent
 
     private void TowerAttack(EventTowerAttack e)
     {
+        var team = e.Team;
+
+        BeaconAnimator.SetTrigger($"{team}");
+
         var nexus = e.nexus;
         Transform nexusModel;
         string entityId = nexus.ToString();
@@ -58,7 +62,7 @@ public class CenterTowerView : QuantumEntityViewComponent
     {
         _isAcitve = e.isActive;
         Animator.SetBool("Activate", _isAcitve);
-        BeaconAnimator.SetTrigger($"{e.team}");
+        //BeaconAnimator.SetTrigger($"{e.team}");
         
         if (_isAcitve)
         {

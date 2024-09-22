@@ -9,6 +9,8 @@ namespace QuantumUser
         public Transform Model;
         public GameObject HitFx;
 
+        public AudioClip hitSfxClip;
+
         public override void OnActivate(Frame frame)
         {
             QuantumEvent.Subscribe<EventOnNexusDestroy>(this, Destroy);
@@ -20,6 +22,8 @@ namespace QuantumUser
             if (e.Nexus.ToString() != gameObject.name) return;
             HitFx.SetActive(false);
             HitFx.SetActive(true);
+
+            AudioManager.Instance.PlaySfx(hitSfxClip, gameObject);
         }
         
         private void Destroy(EventOnNexusDestroy nexusDestroy)
