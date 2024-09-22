@@ -16,6 +16,8 @@ MonoBehaviour:
     Path: QuantumUser/Resources/Status/StatusData
     Guid:
       Value: 334589176256660519
+  MaxLevel:
+    RawValue: 196608
   MaxHealth:
     RawValue: 65536000
   RespawnTime:
