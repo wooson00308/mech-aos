@@ -18,6 +18,9 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     private Button button;
     public Image cooltimeImage;
     private bool isCooldown = false;
+    [SerializeField]
+    private bool isSkillButton = true;
+
     public bool IsCooldown
     {
         set { isCooldown = value; }
@@ -29,11 +32,13 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
     }
     private void Update()
     {
+        if (!isSkillButton) return;
         button.interactable = isCooldown;
     }
     public void OnActivate(bool value)
     {
         if (button == null) return;
+        if (!isSkillButton) return;
         button.interactable = value;
     }
     public void AddListener(UnityAction action)

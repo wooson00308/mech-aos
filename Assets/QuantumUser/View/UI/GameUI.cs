@@ -73,6 +73,11 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private Dictionary<string, GameObject> _entityObjDic = new();
 
+    public PlayerRef GetPlayerRef()
+    {
+        return _localPlayerRef;
+    }
+
     private void Awake()
     {
         _camera = FindObjectOfType<Camera>();

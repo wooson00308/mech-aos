@@ -54,7 +54,9 @@ namespace Quantum.Mech
             input.SecondSkill = _playerInput.actions["Tertiary Action"].IsPressed();
             input.ThirdSkill = _playerInput.actions["Quaternary Action"].IsPressed();
             input.Return = _playerInput.actions["Return Action"].IsPressed();
-            
+            input.ChangeWeapon = _playerInput.actions["Change Weapon Action"].IsPressed();
+
+
             input.MouseLeftButton = Mouse.current.leftButton.wasPressedThisFrame;
             var screenPosition = Mouse.current.position.ReadValue();
             input.MousePosition = screenPosition.ToFPVector2();
