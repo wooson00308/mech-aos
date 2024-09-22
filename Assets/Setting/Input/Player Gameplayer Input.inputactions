@@ -370,6 +370,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Fix Action",
+                    "type": "Button",
+                    "id": "10c485b7-abfc-4c71-b702-efe108b6225e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -568,6 +577,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Change Weapon Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a102cc97-6383-4501-8864-27ed4ec7c0c7",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fix Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

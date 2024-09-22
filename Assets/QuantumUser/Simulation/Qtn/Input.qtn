@@ -16,6 +16,8 @@ input {
     button NinthSkill;
     button TenthSkill;
     
+
+    button Fix;
     button Return;
     button ChangeWeapon;
     
@@ -43,4 +45,9 @@ event UseSkill
     Skill skill;
     Weapon weapon;
     FP index;
+}
+
+event Fix 
+{
+    
 }

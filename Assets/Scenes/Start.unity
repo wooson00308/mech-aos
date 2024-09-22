@@ -3342,7 +3342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
+  m_sendNavigationEvents: 0
   m_DragThreshold: 10
 --- !u!4 &1391196895
 Transform:
@@ -5170,7 +5170,7 @@ MonoBehaviour:
       Id:
         Value: 1302707971285072803
     PlayerNickname: 
-  maxPlayers: 2
+  maxPlayers: 1
   menuScene: Start
 --- !u!4 &2131968834
 Transform:
