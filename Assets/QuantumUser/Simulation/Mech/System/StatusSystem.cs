@@ -24,7 +24,7 @@ namespace Quantum.Mech
             if (status->RegenTimer < 0)
             {
                 status->CurrentHealth += frame.DeltaTime * statusData.RegenRate;
-                status->CurrentHealth = FPMath.Clamp(status->CurrentHealth, status->CurrentHealth, statusData.MaxHealth);
+                status->CurrentHealth = FPMath.Clamp(status->CurrentHealth, status->CurrentHealth, statusData.MaxHealth * (1 + (status->Level - 1) * FP._0_10));
             }
             
             if (status->InvincibleTimer > FP._0)
@@ -89,6 +89,11 @@ namespace Quantum.Mech
             mechanicStatus->RespawnTimer = respawnTime;
             characterController->Velocity = FPVector3.Zero;
             collider->IsTrigger = true;
+            
+            var killerStatus = frame.Unsafe.GetPointer<Status>(killer);
+            var statusData = frame.FindAsset<StatusData>(killerStatus->StatusData.Id);
+            killerStatus->Level = FPMath.Clamp(killerStatus->Level + 1, 1, statusData.MaxLevel);
+            killerStatus->CurrentHealth = killerStatus->CurrentHealth * (1 + (killerStatus->Level - 1) * FP._0_10);
             
             frame.Signals.OnMechanicDeath(mechanic, killer);
             frame.Events.OnMechanicDeath(mechanic, killer);

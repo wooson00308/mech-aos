@@ -3,6 +3,7 @@ namespace Quantum
     using Photon.Deterministic;
     public class StatusData : AssetObject
     {
+        public FP MaxLevel;
         public FP MaxHealth;
         public FP RespawnTime;
         public FP TimeUntilRegen;

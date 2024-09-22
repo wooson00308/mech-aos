@@ -85,12 +85,13 @@ namespace Quantum.Mech
         {
             var input = frame.GetPlayerInput(playerRef);
             var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
+            var status = frame.Unsafe.GetPointer<Status>(entity);
 
-            if (input->FirstSkill.WasPressed)
+            if (input->FirstSkill.WasPressed && status->Level >= 2)
             {
                 ActionSkill(weaponData, skills, 0);
             }
-            if (input->SecondSkill.WasPressed)
+            if (input->SecondSkill.WasPressed && status->Level >= 3)
             {
                 ActionSkill(weaponData, skills, 1);
             }

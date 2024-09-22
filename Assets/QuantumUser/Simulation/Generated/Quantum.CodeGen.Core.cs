@@ -1041,7 +1041,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 1768;
+    public const Int32 SIZE = 1808;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(0)]
     public AssetRef<Map> Map;
@@ -1068,11 +1068,11 @@ namespace Quantum {
     private fixed Byte _input_[1152];
     [FieldOffset(1696)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(1752)]
+    [FieldOffset(1792)]
     public GameController GameController;
     [FieldOffset(1716)]
     public Int32 ClientConnectUsers;
-    [FieldOffset(1736)]
+    [FieldOffset(1776)]
     public FP StateTimer;
     [FieldOffset(1708)]
     public GameState DelayedState;
@@ -1080,14 +1080,28 @@ namespace Quantum {
     public GameState CurrentState;
     [FieldOffset(1712)]
     public GameState PreviousState;
-    [FieldOffset(1744)]
+    [FieldOffset(1784)]
     public FP clock;
     [FieldOffset(1720)]
     public Int32 TeamIndex;
-    [FieldOffset(1728)]
+    [FieldOffset(1768)]
     public FP DisconnectTime;
-    [FieldOffset(1724)]
+    [FieldOffset(1732)]
     public QDictionaryPtr<Int32, PlayerData> teamData;
+    [FieldOffset(1752)]
+    public FP CenterTowerLatencyElapsedTime;
+    [FieldOffset(1760)]
+    public FP CenterTowerRunningElapsedTime;
+    [FieldOffset(1744)]
+    public FP CenterTowerAttackElapsedTime;
+    [FieldOffset(1724)]
+    public QBoolean CenterTowerIsOccupy;
+    [FieldOffset(1728)]
+    public QBoolean CenterTowerIsUpdatedOccupy;
+    [FieldOffset(1736)]
+    public QListPtr<EntityRef> CenterTowerEnterEntityRefs;
+    [FieldOffset(1740)]
+    public Team TeamsHitByCentreTower;
     public FixedArray<Input> input {
       get {
         fixed (byte* p = _input_) { return new FixedArray<Input>(p, 192, 6); }
@@ -1118,11 +1132,19 @@ namespace Quantum {
         hash = hash * 31 + TeamIndex.GetHashCode();
         hash = hash * 31 + DisconnectTime.GetHashCode();
         hash = hash * 31 + teamData.GetHashCode();
+        hash = hash * 31 + CenterTowerLatencyElapsedTime.GetHashCode();
+        hash = hash * 31 + CenterTowerRunningElapsedTime.GetHashCode();
+        hash = hash * 31 + CenterTowerAttackElapsedTime.GetHashCode();
+        hash = hash * 31 + CenterTowerIsOccupy.GetHashCode();
+        hash = hash * 31 + CenterTowerIsUpdatedOccupy.GetHashCode();
+        hash = hash * 31 + CenterTowerEnterEntityRefs.GetHashCode();
+        hash = hash * 31 + (Int32)TeamsHitByCentreTower;
         return hash;
       }
     }
     partial void ClearPointersPartial(FrameBase f, EntityRef entity) {
       teamData = default;
+      CenterTowerEnterEntityRefs = default;
     }
     static partial void SerializeCodeGen(void* ptr, FrameSerializer serializer) {
         var p = (_globals_*)ptr;
@@ -1143,7 +1165,14 @@ namespace Quantum {
         serializer.Stream.Serialize((Int32*)&p->PreviousState);
         serializer.Stream.Serialize(&p->ClientConnectUsers);
         serializer.Stream.Serialize(&p->TeamIndex);
+        QBoolean.Serialize(&p->CenterTowerIsOccupy, serializer);
+        QBoolean.Serialize(&p->CenterTowerIsUpdatedOccupy, serializer);
         QDictionary.Serialize(&p->teamData, serializer, Statics.SerializeInt32, Statics.SerializePlayerData);
+        QList.Serialize(&p->CenterTowerEnterEntityRefs, serializer, Statics.SerializeEntityRef);
+        serializer.Stream.Serialize((Int32*)&p->TeamsHitByCentreTower);
+        FP.Serialize(&p->CenterTowerAttackElapsedTime, serializer);
+        FP.Serialize(&p->CenterTowerLatencyElapsedTime, serializer);
+        FP.Serialize(&p->CenterTowerRunningElapsedTime, serializer);
         FP.Serialize(&p->DisconnectTime, serializer);
         FP.Serialize(&p->StateTimer, serializer);
         FP.Serialize(&p->clock, serializer);
@@ -1463,16 +1492,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Status : Quantum.IComponent {
-    public const Int32 SIZE = 56;
+    public const Int32 SIZE = 64;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public FP CurrentHealth;
     [FieldOffset(4)]
     public QBoolean IsDead;
-    [FieldOffset(48)]
+    [FieldOffset(56)]
     public FP RespawnTimer;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public FP RegenTimer;
+    [FieldOffset(40)]
+    public FP Level;
     [FieldOffset(32)]
     public FP InvincibleTimer;
     [FieldOffset(0)]
@@ -1488,6 +1519,7 @@ namespace Quantum {
         hash = hash * 31 + IsDead.GetHashCode();
         hash = hash * 31 + RespawnTimer.GetHashCode();
         hash = hash * 31 + RegenTimer.GetHashCode();
+        hash = hash * 31 + Level.GetHashCode();
         hash = hash * 31 + InvincibleTimer.GetHashCode();
         hash = hash * 31 + DisconnectedTicks.GetHashCode();
         hash = hash * 31 + StatusData.GetHashCode();
@@ -1503,6 +1535,7 @@ namespace Quantum {
         AssetRef.Serialize(&p->StatusData, serializer);
         FP.Serialize(&p->CurrentHealth, serializer);
         FP.Serialize(&p->InvincibleTimer, serializer);
+        FP.Serialize(&p->Level, serializer);
         FP.Serialize(&p->RegenTimer, serializer);
         FP.Serialize(&p->RespawnTimer, serializer);
     }
@@ -1901,6 +1934,7 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeKCCModifier;
     public static FrameSerializer.Delegate SerializeSkill;
     public static FrameSerializer.Delegate SerializeWeapon;
+    public static FrameSerializer.Delegate SerializeEntityRef;
     public static FrameSerializer.Delegate SerializeInput;
     public static FrameSerializer.Delegate SerializeInt32;
     public static FrameSerializer.Delegate SerializePlayerData;
@@ -1911,6 +1945,7 @@ namespace Quantum {
       SerializeKCCModifier = Quantum.KCCModifier.Serialize;
       SerializeSkill = Quantum.Skill.Serialize;
       SerializeWeapon = Quantum.Weapon.Serialize;
+      SerializeEntityRef = EntityRef.Serialize;
       SerializeInput = Quantum.Input.Serialize;
       SerializeInt32 = (v, s) => {{ s.Stream.Serialize((Int32*)v); }};
       SerializePlayerData = Quantum.PlayerData.Serialize;

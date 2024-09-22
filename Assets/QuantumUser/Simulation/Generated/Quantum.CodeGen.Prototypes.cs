@@ -490,6 +490,7 @@ namespace Quantum.Prototypes {
     public QBoolean IsDead;
     public FP RespawnTimer;
     public FP RegenTimer;
+    public FP Level;
     public FP InvincibleTimer;
     public Int32 DisconnectedTicks;
     public AssetRef<StatusData> StatusData;
@@ -505,6 +506,7 @@ namespace Quantum.Prototypes {
         result.IsDead = this.IsDead;
         result.RespawnTimer = this.RespawnTimer;
         result.RegenTimer = this.RegenTimer;
+        result.Level = this.Level;
         result.InvincibleTimer = this.InvincibleTimer;
         result.DisconnectedTicks = this.DisconnectedTicks;
         result.StatusData = this.StatusData;

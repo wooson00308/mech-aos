@@ -14,11 +14,13 @@ namespace Quantum
             {
                 return;
             }
-            frame.Signals.OnMechanicHit(trap, target, Damage);
+            var fields = frame.Unsafe.GetPointer<TrapFields>(trap);
+            var status = frame.Unsafe.GetPointer<Status>(fields->Source);
             
-            var fields = frame.Get<TrapFields>(trap);
+            frame.Signals.OnMechanicHit(trap, target, Damage * (1 + (status->Level - 1) * FP._0_10));
+            
             var position = frame.Get<Transform3D>(trap).Position;
-            frame.Events.OnTrapDestroyed(trap.GetHashCode(), fields.Source, position, fields.TrapData);
+            frame.Events.OnTrapDestroyed(trap.GetHashCode(), fields->Source, position, fields->TrapData);
             frame.Destroy(trap);
         }
     }

@@ -13,7 +13,9 @@ namespace Quantum
             {
                 return;
             }
-            frame.Signals.OnMechanicHit(attacker, target, Damage);
+            
+            var status = frame.Unsafe.GetPointer<Status>(attacker);
+            frame.Signals.OnMechanicHit(attacker, target, Damage * (1 + (status->Level - 1) * FP._0_10));
         }
     }
 }

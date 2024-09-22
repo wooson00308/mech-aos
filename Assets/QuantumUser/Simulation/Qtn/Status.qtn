@@ -3,6 +3,7 @@ component Status {
 	Boolean IsDead;
 	FP RespawnTimer;
 	FP RegenTimer;
+	FP Level;
 	FP InvincibleTimer;
 	Int32 DisconnectedTicks;
 	

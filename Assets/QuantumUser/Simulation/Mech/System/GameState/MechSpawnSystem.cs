@@ -38,7 +38,9 @@ namespace Quantum.Mech
             PlayableMechanic* playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(character);
             playableMechanic->Team = (Team)(frame.Global->TeamIndex % 3);
             frame.Global->TeamIndex++;
-            
+                
+            var status = frame.Unsafe.GetPointer<Status>(character);
+            status->Level = 1;
             RespawnHelper.RespawnMechanic(frame, character);
             // frame.Add(character, new PlayerLink { PlayerRef = player });
             frame.Events.OnMechanicCreated(character);
