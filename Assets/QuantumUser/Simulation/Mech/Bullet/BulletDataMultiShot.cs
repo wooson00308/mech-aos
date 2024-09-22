@@ -18,18 +18,18 @@ namespace Quantum
         //     VERTICAL, Grid 미구현
         public ESpreadDirection spreadDirection;
 
-        public override unsafe void SpawnBullet(Frame frame, WeaponData weaponData, BulletData bulletData, EntityRef mechanic, FPVector3 direction)
+        public override unsafe void SpawnBullet(Frame frame, WeaponData weaponData, EntityRef mechanic, FPVector3 direction)
         {
             if (spreadShape == ESpreadShape.PLANE)
             {
-                ShootInPlane(frame, weaponData, bulletData, mechanic, direction);
+                ShootInPlane(frame, weaponData, mechanic, direction);
             }
             else if (spreadShape == ESpreadShape.CIRCULAR)
             {
-                ShootInCircle(frame, weaponData, bulletData, mechanic, direction);
+                ShootInCircle(frame, weaponData, mechanic, direction);
             }
         }
-        private void ShootInPlane(Frame frame, WeaponData weaponData, BulletData bulletData, EntityRef mechanic, FPVector3 direction)
+        private void ShootInPlane(Frame frame, WeaponData weaponData, EntityRef mechanic, FPVector3 direction)
         {
             FPVector3 orthogonalDirection;
 
@@ -50,10 +50,10 @@ namespace Quantum
             for (int i = 0; i < projectileCount; i++)
             {
                 var offset = orthogonalDirection * (i - (projectileCount - 1) / FP.FromFloat_UNSAFE(2.0f) ) * projectileGap;
-                CreateAndShootBullet(frame, weaponData, bulletData, mechanic, direction, offset);
+                CreateAndShootBullet(frame, weaponData, mechanic, direction, offset);
             }
         }
-        private void ShootInCircle(Frame frame, WeaponData weaponData, BulletData bulletData, EntityRef mechanic, FPVector3 direction)
+        private void ShootInCircle(Frame frame, WeaponData weaponData, EntityRef mechanic, FPVector3 direction)
         {
             
             FP angleStep =  hemisphereAngle / projectileCount;
@@ -64,7 +64,7 @@ namespace Quantum
                 FP angle = -(hemisphereAngle / 2) + (i * angleStep);
                 FPVector3 rotatedDirection = RotateVector(forward, angle).Normalized;
                 FPVector3 offset = rotatedDirection * circleRadius;
-                CreateAndShootBullet(frame, weaponData, bulletData, mechanic, rotatedDirection, offset);
+                CreateAndShootBullet(frame, weaponData, mechanic, rotatedDirection, offset);
             }
         }
         private FPVector3 RotateVector(FPVector3 vector, FP angle)
@@ -78,15 +78,15 @@ namespace Quantum
 
             return new FPVector3(x, vector.Y, z);
         }
-        private unsafe void CreateAndShootBullet(Frame frame, WeaponData weaponData, BulletData bulletData, EntityRef mechanic, FPVector3 direction, FPVector3 offset)
+        private unsafe void CreateAndShootBullet(Frame frame, WeaponData weaponData, EntityRef mechanic, FPVector3 direction, FPVector3 offset)
         {
-            var prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(bulletData.BulletPrototype.Id.Value));
+            var prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(BulletPrototype.Id.Value));
             var bullet = frame.Create(prototypeAsset);
 
             var bulletFields = frame.Unsafe.GetPointer<BulletFields>(bullet);
             var bulletTransform = frame.Unsafe.GetPointer<Transform3D>(bullet);
 
-            bulletFields->BulletData = bulletData;
+            bulletFields->BulletData = this;
 
             var transform = frame.Unsafe.GetPointer<Transform3D>(mechanic);
 

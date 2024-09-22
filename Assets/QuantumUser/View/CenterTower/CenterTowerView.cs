@@ -38,7 +38,6 @@ public class CenterTowerView : QuantumEntityViewComponent
             nexusModel = obj.transform;
             _nexusModelDic.Add(entityId, nexusModel);
         }
-
         StartCoroutine(RotateTowardsAndFire(nexusModel, () =>
         {
             Animator.SetTrigger("Fire");

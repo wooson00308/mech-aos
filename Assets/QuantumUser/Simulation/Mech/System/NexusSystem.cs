@@ -8,10 +8,11 @@ namespace Quantum.Mech
     {
         public void OnNexusHit(Frame frame, EntityRef bullet, EntityRef nexus, FP damage)
         {
-            var isSuccess = frame.TryGet<BulletFields>(bullet, out var fields);
-            
-            // TODO 조심할것
-            var shooter = isSuccess ? fields.Source : bullet;
+            var shooter = bullet;
+            if(frame.TryGet<TrapFields>(bullet,out var trapFields))
+                shooter = trapFields.Source;
+            else if (frame.TryGet<BulletFields>(bullet,out var bulletFields))
+                shooter = bulletFields.Source;
             
             TakeDamage(frame, shooter, nexus, damage);
         }

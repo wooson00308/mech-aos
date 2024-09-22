@@ -1,0 +1,14 @@
+component TrapFields
+{
+    FP DelayElapsedTime;
+    entity_ref Source;
+    asset_ref<TrapData> TrapData;
+}
+
+
+event OnTrapDestroyed {
+	Int32 TrapRefHashCode;
+	entity_ref Mechanic;
+	FPVector3 TrapPosition;
+	asset_ref<TrapData> TrapData;
+}

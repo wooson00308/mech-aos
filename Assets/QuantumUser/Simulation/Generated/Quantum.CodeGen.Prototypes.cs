@@ -511,6 +511,23 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.TrapFields))]
+  public unsafe class TrapFieldsPrototype : ComponentPrototype<Quantum.TrapFields> {
+    public FP DelayElapsedTime;
+    public MapEntityId Source;
+    public AssetRef<TrapData> TrapData;
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.TrapFields component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.TrapFields result, in PrototypeMaterializationContext context = default) {
+        result.DelayElapsedTime = this.DelayElapsedTime;
+        PrototypeValidator.FindMapEntity(this.Source, in context, out result.Source);
+        result.TrapData = this.TrapData;
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.Weapon))]
   public unsafe partial class WeaponPrototype : StructPrototype {
     public QBoolean IsRecharging;

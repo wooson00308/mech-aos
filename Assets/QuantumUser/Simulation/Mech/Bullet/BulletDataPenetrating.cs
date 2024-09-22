@@ -41,14 +41,14 @@ namespace Quantum
         }
         
         
-        public override unsafe void SpawnBullet(Frame frame, WeaponData weaponData, BulletData bulletData, EntityRef mechanic, FPVector3 direction)
+        public override unsafe void SpawnBullet(Frame frame, WeaponData weaponData, EntityRef mechanic, FPVector3 direction)
         {
-            var prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(bulletData.BulletPrototype.Id.Value));
+            var prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(BulletPrototype.Id.Value));
             var bullet = frame.Create(prototypeAsset);
 
             var bulletFields = frame.Unsafe.GetPointer<BulletFields>(bullet);
             var bulletTransform = frame.Unsafe.GetPointer<Transform3D>(bullet);
-            bulletFields->BulletData = bulletData;
+            bulletFields->BulletData = this;
             
             var transform = frame.Unsafe.GetPointer<Transform3D>(mechanic);
             var fireSpotWorldOffset = WeaponHelper.GetFireSpotWorldOffset(

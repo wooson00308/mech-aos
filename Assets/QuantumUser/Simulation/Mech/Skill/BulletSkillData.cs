@@ -13,7 +13,7 @@ namespace Quantum
             var weaponData = frame.FindAsset<WeaponData>(WeaponData.Id);
             frame.Events.OnWeaponShoot(mechanic);
             var bulletData = frame.FindAsset<BulletData>(weaponData.BulletData.Id);
-            bulletData.SpawnBullet(frame, weaponData, bulletData, mechanic, transform3D->Forward);
+            bulletData.SpawnBullet(frame, weaponData, mechanic, transform3D->Forward);
             
         }
         

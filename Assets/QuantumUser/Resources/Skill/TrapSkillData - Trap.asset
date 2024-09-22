@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435849021e2e4ef390e20d4ab71e9a13, type: 3}
+  m_Name: TrapSkillData - Trap
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Resources/Skill/TrapSkillData - Trap
+    Guid:
+      Value: 458669881816257346
+  CastingTime:
+    RawValue: 0
+  CoolTime:
+    RawValue: 0
+  trapPrototype:
+    Id:
+      Value: 0
+  trapData:
+    Id:
+      Value: 0

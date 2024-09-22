@@ -1503,6 +1503,32 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct TrapFields : Quantum.IComponent {
+    public const Int32 SIZE = 24;
+    public const Int32 ALIGNMENT = 8;
+    [FieldOffset(16)]
+    public FP DelayElapsedTime;
+    [FieldOffset(8)]
+    public EntityRef Source;
+    [FieldOffset(0)]
+    public AssetRef<TrapData> TrapData;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 7027;
+        hash = hash * 31 + DelayElapsedTime.GetHashCode();
+        hash = hash * 31 + Source.GetHashCode();
+        hash = hash * 31 + TrapData.GetHashCode();
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (TrapFields*)ptr;
+        AssetRef.Serialize(&p->TrapData, serializer);
+        EntityRef.Serialize(&p->Source, serializer);
+        FP.Serialize(&p->DelayElapsedTime, serializer);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct WeaponInventory : Quantum.IComponent {
     public const Int32 SIZE = 8;
     public const Int32 ALIGNMENT = 4;
@@ -1684,6 +1710,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Transform2DVertical>();
       BuildSignalsArrayOnComponentAdded<Transform3D>();
       BuildSignalsArrayOnComponentRemoved<Transform3D>();
+      BuildSignalsArrayOnComponentAdded<Quantum.TrapFields>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.TrapFields>();
       BuildSignalsArrayOnComponentAdded<View>();
       BuildSignalsArrayOnComponentRemoved<View>();
       BuildSignalsArrayOnComponentAdded<Quantum.WeaponInventory>();
@@ -1991,13 +2019,14 @@ namespace Quantum {
       typeRegistry.Register(typeof(Transform2D), Transform2D.SIZE);
       typeRegistry.Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       typeRegistry.Register(typeof(Transform3D), Transform3D.SIZE);
+      typeRegistry.Register(typeof(Quantum.TrapFields), Quantum.TrapFields.SIZE);
       typeRegistry.Register(typeof(View), View.SIZE);
       typeRegistry.Register(typeof(Quantum.Weapon), Quantum.Weapon.SIZE);
       typeRegistry.Register(typeof(Quantum.WeaponInventory), Quantum.WeaponInventory.SIZE);
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 14)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 15)
         .AddBuiltInComponents()
         .Add<Quantum.AbilityInventory>(Quantum.AbilityInventory.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.BulletFields>(Quantum.BulletFields.Serialize, null, null, ComponentFlags.None)
@@ -2012,6 +2041,7 @@ namespace Quantum {
         .Add<Quantum.SkillInventory>(Quantum.SkillInventory.Serialize, null, Quantum.SkillInventory.OnRemoved, ComponentFlags.None)
         .Add<Quantum.SpawnIdentifier>(Quantum.SpawnIdentifier.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.Status>(Quantum.Status.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.TrapFields>(Quantum.TrapFields.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.WeaponInventory>(Quantum.WeaponInventory.Serialize, null, Quantum.WeaponInventory.OnRemoved, ComponentFlags.None)
         .Finish();
     }

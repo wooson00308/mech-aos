@@ -1,6 +1,7 @@
-component BulletFields{
+component BulletFields
+{
 	FP Time;
-	entity_ref Source;
+    entity_ref Source;
 	FPVector3 Direction;
 	asset_ref<BulletData> BulletData;
 }

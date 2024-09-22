@@ -43,7 +43,12 @@ namespace Quantum.Mech
         }
         public void OnMechanicHit(Frame frame, EntityRef bullet, EntityRef robot, FP damage)
         {
-            EntityRef shooter = frame.Get<BulletFields>(bullet).Source;
+            var shooter = bullet;
+            if(frame.TryGet<TrapFields>(bullet,out var trapFields))
+                shooter = trapFields.Source;
+            else if (frame.TryGet<BulletFields>(bullet,out var bulletFields))
+                shooter = bulletFields.Source;
+
             TakeDamage(frame, shooter, robot, damage);
         }
         public void OnMechanicSkillHit(Frame frame, EntityRef skill, EntityRef robot)

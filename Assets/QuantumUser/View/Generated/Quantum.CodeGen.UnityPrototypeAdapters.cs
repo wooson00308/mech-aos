@@ -131,6 +131,21 @@ namespace Quantum.Prototypes.Unity {
       return result;
     }
   }
+  [System.SerializableAttribute()]
+  public unsafe partial class TrapFieldsPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.TrapFieldsPrototype> {
+    public FP DelayElapsedTime;
+    public Quantum.QuantumEntityPrototype Source;
+    public AssetRef<TrapData> TrapData;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.TrapFieldsPrototype prototype);
+    public override Quantum.Prototypes.TrapFieldsPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.TrapFieldsPrototype();
+      converter.Convert(this.DelayElapsedTime, out result.DelayElapsedTime);
+      converter.Convert(this.Source, out result.Source);
+      converter.Convert(this.TrapData, out result.TrapData);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
 }
 #pragma warning restore 0109
 #pragma warning restore 1591

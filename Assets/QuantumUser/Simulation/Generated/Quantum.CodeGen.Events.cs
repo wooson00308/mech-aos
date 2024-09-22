@@ -52,7 +52,7 @@ namespace Quantum {
   public unsafe partial class Frame {
     public unsafe partial struct FrameEvents {
       static partial void GetEventTypeCountCodeGen(ref Int32 eventCount) {
-        eventCount = 34;
+        eventCount = 35;
       }
       static partial void GetParentEventIDCodeGen(Int32 eventID, ref Int32 parentEventID) {
         switch (eventID) {
@@ -102,6 +102,7 @@ namespace Quantum {
           case EventOnTeamNexusDestroy.ID: result = typeof(EventOnTeamNexusDestroy); return;
           case EventPlayerLeft.ID: result = typeof(EventPlayerLeft); return;
           case EventOnChangeWeapon.ID: result = typeof(EventOnChangeWeapon); return;
+          case EventOnTrapDestroyed.ID: result = typeof(EventOnTrapDestroyed); return;
           case EventOnWeaponShoot.ID: result = typeof(EventOnWeaponShoot); return;
           case EventDummyEvent.ID: result = typeof(EventDummyEvent); return;
           default: break;
@@ -306,6 +307,15 @@ namespace Quantum {
       public EventOnChangeWeapon OnChangeWeapon(EntityRef Mechanic) {
         var ev = _f.Context.AcquireEvent<EventOnChangeWeapon>(EventOnChangeWeapon.ID);
         ev.Mechanic = Mechanic;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnTrapDestroyed OnTrapDestroyed(Int32 TrapRefHashCode, EntityRef Mechanic, FPVector3 TrapPosition, AssetRef<TrapData> TrapData) {
+        var ev = _f.Context.AcquireEvent<EventOnTrapDestroyed>(EventOnTrapDestroyed.ID);
+        ev.TrapRefHashCode = TrapRefHashCode;
+        ev.Mechanic = Mechanic;
+        ev.TrapPosition = TrapPosition;
+        ev.TrapData = TrapData;
         _f.AddEvent(ev);
         return ev;
       }
@@ -1033,13 +1043,16 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnWeaponShoot : EventBase {
+  public unsafe partial class EventOnTrapDestroyed : EventBase {
     public new const Int32 ID = 32;
+    public Int32 TrapRefHashCode;
     public EntityRef Mechanic;
-    protected EventOnWeaponShoot(Int32 id, EventFlags flags) : 
+    public FPVector3 TrapPosition;
+    public AssetRef<TrapData> TrapData;
+    protected EventOnTrapDestroyed(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnWeaponShoot() : 
+    public EventOnTrapDestroyed() : 
         base(32, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -1053,17 +1066,21 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 193;
+        hash = hash * 31 + TrapRefHashCode.GetHashCode();
         hash = hash * 31 + Mechanic.GetHashCode();
+        hash = hash * 31 + TrapPosition.GetHashCode();
+        hash = hash * 31 + TrapData.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventDummyEvent : EventBase {
+  public unsafe partial class EventOnWeaponShoot : EventBase {
     public new const Int32 ID = 33;
-    protected EventDummyEvent(Int32 id, EventFlags flags) : 
+    public EntityRef Mechanic;
+    protected EventOnWeaponShoot(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventDummyEvent() : 
+    public EventOnWeaponShoot() : 
         base(33, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
@@ -1077,6 +1094,30 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 197;
+        hash = hash * 31 + Mechanic.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventDummyEvent : EventBase {
+    public new const Int32 ID = 34;
+    protected EventDummyEvent(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventDummyEvent() : 
+        base(34, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 199;
         return hash;
       }
     }

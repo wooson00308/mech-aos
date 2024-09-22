@@ -9,25 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7867e4c94e4e47778bd1dab4a1b01fb5, type: 3}
-  m_Name: BulletData - Laser
+  m_Script: {fileID: 11500000, guid: 16e1b6fe4a70406e9f03b7f9565c4835, type: 3}
+  m_Name: TrapData - Trap
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Resources/Bullet/BulletData - Laser
+    Path: QuantumUser/Resources/Trap/TrapData - Trap
     Guid:
-      Value: 384656997452621020
-  BulletDestroyFxGameObject: {fileID: 4156065313240209359, guid: 4a3e5a4a9db28034abd3d4dba18e76b6, type: 3}
-  BulletPrototype:
-    Id:
-      Value: 1359633457972454521
+      Value: 364480435604879198
   ShapeConfig:
-    ShapeType: 2
+    ShapeType: 1
     SphereRadius:
-      RawValue: 51118
+      RawValue: 0
     CapsuleRadius:
-      RawValue: 65536
+      RawValue: 0
     CapsuleHeight:
-      RawValue: 32768
+      RawValue: 0
     PositionOffset:
       X:
         RawValue: 0
@@ -37,11 +33,11 @@ MonoBehaviour:
         RawValue: 0
     BoxExtents:
       X:
-        RawValue: 32768
+        RawValue: 0
       Y:
-        RawValue: 32768
+        RawValue: 0
       Z:
-        RawValue: 65536
+        RawValue: 0
     RotationOffset:
       X:
         RawValue: 0
@@ -49,12 +45,12 @@ MonoBehaviour:
         RawValue: 0
       Z:
         RawValue: 0
-    UserTag: 1
+    UserTag: 0
     IsPersistent: 1
     CompoundShapes: []
   Damage:
-    RawValue: 3932160
+    RawValue: 0
   Range:
-    RawValue: 6553600
-  Duration:
-    RawValue: 6553600
+    RawValue: 0
+  Latency:
+    RawValue: 0
