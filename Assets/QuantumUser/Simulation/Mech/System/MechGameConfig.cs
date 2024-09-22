@@ -17,5 +17,6 @@ namespace Quantum.Mech
         [Space]
         public FP lobbyingDuration = 10;
         public FP postgameDuration = 30;
+        public FP centerTowerLatency = 5;
     }
 }
