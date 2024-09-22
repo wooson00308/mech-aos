@@ -8,18 +8,26 @@ public class CenterTowerView : QuantumEntityViewComponent
 {
     public Transform Model;
     public Animator Animator;
+    public Animator BeaconAnimator;
     public Transform TowerModel;
+
+    public AudioClip fireClip;
+    public AudioClip activeClip;
+    public AudioClip deactiveClip;
 
     private Dictionary<string, Transform> _nexusModelDic = new();
 
     private Frame f;
 
-    public override void OnActivate(Frame frame)
+    private bool _isFire;
+    private bool _isAcitve;
+
+    private void Awake()
     {
         QuantumEvent.Subscribe<EventTowerActivate>(this, TowerActivate);
         QuantumEvent.Subscribe<EventTowerAttack>(this, TowerAttack);
 
-        f = frame;
+        f = QuantumRunner.DefaultGame.Frames.Predicted;
     }
 
     private void TowerAttack(EventTowerAttack e)
@@ -39,32 +47,54 @@ public class CenterTowerView : QuantumEntityViewComponent
             _nexusModelDic.Add(entityId, nexusModel);
         }
 
-        StartCoroutine(RotateTowardsAndFire(nexusModel, () =>
+        StartCoroutine(RotateTowardsAndFire(nexusModel, e.FirstDelayTime.AsFloat, () =>
         {
             Animator.SetTrigger("Fire");
-            f.Signals.OnNexusHit(e.bullet, e.nexus, e.damage);
+            AudioManager.Instance.PlaySfx(fireClip);
         }));
     }
 
     private void TowerActivate(EventTowerActivate e)
     {
-        Animator.SetBool("Activate", e.isActive);
+        _isAcitve = e.isActive;
+        Animator.SetBool("Activate", _isAcitve);
+        BeaconAnimator.SetTrigger($"{e.team}");
+        
+        if (_isAcitve)
+        {
+            AudioManager.Instance.PlaySfx(activeClip);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySfx(deactiveClip);
+        }
     }
 
-    private IEnumerator RotateTowardsAndFire(Transform nexusModel, Action callback = null)
+    private IEnumerator RotateTowardsAndFire(Transform nexusModel, float rotationDuration, Action callback = null)
     {
+        if (!_isAcitve) yield break;
+        if (_isFire) yield break;
+        _isFire = true;
+
         Vector3 direction = (nexusModel.position - TowerModel.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        float rotationSpeed = 10f;
-        while (Quaternion.Angle(TowerModel.rotation, targetRotation) > 0.1f)
+        float elapsedTime = 0f;
+
+        Quaternion initialRotation = TowerModel.rotation;
+
+        while (elapsedTime < rotationDuration)
         {
-            TowerModel.rotation = Quaternion.Lerp(TowerModel.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-            yield return null; 
+            TowerModel.rotation = Quaternion.Lerp(initialRotation, targetRotation, elapsedTime / rotationDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
-        TowerModel.rotation = targetRotation;
+
+        TowerModel.rotation = targetRotation; // ¸¶Áö¸·¿¡ Á¤È®ÇÑ Å¸°Ù ¹æÇâÀ¸·Î ¸ÂÃçÁÜ
 
         callback?.Invoke();
+
+        _isFire = false;
     }
 
     private void OnDestroy()

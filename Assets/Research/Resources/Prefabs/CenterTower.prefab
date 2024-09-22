@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5377466831388970932}
   - component: {fileID: 658874470886489165}
+  - component: {fileID: 547249513200896883}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1be5de40cd14a2549afbfa44c3f57595, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7137255, g: 0.8941177, b: 0.9294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &547249513200896883
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447066019988383107}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e27c3aab5683e0549ae3ddf64a5b65ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8305345495150264191
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +738,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Model: {fileID: 7358795549160652897}
   Animator: {fileID: 3510343931457721671}
+  BeaconAnimator: {fileID: 547249513200896883}
   TowerModel: {fileID: 7358795551704082105}
+  fireClip: {fileID: 0}
+  activeClip: {fileID: 0}
+  deactiveClip: {fileID: 0}
 --- !u!1001 &5550528871052398603
 PrefabInstance:
   m_ObjectHideFlags: 0

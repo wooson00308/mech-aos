@@ -312,7 +312,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
             _entityObjDic.Add(entitiyId, unit);
         }
 
-        switch (skill->Status)
+        switch (skill.Status)
         {
             case SkillStatus.CoolTime:
                 AudioManager.Instance.PlaySfx(audioData.castingClip, unit);

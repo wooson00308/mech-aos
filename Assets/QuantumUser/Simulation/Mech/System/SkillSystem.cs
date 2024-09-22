@@ -3,7 +3,6 @@ using UnityEngine.Scripting;
 using Photon.Deterministic;
 using Quantum.Collections;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Quantum.Mech
 {
@@ -66,7 +65,7 @@ namespace Quantum.Mech
                         skill->Status = SkillStatus.CoolTime;
 
                         //스킬 쿨타임 이벤트
-                        frame.Events.UseSkill(entity, skill, weapon, index);
+                        frame.Events.UseSkill(entity, *skill, weapon, index);
                     }
                     break;
                 case SkillStatus.CoolTime:
@@ -77,7 +76,7 @@ namespace Quantum.Mech
                         skill->Status = SkillStatus.Ready;
 
                         //스킬 준비완료 이벤트
-                        frame.Events.UseSkill(entity, skill, weapon, index);
+                        frame.Events.UseSkill(entity, *skill, weapon, index);
                     }
                     break;
             }
@@ -134,7 +133,7 @@ namespace Quantum.Mech
             data.Action(frame, mechanic);
 
             //스킬 캐스팅 이벤트
-            frame.Events.UseSkill(mechanic, skill, weapon, index);
+            frame.Events.UseSkill(mechanic, *skill, weapon, index);
 
         }
         public void OnCooldownsReset(Frame frame, EntityRef playerEntityRef)

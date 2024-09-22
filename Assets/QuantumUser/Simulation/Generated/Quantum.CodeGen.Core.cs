@@ -108,9 +108,10 @@ namespace Quantum {
     CoolTime,
   }
   public enum Team : int {
-    Red,
     Blue,
     Green,
+    Red,
+    None,
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
@@ -1211,16 +1212,19 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct CenterTowerFields : Quantum.IComponent {
-    public const Int32 SIZE = 16;
+    public const Int32 SIZE = 24;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(8)]
+    [FieldOffset(16)]
     public FP Time;
+    [FieldOffset(8)]
+    public FP FirstDelayTime;
     [FieldOffset(0)]
     public FP Damage;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 139;
         hash = hash * 31 + Time.GetHashCode();
+        hash = hash * 31 + FirstDelayTime.GetHashCode();
         hash = hash * 31 + Damage.GetHashCode();
         return hash;
       }
@@ -1228,6 +1232,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (CenterTowerFields*)ptr;
         FP.Serialize(&p->Damage, serializer);
+        FP.Serialize(&p->FirstDelayTime, serializer);
         FP.Serialize(&p->Time, serializer);
     }
   }
