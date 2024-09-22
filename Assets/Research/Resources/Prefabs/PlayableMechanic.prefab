@@ -20297,6 +20297,8 @@ MonoBehaviour:
     InvincibleTimer:
       RawValue: 0
     DisconnectedTicks: 100
+    IsDisconnect:
+      Value: 0
     StatusData:
       Id:
         Value: 334589176256660519

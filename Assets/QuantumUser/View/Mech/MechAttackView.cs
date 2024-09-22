@@ -27,8 +27,6 @@ namespace Quantum.Mech
         private bool MainAttackInteractable;
         private bool SubAttackInteractable;
 
-        private Frame f;
-
         private void Awake()
         {
             _entityView = GetComponent<QuantumEntityView>();
@@ -43,8 +41,17 @@ namespace Quantum.Mech
             Handle = playerHandle;
 
             QuantumEvent.Subscribe<EventWeaponFire>(this, WeaponFire);
+            QuantumEvent.Subscribe<EventUseSkill>(this, OnUseSkill);
 
-            f = QuantumRunner.DefaultGame.Frames.Predicted;
+        }
+
+        private void OnUseSkill(EventUseSkill e)
+        {
+            var skill = e.skill;
+            if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<MeleeAttackSkillData>(skill.SkillData.Id, out var data))
+            {
+                Aniamtor.SetTrigger("Slash");
+            }
         }
 
         public override void OnUpdateView(QuantumGame game)
