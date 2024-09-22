@@ -33,6 +33,7 @@ namespace Quantum.Mech {
 
             if (status->DisconnectedTicks >= 15)
             {
+                status->IsDisconnect = true;
                 frame.Destroy(filter.Entity);
             }
         }

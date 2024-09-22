@@ -6,6 +6,7 @@ component Status {
 	FP Level;
 	FP InvincibleTimer;
 	Int32 DisconnectedTicks;
+	Boolean IsDisconnect;
 	
 	asset_ref<StatusData> StatusData;
 	asset_ref<PlayerMovementData> PlayerMovementData;

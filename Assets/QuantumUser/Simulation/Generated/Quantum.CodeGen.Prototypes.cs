@@ -493,6 +493,7 @@ namespace Quantum.Prototypes {
     public FP Level;
     public FP InvincibleTimer;
     public Int32 DisconnectedTicks;
+    public QBoolean IsDisconnect;
     public AssetRef<StatusData> StatusData;
     public AssetRef<PlayerMovementData> PlayerMovementData;
     partial void MaterializeUser(Frame frame, ref Quantum.Status result, in PrototypeMaterializationContext context);
@@ -509,6 +510,7 @@ namespace Quantum.Prototypes {
         result.Level = this.Level;
         result.InvincibleTimer = this.InvincibleTimer;
         result.DisconnectedTicks = this.DisconnectedTicks;
+        result.IsDisconnect = this.IsDisconnect;
         result.StatusData = this.StatusData;
         result.PlayerMovementData = this.PlayerMovementData;
         MaterializeUser(frame, ref result, in context);

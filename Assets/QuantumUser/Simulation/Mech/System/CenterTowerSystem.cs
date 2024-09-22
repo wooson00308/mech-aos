@@ -92,7 +92,7 @@ namespace Quantum.Mech
             {
                 Debug.Log($"{enterEntityRefs.Count}/ {enterEntityRefs[i]}");
                 var status =  f.Unsafe.GetPointer<Status>(enterEntityRefs[i]);
-                if(status->IsDead) enterEntityRefs.RemoveAt(i);
+                if(status->IsDead || status->IsDisconnect) enterEntityRefs.RemoveAt(i);
             }
 
             if (enterEntityRefs.Count <= 0)

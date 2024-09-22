@@ -1492,25 +1492,27 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Status : Quantum.IComponent {
-    public const Int32 SIZE = 64;
+    public const Int32 SIZE = 72;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public FP CurrentHealth;
     [FieldOffset(4)]
     public QBoolean IsDead;
-    [FieldOffset(56)]
+    [FieldOffset(64)]
     public FP RespawnTimer;
-    [FieldOffset(48)]
+    [FieldOffset(56)]
     public FP RegenTimer;
-    [FieldOffset(40)]
+    [FieldOffset(48)]
     public FP Level;
-    [FieldOffset(32)]
+    [FieldOffset(40)]
     public FP InvincibleTimer;
     [FieldOffset(0)]
     public Int32 DisconnectedTicks;
-    [FieldOffset(16)]
-    public AssetRef<StatusData> StatusData;
     [FieldOffset(8)]
+    public QBoolean IsDisconnect;
+    [FieldOffset(24)]
+    public AssetRef<StatusData> StatusData;
+    [FieldOffset(16)]
     public AssetRef<PlayerMovementData> PlayerMovementData;
     public override Int32 GetHashCode() {
       unchecked { 
@@ -1522,6 +1524,7 @@ namespace Quantum {
         hash = hash * 31 + Level.GetHashCode();
         hash = hash * 31 + InvincibleTimer.GetHashCode();
         hash = hash * 31 + DisconnectedTicks.GetHashCode();
+        hash = hash * 31 + IsDisconnect.GetHashCode();
         hash = hash * 31 + StatusData.GetHashCode();
         hash = hash * 31 + PlayerMovementData.GetHashCode();
         return hash;
@@ -1531,6 +1534,7 @@ namespace Quantum {
         var p = (Status*)ptr;
         serializer.Stream.Serialize(&p->DisconnectedTicks);
         QBoolean.Serialize(&p->IsDead, serializer);
+        QBoolean.Serialize(&p->IsDisconnect, serializer);
         AssetRef.Serialize(&p->PlayerMovementData, serializer);
         AssetRef.Serialize(&p->StatusData, serializer);
         FP.Serialize(&p->CurrentHealth, serializer);
