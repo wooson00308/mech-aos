@@ -33,7 +33,15 @@ namespace Quantum
         {
             int minutes = Mathf.FloorToInt(time / 60);
             int seconds = Mathf.FloorToInt(time % 60);
-            timerText.text = $"{minutes:D2}:{seconds:D2}";
+
+            if(currentState == GameState.Outro)
+            {
+                timerText.text = $"{seconds:D2}초 뒤에 로비로 돌아갑니다.";
+            }
+            else
+            {
+                timerText.text = $"{minutes:D2}:{seconds:D2}";
+            }
         }
     }
 }
