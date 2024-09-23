@@ -49,6 +49,6 @@ MonoBehaviour:
     IsPersistent: 1
     CompoundShapes: []
   Damage:
-    RawValue: 65536000
+    RawValue: 19660800
   Latency:
     RawValue: 65536

@@ -53,7 +53,7 @@ MonoBehaviour:
     IsPersistent: 1
     CompoundShapes: []
   Damage:
-    RawValue: 3932160
+    RawValue: 2621440
   Range:
     RawValue: 6553600
   Duration:
