@@ -14,11 +14,15 @@ public class Tutorial : MonoBehaviour
         else
         {
             gameObject.SetActive(true);
-            pages[0].gameObject.SetActive(true);
-            for (var i = 1; i < pages.Count; i++)
-            {
-                pages[i].gameObject.SetActive(false);
-            }
+        }
+    }
+
+    public void OnEnable()
+    {
+        pages[0].gameObject.SetActive(true);
+        for (var i = 1; i < pages.Count; i++)
+        {
+            pages[i].gameObject.SetActive(false);
         }
     }
 
@@ -26,6 +30,8 @@ public class Tutorial : MonoBehaviour
     {
         PlayerPrefs.SetInt("IsTutorial", 1);
         PlayerPrefs.Save();
-        Destroy(gameObject);
+
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }

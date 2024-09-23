@@ -3,6 +3,7 @@ using UnityEngine.Scripting;
 using Photon.Deterministic;
 using Quantum.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Quantum.Mech
 {
@@ -20,8 +21,7 @@ namespace Quantum.Mech
             public WeaponInventory* WeaponInventory;
         }
 
-        private EntityRef _entity;
-        private bool _isFixEnabled = false;
+        private Dictionary<EntityRef, bool> _isFixEnabledDic = new();
 
         public override void Update(Frame frame, ref Filter filter)
         {
@@ -87,7 +87,16 @@ namespace Quantum.Mech
         }
         private void OnInput(Frame frame, EntityRef entity, PlayableMechanic* mechanic ,PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
         {
-            _entity = entity;
+            bool isEnabled = false;
+
+            if(_isFixEnabledDic.TryGetValue(entity, out bool getEnabled))
+            {
+                isEnabled = getEnabled;
+            }
+            else
+            {
+                _isFixEnabledDic.Add(entity, false);
+            }
 
             var input = frame.GetPlayerInput(playerRef);
             var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
@@ -105,7 +114,7 @@ namespace Quantum.Mech
             {
                 ActionSkill(weaponData, skills, 2);
             }
-            if(input->Fix.WasPressed && _isFixEnabled)
+            if(input->Fix.WasPressed && isEnabled)
             {
                 frame.Events.Fix();
             }
@@ -159,9 +168,14 @@ namespace Quantum.Mech
 
         public void OnEnableFix(Frame f, EntityRef mechanic, EntityRef nexusIdentifier, QBoolean isEnable)
         {
-            if (_entity.ToString() != mechanic.ToString()) return;
-
-            _isFixEnabled = isEnable;
+            if(_isFixEnabledDic.ContainsKey(mechanic))
+            {
+                _isFixEnabledDic[mechanic] = isEnable;
+            }
+            else
+            {
+                _isFixEnabledDic.Add(mechanic, isEnable);
+            }
         }
     }
 }

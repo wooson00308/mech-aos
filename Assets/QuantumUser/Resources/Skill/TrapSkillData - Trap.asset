@@ -19,7 +19,7 @@ MonoBehaviour:
   CastingTime:
     RawValue: 6554
   CoolTime:
-    RawValue: 65536
+    RawValue: 327680
   trapPrototype:
     Id:
       Value: 1395264018499343594

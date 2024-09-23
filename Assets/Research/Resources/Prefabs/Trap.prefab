@@ -4994,7 +4994,7 @@ GameObject:
   - component: {fileID: 8856410275078590381}
   - component: {fileID: 3071924376184292697}
   - component: {fileID: 8887060574939436769}
-  - component: {fileID: 9076188550431024460}
+  - component: {fileID: -6438215275336501868}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -5265,7 +5265,7 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &9076188550431024460
+--- !u!114 &-6438215275336501868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

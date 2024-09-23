@@ -31,25 +31,11 @@ public class EventSubscriptions : MonoBehaviour
 
 			if(evt.NewState == GameState.Outro)
 			{
-                if (isShutdown) return;
                 var f = QuantumRunner.DefaultGame.Frames.Predicted;
                 GameStateSystem.SetStateDelayed(f, GameState.Off, FP._10);
-                StartCoroutine(ProcessShutdown());
             }
         });
 	}
-
-    bool isShutdown;
-
-    private IEnumerator ProcessShutdown()
-    {
-        isShutdown = true;
-
-        yield return new WaitForSeconds(10f);
-        Shutdown();
-
-        isShutdown = false;
-    }
 
 	private void Shutdown()
 	{

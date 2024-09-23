@@ -59,14 +59,14 @@ namespace Quantum.Mech
                 f.Has<PlayableMechanic>(info.Other))
             {
                 f.Events.OnEnableFix(info.Other, info.Entity, true);
-                f.Signals.OnEnableFix(info.Other, info.Entity, false);
+                f.Signals.OnEnableFix(info.Other, info.Entity, true);
 
             }
             else if (f.Has<NexusIdentifier>(info.Other) &&
                      f.Has<PlayableMechanic>(info.Entity))
             {
                 f.Events.OnEnableFix(info.Entity, info.Other, true);
-                f.Signals.OnEnableFix(info.Entity, info.Other, false);
+                f.Signals.OnEnableFix(info.Entity, info.Other, true);
             }
         }
 

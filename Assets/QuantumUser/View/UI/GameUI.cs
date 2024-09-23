@@ -1,5 +1,6 @@
 using Quantum;
 using Quantum.Mech;
+using QuantumUser;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -127,10 +128,17 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         if (mechanic.Team != nexusIndentifier.Team) return;
 
         fixButton.gameObject.SetActive(e.isEnabled);
+
+        if(!e.isEnabled)
+        {
+            fixPopup.GetComponent<CanvasGroup>().alpha = 0;
+            fixPopup.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
     }
 
     private void OnChangeWeapon(EventOnChangeWeapon e)
     {
+        if (e.Mechanic.ToString() != _localEntityRef.ToString()) return;
         var weaponData = f.FindAsset<PrimaryWeaponData>(e.weapon.WeaponData.Id);
         var skills = weaponData.Skills;
 
@@ -139,10 +147,9 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         foreach(var skill in skills)
         {
             int buttonIndex = index + 1;
-
             if (index == 0) buttonIndex = 1;
-            if (index == 1) buttonIndex = 2;
-            if (index == 2) buttonIndex = 0;
+            if (index == 1) buttonIndex = 0;
+            if (index == 2) buttonIndex = 2;
             var skillButton = weaponSkillButtons[buttonIndex];
             var id = skills[index++];
             var skillIcon = skillIconList.Find(x => x.id == id);
@@ -162,16 +169,17 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         if (hud == null) return;
 
         int level = int.Parse(hud.level.text);
+        hud.level.text = $"{++level}";
 
-        hud.level.text = $"{level + 1}";
+        if (entity.ToString() != _localEntityRef.ToString()) return;
 
-        if(level == 2)
+        if (level == 2)
         {
-            weaponSkillButtons[1].levelLockImage.enabled = false;
+            weaponSkillButtons[1].levelLockImage.gameObject.SetActive(false);
         }
         if (level == 3)
         {
-            weaponSkillButtons[2].levelLockImage.enabled = false;
+            weaponSkillButtons[2].levelLockImage.gameObject.SetActive(false);
         }
     }
 
@@ -198,7 +206,6 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void OnGameStateChanged(EventGameStateChanged e)
     {
-
         if (e.NewState == GameState.Countdown)
         {
             timer.titleText.gameObject.SetActive(true);    
@@ -215,6 +222,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         if(e.NewState == GameState.Outro)
         {
             resultPopup.GetComponent<CanvasGroup>().alpha = 1;
+            resultPopup.GetComponent<CanvasGroup>().blocksRaycasts = true;
             timer.timerText = ResultNotiText;
         }
     } 
@@ -327,6 +335,13 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     {
         foreach (var entity in entityRefs)
         {
+            // entity가 유효한지 먼저 확인
+            if (!f.Exists(entity))
+            {
+                Debug.LogWarning($"Entity {entity}가 존재하지 않습니다.");
+                continue; // 유효하지 않으면 다음 entity로 넘어감
+            }
+
             var transform3D = f.Get<Transform3D>(entity);
             var mechPosition = transform3D.Position.ToUnityVector3();
 
@@ -362,22 +377,38 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         {
             SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
             var skills = f.ResolveList(skillInventory->Skills);
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < skills.Count; i++)
             {
+                int buttonIndex = i;
                 var skill = skills.GetPointer(i);
                 var skillData = f.FindAsset(skill->SkillData);
+
+                if (buttonIndex == 0 || buttonIndex == 3)
+                {
+                    buttonIndex = 0;
+                }
+                else if (buttonIndex == 1 || buttonIndex == 4)
+                {
+                    buttonIndex = 1;
+                }
+                else if (buttonIndex == 5)
+                {
+                    buttonIndex = 2;
+                }
+                else continue;
+
                 switch (skill->Status)
                 {
                     case SkillStatus.Casting:
-                        weaponSkillButtons[i].IsCooldown = true;
-                        weaponSkillButtons[i].OnActivate(false);
+                        weaponSkillButtons[buttonIndex].IsCooldown = true;
+                        weaponSkillButtons[buttonIndex].OnActivate(false);
                         break;
                     case SkillStatus.CoolTime:
-                        weaponSkillButtons[i].UpdateCooltime(skill->RemainingCoolTime.AsFloat, skillData.CoolTime.AsFloat);
+                        weaponSkillButtons[buttonIndex].UpdateCooltime(skill->RemainingCoolTime.AsFloat, skillData.CoolTime.AsFloat);
                         break;
                     case SkillStatus.Ready:
-                        weaponSkillButtons[i].IsCooldown = false;
-                        weaponSkillButtons[i].OnActivate(true);
+                        weaponSkillButtons[buttonIndex].IsCooldown = false;
+                        weaponSkillButtons[buttonIndex].OnActivate(true);
                         break;
                 }
             }
@@ -464,5 +495,12 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     {
         AudioManager.Instance.SfxVol(volume);
 
+    }
+    public void Shutdown()
+    {
+        if (Matchmaker.Client.IsConnected)
+            Matchmaker.Client.Disconnect();
+        else
+            Matchmaker.Instance.OnDisconnected(default);
     }
 }

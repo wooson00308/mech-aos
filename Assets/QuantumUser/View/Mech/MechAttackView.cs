@@ -48,6 +48,7 @@ namespace Quantum.Mech
 
         private void OnUseSkill(EventUseSkill e)
         {
+            if (e.Owner.ToString() != gameObject.name) return;
             var skill = e.skill;
             
             if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<MeleeAttackSkillData>(skill.SkillData.Id, out var meleeAttackData))

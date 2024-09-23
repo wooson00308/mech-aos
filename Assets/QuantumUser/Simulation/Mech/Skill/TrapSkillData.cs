@@ -1,5 +1,6 @@
 using Photon.Deterministic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Quantum
 {
@@ -12,7 +13,7 @@ namespace Quantum
         {
             var prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(trapPrototype.Id.Value));
             var trap = frame.Create(prototypeAsset);
-            
+
             var trapFields = frame.Unsafe.GetPointer<TrapFields>(trap);
             var trapTransform = frame.Unsafe.GetPointer<Transform3D>(trap);
             var transform = frame.Unsafe.GetPointer<Transform3D>(mechanic);
