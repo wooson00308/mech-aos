@@ -68,6 +68,7 @@ namespace Quantum.Mech
                 }
 
                 f.Events.GameStateChanged(f.Global->CurrentState, f.Global->PreviousState);
+                f.Signals.GameStateChanged(f.Global->CurrentState);
                 f.Global->PreviousState = f.Global->CurrentState;
             }
         }
