@@ -87,11 +87,11 @@ namespace Quantum.Mech
             var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
             var status = frame.Unsafe.GetPointer<Status>(entity);
 
-            if (input->FirstSkill.WasPressed /*&& status->Level >= 2*/)
+            if (input->FirstSkill.WasPressed && status->Level >= 2)
             {
                 ActionSkill(weaponData, skills, 0);
             }
-            if (input->SecondSkill.WasPressed /*&& status->Level >= 3*/)
+            if (input->SecondSkill.WasPressed && status->Level >= 3)
             {
                 ActionSkill(weaponData, skills, 1);
             }
