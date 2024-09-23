@@ -31,11 +31,20 @@ public class SkillAudioData
     public AudioClip readyClip;
 }
 
+[Serializable]
+public class SkillIcon
+{
+    public int id;
+    public Sprite icon;
+}
+
 [Preserve]
 public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 {
     [SerializeField] private List<StateObjectPair> _stateObjectPairs = new();
     private Dictionary<UIState, GameObject> _stateObjectDictionary = new();
+
+    public List<SkillIcon> skillIconList;
 
     [Header("Header")]
     public List<PlayerInfoUI> playerInfoUIs;
@@ -91,12 +100,35 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
         QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
         QuantumEvent.Subscribe(this, (EventUseSkill e) => OnUseSkill(e));
+        QuantumEvent.Subscribe(this, (EventOnChangeWeapon e) => OnChangeWeapon(e));
 
         foreach (var pair in _stateObjectPairs)
         {
             _stateObjectDictionary.Add(pair.State, pair.Object);
         }
         f = QuantumRunner.DefaultGame.Frames.Predicted;
+    }
+
+    public void OnChangeWeapon(EventOnChangeWeapon e)
+    {
+        var weaponData = f.FindAsset<PrimaryWeaponData>(e.weapon.WeaponData.Id);
+        var skills = weaponData.Skills;
+
+        int index = 0;
+
+        foreach(var skill in skills)
+        {
+            int buttonIndex = index + 1;
+
+            if (index == 0) buttonIndex = 1;
+            if (index == 1) buttonIndex = 2;
+            if (index == 2) buttonIndex = 0;
+            var skillButton = weaponSkillButtons[buttonIndex];
+            var id = skills[index++];
+            var skillIcon = skillIconList.Find(x => x.id == id);
+            skillButton.icon.sprite = skillIcon.icon;
+            skillButton.id = id;
+        }
     }
 
     private void OnMechanicTakeDamage(EventOnMechanicTakeDamage e)
@@ -109,7 +141,14 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         var hud = playerHUDs.Find(x => entity == x.entityRef);
         if (hud == null) return;
 
-        hud.level.text = $"{int.Parse(hud.level.text)+1}";
+        int level = int.Parse(hud.level.text);
+
+        hud.level.text = $"{level + 1}";
+
+        if(level == 2)
+        {
+            weaponSkillButtons[weaponSkillButtons.Count - 1].levelLockImage.enabled = false;
+        }
     }
 
     private void UpdateHUD(EntityRef Mechanic, bool isDeath = false)
@@ -319,6 +358,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         var entity = e.Owner;
         var skill = e.skill;
         var weapon = e.weapon;
+        var index = e.index.AsInt;
         var audioData = weaponSkillAudioDatas.Find(x => x.index == e.index.AsInt);
 
         GameObject unit;
@@ -336,12 +376,16 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
             _entityObjDic.Add(entitiyId, unit);
         }
 
+        if (audioData == null) return;
+
         switch (skill.Status)
         {
             case SkillStatus.CoolTime:
+                if (audioData.castingClip == null) return;
                 AudioManager.Instance.PlaySfx(audioData.castingClip, unit);
                 break;
             case SkillStatus.Ready:
+                if (audioData.readyClip == null) return;
                 AudioManager.Instance.PlaySfx(audioData.readyClip, unit);
                 break;
         }

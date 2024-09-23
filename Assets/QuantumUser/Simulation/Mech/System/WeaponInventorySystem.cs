@@ -40,7 +40,7 @@ namespace Quantum.Mech
             Weapon* currentWeapon = weapons.GetPointer(weaponInventory->CurrentWeaponIndex);
             currentWeapon->ChargeTime = FP._0;
 
-            frame.Events.OnChangeWeapon(robot);
+            frame.Events.OnChangeWeapon(robot, *currentWeapon);
         }
 
         
