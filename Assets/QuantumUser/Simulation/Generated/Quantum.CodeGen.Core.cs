@@ -1417,6 +1417,24 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct NexusIdentifier : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    public Team Team;
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 18451;
+        hash = hash * 31 + (Int32)Team;
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (NexusIdentifier*)ptr;
+        serializer.Stream.Serialize((Int32*)&p->Team);
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct PlayableMechanic : Quantum.IComponent {
     public const Int32 SIZE = 40;
     public const Int32 ALIGNMENT = 8;
@@ -1650,6 +1668,9 @@ namespace Quantum {
   public unsafe partial interface ISignalOnNexusDestroy : ISignal {
     void OnNexusDestroy(Frame f, EntityRef nexus, EntityRef killer);
   }
+  public unsafe partial interface ISignalOnEnableFix : ISignal {
+    void OnEnableFix(Frame f, EntityRef mechanic, EntityRef nexusIdentifier, QBoolean isEnable);
+  }
   public unsafe partial interface ISignalOnTeamDefeat : ISignal {
     void OnTeamDefeat(Frame f, Team Team);
   }
@@ -1670,6 +1691,7 @@ namespace Quantum {
     private ISignalPlayerNexusDestoryed[] _ISignalPlayerNexusDestoryedSystems;
     private ISignalOnNexusHit[] _ISignalOnNexusHitSystems;
     private ISignalOnNexusDestroy[] _ISignalOnNexusDestroySystems;
+    private ISignalOnEnableFix[] _ISignalOnEnableFixSystems;
     private ISignalOnTeamDefeat[] _ISignalOnTeamDefeatSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
@@ -1696,6 +1718,7 @@ namespace Quantum {
       _ISignalPlayerNexusDestoryedSystems = BuildSignalsArray<ISignalPlayerNexusDestoryed>();
       _ISignalOnNexusHitSystems = BuildSignalsArray<ISignalOnNexusHit>();
       _ISignalOnNexusDestroySystems = BuildSignalsArray<ISignalOnNexusDestroy>();
+      _ISignalOnEnableFixSystems = BuildSignalsArray<ISignalOnEnableFix>();
       _ISignalOnTeamDefeatSystems = BuildSignalsArray<ISignalOnTeamDefeat>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
@@ -1729,6 +1752,8 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<NavMeshSteeringAgent>();
       BuildSignalsArrayOnComponentAdded<Quantum.Nexus>();
       BuildSignalsArrayOnComponentRemoved<Quantum.Nexus>();
+      BuildSignalsArrayOnComponentAdded<Quantum.NexusIdentifier>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.NexusIdentifier>();
       BuildSignalsArrayOnComponentAdded<PhysicsBody2D>();
       BuildSignalsArrayOnComponentRemoved<PhysicsBody2D>();
       BuildSignalsArrayOnComponentAdded<PhysicsBody3D>();
@@ -1930,6 +1955,15 @@ namespace Quantum {
           }
         }
       }
+      public void OnEnableFix(EntityRef mechanic, EntityRef nexusIdentifier, QBoolean isEnable) {
+        var array = _f._ISignalOnEnableFixSystems;
+        for (Int32 i = 0; i < array.Length; ++i) {
+          var s = array[i];
+          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
+            s.OnEnableFix(_f, mechanic, nexusIdentifier, isEnable);
+          }
+        }
+      }
       public void OnTeamDefeat(Team Team) {
         var array = _f._ISignalOnTeamDefeatSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
@@ -2037,6 +2071,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(NavMeshRegionMask), NavMeshRegionMask.SIZE);
       typeRegistry.Register(typeof(NavMeshSteeringAgent), NavMeshSteeringAgent.SIZE);
       typeRegistry.Register(typeof(Quantum.Nexus), Quantum.Nexus.SIZE);
+      typeRegistry.Register(typeof(Quantum.NexusIdentifier), Quantum.NexusIdentifier.SIZE);
       typeRegistry.Register(typeof(NullableFP), NullableFP.SIZE);
       typeRegistry.Register(typeof(NullableFPVector2), NullableFPVector2.SIZE);
       typeRegistry.Register(typeof(NullableFPVector3), NullableFPVector3.SIZE);
@@ -2080,7 +2115,7 @@ namespace Quantum {
       typeRegistry.Register(typeof(Quantum._globals_), Quantum._globals_.SIZE);
     }
     static partial void InitComponentTypeIdGen() {
-      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 15)
+      ComponentTypeId.Reset(ComponentTypeId.BuiltInComponentCount + 16)
         .AddBuiltInComponents()
         .Add<Quantum.AbilityInventory>(Quantum.AbilityInventory.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.BulletFields>(Quantum.BulletFields.Serialize, null, null, ComponentFlags.None)
@@ -2090,6 +2125,7 @@ namespace Quantum {
         .Add<Quantum.KCCProcessorLink>(Quantum.KCCProcessorLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.MechProjectile>(Quantum.MechProjectile.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.Nexus>(Quantum.Nexus.Serialize, null, null, ComponentFlags.None)
+        .Add<Quantum.NexusIdentifier>(Quantum.NexusIdentifier.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayableMechanic>(Quantum.PlayableMechanic.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.PlayerLink>(Quantum.PlayerLink.Serialize, null, null, ComponentFlags.None)
         .Add<Quantum.SkillInventory>(Quantum.SkillInventory.Serialize, null, Quantum.SkillInventory.OnRemoved, ComponentFlags.None)

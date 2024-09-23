@@ -52,6 +52,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public List<CharacterHUD> playerHUDs;
     public List<TMP_Text> playerResultTexts;
     public TimerUI timer;
+    public Button fixButton;
     public Button settingButton;
     public Button settingPopupCloseButton;
     public GameObject settingPanel;
@@ -108,6 +109,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
         QuantumEvent.Subscribe(this, (EventUseSkill e) => OnUseSkill(e));
         QuantumEvent.Subscribe(this, (EventOnChangeWeapon e) => OnChangeWeapon(e));
+        QuantumEvent.Subscribe(this, (EventOnEnableFix e) => OnEnableFix(e));
 
         foreach (var pair in _stateObjectPairs)
         {
@@ -116,7 +118,18 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         f = QuantumRunner.DefaultGame.Frames.Predicted;
     }
 
-    public void OnChangeWeapon(EventOnChangeWeapon e)
+    private void OnEnableFix(EventOnEnableFix e)
+    {
+        if (e.mechanic.ToString() != _localEntityRef.ToString()) return;
+
+        var mechanic = f.Get<PlayableMechanic>(e.mechanic);
+        var nexusIndentifier = f.Get<NexusIdentifier>(e.nexusIndentifier);
+        if (mechanic.Team != nexusIndentifier.Team) return;
+
+        fixButton.gameObject.SetActive(e.isEnabled);
+    }
+
+    private void OnChangeWeapon(EventOnChangeWeapon e)
     {
         var weaponData = f.FindAsset<PrimaryWeaponData>(e.weapon.WeaponData.Id);
         var skills = weaponData.Skills;

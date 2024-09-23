@@ -7,7 +7,8 @@ using UnityEngine;
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class SkillSystem: SystemMainThreadFilter<SkillSystem.Filter>, ISignalOnMechanicRespawn, ISignalOnGameEnded, ISignalOnCooldownsReset
+    public unsafe class SkillSystem: SystemMainThreadFilter<SkillSystem.Filter>, 
+        ISignalOnMechanicRespawn, ISignalOnGameEnded, ISignalOnCooldownsReset, ISignalOnEnableFix
     {
         public struct Filter
         {
@@ -18,6 +19,9 @@ namespace Quantum.Mech
             public SkillInventory* SkillInventory;
             public WeaponInventory* WeaponInventory;
         }
+
+        private EntityRef _entity;
+        private bool _isFixEnabled = false;
 
         public override void Update(Frame frame, ref Filter filter)
         {
@@ -83,6 +87,8 @@ namespace Quantum.Mech
         }
         private void OnInput(Frame frame, EntityRef entity, PlayableMechanic* mechanic ,PlayerRef playerRef, QList<Skill> skills, Weapon weapon)
         {
+            _entity = entity;
+
             var input = frame.GetPlayerInput(playerRef);
             var weaponData = frame.FindAsset<PrimaryWeaponData>(weapon.WeaponData.Id);
             var status = frame.Unsafe.GetPointer<Status>(entity);
@@ -99,7 +105,7 @@ namespace Quantum.Mech
             {
                 ActionSkill(weaponData, skills, 2);
             }
-            if(input->Fix.WasPressed)
+            if(input->Fix.WasPressed && _isFixEnabled)
             {
                 frame.Events.Fix();
             }
@@ -149,6 +155,13 @@ namespace Quantum.Mech
             {
                 skills[i].OnReset();
             }
+        }
+
+        public void OnEnableFix(Frame f, EntityRef mechanic, EntityRef nexusIdentifier, QBoolean isEnable)
+        {
+            if (_entity.ToString() != mechanic.ToString()) return;
+
+            _isFixEnabled = isEnable;
         }
     }
 }

@@ -1,10 +1,12 @@
 using Photon.Deterministic;
+using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace Quantum.Mech
 {
     [Preserve]
-    public unsafe class NexusSystem : SystemSignalsOnly, ISignalOnNexusHit
+    public unsafe class NexusSystem : SystemSignalsOnly, ISignalOnNexusHit,
+        ISignalOnTriggerEnter3D, ISignalOnTriggerExit3D
     {
         public void OnNexusHit(Frame frame, EntityRef bullet, EntityRef nexus, FP damage)
         {
@@ -50,7 +52,40 @@ namespace Quantum.Mech
             
         }
 
+        public void OnTriggerEnter3D(Frame f, TriggerInfo3D info)
+        {
+            // entity가 메카일수도 넥서스 충돌 범위일수도 
+            if (f.Has<NexusIdentifier>(info.Entity) &&
+                f.Has<PlayableMechanic>(info.Other))
+            {
+                f.Events.OnEnableFix(info.Other, info.Entity, true);
+                f.Signals.OnEnableFix(info.Other, info.Entity, false);
 
+            }
+            else if (f.Has<NexusIdentifier>(info.Other) &&
+                     f.Has<PlayableMechanic>(info.Entity))
+            {
+                f.Events.OnEnableFix(info.Entity, info.Other, true);
+                f.Signals.OnEnableFix(info.Entity, info.Other, false);
+            }
+        }
+
+        public void OnTriggerExit3D(Frame f, ExitInfo3D info)
+        {
+
+            if (f.Has<NexusIdentifier>(info.Entity) &&
+                f.Has<PlayableMechanic>(info.Other))
+            {
+                f.Events.OnEnableFix(info.Other, info.Entity, false);
+                f.Signals.OnEnableFix(info.Other, info.Entity, false);
+            }
+            else if (f.Has<NexusIdentifier>(info.Other) &&
+                     f.Has<PlayableMechanic>(info.Entity))
+            {
+                f.Events.OnEnableFix(info.Entity, info.Other, false);
+                f.Signals.OnEnableFix(info.Entity, info.Other, false);
+            }
+        }
 
     }
 }

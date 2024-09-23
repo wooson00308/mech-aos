@@ -7,6 +7,10 @@ component Nexus
     Boolean IsJoin;
 }
 
+component NexusIdentifier{
+	Team Team;
+}
+
 abstract event NexusEvent {
 	entity_ref Nexus; 	
 }
@@ -15,6 +19,12 @@ event OnNexusTakeDamage : NexusEvent {
 	FP Damage;
 	entity_ref Source; 	
 }
+
+event OnEnableFix {
+	entity_ref mechanic;
+	entity_ref nexusIndentifier;
+	QBoolean isEnabled;
+} 
 
 synced event OnNexusDestroy : NexusEvent {
 	entity_ref Killer; 	
@@ -26,3 +36,5 @@ synced event OnTeamNexusDestroy{
 
 signal OnNexusHit(entity_ref bullet, entity_ref nexus, FP damage);
 signal OnNexusDestroy(entity_ref nexus, entity_ref killer);
+
+signal OnEnableFix(entity_ref mechanic, entity_ref nexusIdentifier, QBoolean isEnable);
