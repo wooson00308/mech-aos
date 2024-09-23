@@ -52,8 +52,6 @@ namespace Quantum.Mech
                 {
                     continue;
                 }
-
-                trapTransform->Position = hits[i].Point;
                 // Applies polymorphic behavior on the trap action
                 data.Action(frame, trap, entity);
                 isSuccess = true;

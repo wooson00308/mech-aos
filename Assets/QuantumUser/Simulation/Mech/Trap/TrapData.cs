@@ -1,4 +1,5 @@
 using Photon.Deterministic;
+using UnityEngine;
 
 namespace Quantum
 {
@@ -15,12 +16,11 @@ namespace Quantum
                 return;
             }
             var fields = frame.Unsafe.GetPointer<TrapFields>(trap);
+            var transform3D = frame.Unsafe.GetPointer<Transform3D>(trap);
             var status = frame.Unsafe.GetPointer<Status>(fields->Source);
             
             frame.Signals.OnMechanicHit(trap, target, Damage * (1 + (status->Level - 1) * FP._0_10));
-            
-            var position = frame.Get<Transform3D>(trap).Position;
-            frame.Events.OnTrapDestroyed(trap.GetHashCode(), fields->Source, position, fields->TrapData);
+            frame.Events.OnTrapDestroyed(trap.GetHashCode(), fields->Source, transform3D->Position, fields->TrapData);
             frame.Destroy(trap);
         }
     }
