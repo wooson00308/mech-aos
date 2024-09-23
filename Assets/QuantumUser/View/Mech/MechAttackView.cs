@@ -11,8 +11,10 @@ namespace Quantum.Mech
     public class MechAttackView : QuantumCallbacks
     {
         private QuantumEntityView _entityView;
+        public List<ParticleSystem> dashParticles;
         public Animator Aniamtor;
         public AudioClip attackClip;
+        
         int _targetHandle;
         public int TargetHandle => _targetHandle;
 
@@ -47,10 +49,27 @@ namespace Quantum.Mech
         private void OnUseSkill(EventUseSkill e)
         {
             var skill = e.skill;
-            if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<MeleeAttackSkillData>(skill.SkillData.Id, out var data))
+            
+            if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<MeleeAttackSkillData>(skill.SkillData.Id, out var meleeAttackData))
             {
                 Aniamtor.SetTrigger("Slash");
+            } 
+            else if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<AbilitySkillData>(skill.SkillData.Id, out var dashAbilityData))
+            {
+                if (skill.Status == SkillStatus.CoolTime)
+                {
+                    if (dashAbilityData.abilityType == AbilityType.Dash)
+                    {
+                        if (dashParticles == null) return;
+                        Debug.Log("Dash @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        foreach (var particle in dashParticles)
+                        {
+                            particle.Play();
+                        }
+                    }
+                }
             }
+            
         }
 
         public override void OnUpdateView(QuantumGame game)
