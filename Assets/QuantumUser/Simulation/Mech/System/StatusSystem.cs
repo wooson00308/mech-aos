@@ -97,7 +97,8 @@ namespace Quantum.Mech
             
             frame.Signals.OnMechanicDeath(mechanic, killer);
             frame.Events.OnMechanicDeath(mechanic, killer);
-
+            
+            
         }
         
     }

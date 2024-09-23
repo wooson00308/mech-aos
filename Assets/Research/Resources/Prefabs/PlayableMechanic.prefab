@@ -20271,6 +20271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Aniamtor: {fileID: 4310478064254187992}
   attackClip: {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
+  gunFire: {fileID: 4453509625073052726}
 --- !u!114 &-4665663476530734917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79024,6 +79025,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04170cb2c0f29744b8cc36d9931d31a3, type: 3}
+--- !u!198 &4453509625073052726 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4235694207622523778, guid: 04170cb2c0f29744b8cc36d9931d31a3, type: 3}
+  m_PrefabInstance: {fileID: 506160281609963444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4548554831749730712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4042412348484507180, guid: 04170cb2c0f29744b8cc36d9931d31a3, type: 3}

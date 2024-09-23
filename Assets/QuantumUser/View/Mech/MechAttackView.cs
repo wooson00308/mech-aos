@@ -13,7 +13,6 @@ namespace Quantum.Mech
         private QuantumEntityView _entityView;
         public Animator Aniamtor;
         public AudioClip attackClip;
-
         int _targetHandle;
         public int TargetHandle => _targetHandle;
 
@@ -64,18 +63,16 @@ namespace Quantum.Mech
         {
             if (weaponFire.Owner.ToString() == gameObject.name)
                 AudioManager.Instance.PlaySfx(attackClip, gameObject);
-
             var weaponData = _entityView.Game.Frames.Predicted.FindAsset<WeaponData>(weaponFire.WeaponData.Id);
             if (!_weaponDelayDic.ContainsKey(weaponData.RootName)) return;
-            
+
             if (weaponFire.Owner != _entityView.EntityRef) return;
             var weapon = _weaponDelayDic[weaponData.RootName];
-            
             if (weapon != null && !IsCoolDowns[weapon])
             {
-                // StartCoroutine(ProcessAttack(weapon, weaponData));
                 weapon.OnAttack();
             }
+
 
         }
 

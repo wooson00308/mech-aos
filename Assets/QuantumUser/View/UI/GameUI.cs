@@ -113,7 +113,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         }
 
         hud.gameObject.SetActive(true);
-
+        
         Status* playerStatus = f.Unsafe.GetPointer<Status>(Mechanic);
         float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
         float maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
