@@ -14,9 +14,10 @@ public class CenterTowerView : QuantumEntityViewComponent
     public AudioClip fireClip;
     public AudioClip activeClip;
     public AudioClip deactiveClip;
-
+    public List<ParticleSystem> fireParticles;
+    
     private Dictionary<string, Transform> _nexusModelDic = new();
-
+    
     private Frame f;
 
     private bool _isFire;
@@ -54,6 +55,13 @@ public class CenterTowerView : QuantumEntityViewComponent
         StartCoroutine(RotateTowardsAndFire(nexusModel, e.FirstDelayTime.AsFloat, () =>
         {
             Animator.SetTrigger("Fire");
+            if (fireParticles != null && fireParticles.Count > 0)
+            {
+                foreach (var fireParticle in fireParticles)
+                {
+                    fireParticle.Play();
+                }
+            }
             AudioManager.Instance.PlaySfx(fireClip);
         }));
     }
@@ -94,7 +102,7 @@ public class CenterTowerView : QuantumEntityViewComponent
             yield return null;
         }
 
-        TowerModel.rotation = targetRotation; // ¸¶Áö¸·¿¡ Á¤È®ÇÑ Å¸°Ù ¹æÇâÀ¸·Î ¸ÂÃçÁÜ
+        TowerModel.rotation = targetRotation; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         callback?.Invoke();
 
