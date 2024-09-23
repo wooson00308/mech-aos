@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1be5de40cd14a2549afbfa44c3f57595, type: 3}
-  m_Color: {r: 0.7137255, g: 0.8941177, b: 0.9294118, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -451,7 +451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8790277296290580914}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.7775345, y: 5.7891874, z: -82.48173}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -721,6 +721,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prototype:
     Time:
+      RawValue: 327680
+    FirstDelayTime:
       RawValue: 65536
     Damage:
       RawValue: 6553600
@@ -740,9 +742,9 @@ MonoBehaviour:
   Animator: {fileID: 3510343931457721671}
   BeaconAnimator: {fileID: 547249513200896883}
   TowerModel: {fileID: 7358795551704082105}
-  fireClip: {fileID: 0}
-  activeClip: {fileID: 0}
-  deactiveClip: {fileID: 0}
+  fireClip: {fileID: 8300000, guid: 5ff823f546b52574a931e1d9b44290a6, type: 3}
+  activeClip: {fileID: 8300000, guid: 434255a455bb6114b89536ca11d81805, type: 3}
+  deactiveClip: {fileID: 8300000, guid: 19b9a8e562a53ab4894a0651be7aec93, type: 3}
 --- !u!1001 &5550528871052398603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -820,6 +822,10 @@ PrefabInstance:
     - target: {fileID: 1000012981881222, guid: 5ae37b5c6421a9348b5bb44a7d422962, type: 3}
       propertyPath: m_Name
       value: Turret_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011012987938, guid: 5ae37b5c6421a9348b5bb44a7d422962, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 4000011287270036, guid: 5ae37b5c6421a9348b5bb44a7d422962, type: 3}
       propertyPath: m_LocalPosition.x
