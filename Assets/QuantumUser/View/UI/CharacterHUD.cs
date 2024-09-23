@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CharacterHUD : QuantumMonoBehaviour
 {
     public TMP_Text nicknameText;
+    public TMP_Text level;
     public Image healthImage;
 
     [Header("Test")]

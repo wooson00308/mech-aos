@@ -62,6 +62,12 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
         get => _controlPath;
         set => _controlPath = value;
     }
+
+    public void OnEvent()
+    {
+        SendValueToControl(1.0f);
+    }
+
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!control.CheckStateIsAtDefault())

@@ -22,14 +22,54 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
     public ItmeUI armor;
     public ItmeUI weapon;
 
+    [Header("Level")]
+    public TMP_Text level;
+    public TMP_Text levelPoint;
+    public TMP_Text increaseHpPercent;
+    public TMP_Text increaseAttackPercent;
+
     private bool _isShow;
 
     private Frame f;
+
+    private float increaseHpPercentValue;
+    private float increaseAttackPercentValue;
+    private int levelPointValue;
 
     private void Awake()
     {
         f = QuantumRunner.DefaultGame.Frames.Predicted;
         QuantumEvent.Subscribe(this, (EventFix e) => { ShowAndClose(); });
+    }
+
+    public void Levelup(EntityRef entity)
+    {
+        if (gameUI.LocalEntityRef.ToString() != entity.ToString()) return;
+
+        level.text = $"{int.Parse(level.text) + 1}";
+
+        levelPointValue++;
+        levelPoint.text = $"{levelPointValue:00}";
+    }
+
+    public void OnUpgradeHP()
+    {
+        if (levelPointValue <= 0) return;
+
+        // 여기에 서버에 능력치가 오른 것을 호출해야함
+        increaseHpPercentValue += 10;
+        increaseHpPercent.text = $"{increaseHpPercentValue}%";
+        levelPoint.text = $"{--levelPointValue}";
+    }
+
+    public void OnUpgradeAttack()
+    {
+        if (levelPointValue <= 0) return;
+
+        // 위와 동일
+        increaseAttackPercentValue += 10;
+        increaseHpPercent.text = $"{increaseAttackPercentValue}%";
+        levelPoint.text = $"{--levelPointValue}";
     }
 
     public void OnSelectCockpit()

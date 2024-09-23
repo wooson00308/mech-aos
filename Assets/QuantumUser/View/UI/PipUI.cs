@@ -18,7 +18,7 @@ public unsafe class PipUI : QuantumMonoBehaviour
 
     private Frame f;
 
-    public Button button;
+    public SkillButton button;
 
     private void Awake()
     {
@@ -62,7 +62,7 @@ public unsafe class PipUI : QuantumMonoBehaviour
             var playerRef = selector.fixUI.gameUI.GetPlayerRef();
             var input = f.GetPlayerInput(playerRef);
 
-            button.onClick.Invoke();
+            button.OnEvent();
         }
 
         selector.Close();
