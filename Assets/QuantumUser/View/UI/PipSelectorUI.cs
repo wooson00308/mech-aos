@@ -51,6 +51,7 @@ public class PipSelectorUI : QuantumMonoBehaviour
         _isShow = true;
         Reset();
         canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
 
         Setup(itemList);
     }
@@ -59,5 +60,6 @@ public class PipSelectorUI : QuantumMonoBehaviour
     {
         _isShow = false;
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
     }
 }

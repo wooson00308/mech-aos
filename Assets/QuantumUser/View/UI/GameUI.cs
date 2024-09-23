@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Scripting;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 enum UIState
@@ -65,6 +66,12 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     [Header("Popup")]
     public GameObject resultPopup;
     public FixPopupUI fixPopup;
+
+    [Header("----------Setting Screen-----------")]
+    [SerializeField] private TMP_Dropdown regionDropdown;
+    [SerializeField] private TMP_Dropdown graphicQualityDropdown;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider sfxSlider;
 
     [Header("Test")]
     public float testTime;
@@ -147,7 +154,11 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
         if(level == 2)
         {
-            weaponSkillButtons[weaponSkillButtons.Count - 1].levelLockImage.enabled = false;
+            weaponSkillButtons[1].levelLockImage.enabled = false;
+        }
+        if (level == 3)
+        {
+            weaponSkillButtons[2].levelLockImage.enabled = false;
         }
     }
 
@@ -288,6 +299,13 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     private void Start()
     {
+        InitGraphicsDropdown();
+        bgmSlider.SetValueWithoutNotify(AudioManager.Instance.bgmVol);
+        sfxSlider.SetValueWithoutNotify(AudioManager.Instance.sfxVol);
+
+        bgmSlider.onValueChanged.AddListener((value) =>SetBgmVolume(value));
+        sfxSlider.onValueChanged.AddListener((value) =>SetSfxVolume(value));
+
         settingButton.onClick.AddListener(OnSettingButtonClicked);
         settingPopupCloseButton.onClick.AddListener(OnSettingButtonClicked);
     }
@@ -395,8 +413,43 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         Debug.Log("Time's up!");
     }
 
+    bool _isShowSettings;
+
     public void OnSettingButtonClicked()
     {
-        settingPanel.SetActive(!settingPanel.activeSelf);
+        _isShowSettings = !_isShowSettings;
+        settingPanel.GetComponent<CanvasGroup>().alpha = _isShowSettings ? 1 : 0;
+        settingPanel.GetComponent<CanvasGroup>().blocksRaycasts = _isShowSettings;
+    }
+
+    public void InitGraphicsDropdown()
+    {
+        string[] names = QualitySettings.names;
+        List<string> options = new List<string>();
+
+        for (int i = 0; i < names.Length; i++)
+        {
+            options.Add(names[i]);
+        }
+        graphicQualityDropdown.AddOptions(options);
+        QualitySettings.SetQualityLevel(graphicQualityDropdown.options.Count - 1);
+        graphicQualityDropdown.value = graphicQualityDropdown.options.Count - 1;
+    }
+
+
+    public void SetGraphicsQuality()
+    {
+        QualitySettings.SetQualityLevel(graphicQualityDropdown.value);
+    }
+
+    public void SetBgmVolume(float volume)
+    {
+        AudioManager.Instance.BgmVol(volume);
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        AudioManager.Instance.SfxVol(volume);
+
     }
 }

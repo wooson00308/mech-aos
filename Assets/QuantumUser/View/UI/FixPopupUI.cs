@@ -108,12 +108,14 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
     public void Show()
     {
         canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
     }
 
     public void Close()
     {
         _pipSelector.Close();
         canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
     }
 }
 
