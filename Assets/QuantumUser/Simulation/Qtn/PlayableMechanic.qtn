@@ -11,4 +11,5 @@ event PlayerLeft
 event OnChangeWeapon
 {
     entity_ref Mechanic;
+    Weapon weapon;
 }

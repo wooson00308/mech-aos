@@ -33,7 +33,7 @@ namespace Quantum.Mech
                 fx.Play();
             }
 
-            AudioManager.Instance.PlaySfx(attackSound);
+            //AudioManager.Instance.PlaySfx(attackSound);
             OnReadyAttack(false);
         }
         public void OnReadyAttack(bool isReady)

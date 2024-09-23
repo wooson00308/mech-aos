@@ -313,9 +313,10 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnChangeWeapon OnChangeWeapon(EntityRef Mechanic) {
+      public EventOnChangeWeapon OnChangeWeapon(EntityRef Mechanic, Weapon weapon) {
         var ev = _f.Context.AcquireEvent<EventOnChangeWeapon>(EventOnChangeWeapon.ID);
         ev.Mechanic = Mechanic;
+        ev.weapon = weapon;
         _f.AddEvent(ev);
         return ev;
       }
@@ -1059,6 +1060,7 @@ namespace Quantum {
   public unsafe partial class EventOnChangeWeapon : EventBase {
     public new const Int32 ID = 32;
     public EntityRef Mechanic;
+    public Weapon weapon;
     protected EventOnChangeWeapon(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -1077,6 +1079,7 @@ namespace Quantum {
       unchecked {
         var hash = 193;
         hash = hash * 31 + Mechanic.GetHashCode();
+        hash = hash * 31 + weapon.GetHashCode();
         return hash;
       }
     }

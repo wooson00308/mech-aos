@@ -16,10 +16,13 @@ public class SkillButton : OnScreenControl, IPointerDownHandler, IPointerUpHandl
 {
     [SerializeField]
     private Button button;
+    public Image icon;
     public Image cooltimeImage;
+    public Image levelLockImage;
     private bool isCooldown = false;
     [SerializeField]
     private bool isSkillButton = true;
+    public int id;
 
     public bool IsCooldown
     {

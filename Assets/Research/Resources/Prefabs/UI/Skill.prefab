@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 3603833659643297152}
+  icon: {fileID: 7166516256845949526}
   cooltimeImage: {fileID: 1528046466132015196}
   isSkillButton: 1
   _controlPath: 
