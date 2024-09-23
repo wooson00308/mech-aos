@@ -20,6 +20,21 @@ public class FXManager : QuantumViewComponent<CustomViewContext>
     public void Awake()
     {
         QuantumEvent.Subscribe(this, (EventOnTrapDestroyed e) => OnTrapDestroyed(e));
+        QuantumEvent.Subscribe(this, (EventOnNexusDestroy e) => OnNexusDestroy(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
+
+    }
+
+    private void OnMechanicDeath(EventOnMechanicDeath e)
+    {
+        var transform3D = QuantumRunner.DefaultGame.Frames.Predicted.Get<Transform3D>(e.Mechanic);
+        SpawnFX("ExplosionFire", transform3D.Position.ToUnityVector3());
+    }
+
+    private void OnNexusDestroy(EventOnNexusDestroy e)
+    {
+        var transform3D = QuantumRunner.DefaultGame.Frames.Predicted.Get<Transform3D>(e.Nexus);
+        SpawnFX("ExplosionFire", transform3D.Position.ToUnityVector3());
     }
 
     private void OnTrapDestroyed(EventOnTrapDestroyed e)
@@ -27,6 +42,7 @@ public class FXManager : QuantumViewComponent<CustomViewContext>
         Debug.Log(e.TrapPosition);
         SpawnFX("OnTrapDestroyed", e.TrapPosition.ToUnityVector3());
     }
+    
     public FX GetFXByName(string fxName)
     {
         // 캐시에 이미 FX가 있는지 확인
@@ -43,7 +59,6 @@ public class FXManager : QuantumViewComponent<CustomViewContext>
         }
         return foundFX;
     }
-
     public void SpawnFX(string key, Vector3 position)
     {
         var fx = GetFXByName(key);

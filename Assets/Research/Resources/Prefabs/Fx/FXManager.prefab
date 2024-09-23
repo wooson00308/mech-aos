@@ -47,3 +47,5 @@ MonoBehaviour:
   particleSystems:
   - name: OnTrapDestroyed
     particleSystem: {fileID: 4867700511924781524, guid: 059013b9565c5a54a930ea9d58589947, type: 3}
+  - name: ExplosionFire
+    particleSystem: {fileID: 417761080263594739, guid: 7800b8f6b712bfe49bd663eeb3ebe1e4, type: 3}
