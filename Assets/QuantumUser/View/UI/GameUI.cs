@@ -55,6 +55,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
     [Header("Popup")]
     public GameObject resultPopup;
+    public FixPopupUI fixPopup;
 
     [Header("Test")]
     public float testTime;
@@ -78,6 +79,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         return _localPlayerRef;
     }
 
+    public EntityRef LocalEntityRef => _localEntityRef;
+
     private void Awake()
     {
         _camera = FindObjectOfType<Camera>();
@@ -99,6 +102,14 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     private void OnMechanicTakeDamage(EventOnMechanicTakeDamage e)
     {
         UpdateHUD(e.Mechanic);
+    }
+
+    private void UpdateLevelHUD(EntityRef entity)
+    {
+        var hud = playerHUDs.Find(x => entity == x.entityRef);
+        if (hud == null) return;
+
+        hud.level.text = $"{int.Parse(hud.level.text)+1}";
     }
 
     private void UpdateHUD(EntityRef Mechanic, bool isDeath = false)
@@ -169,6 +180,9 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
         var killerPlayerLink = f.Get<PlayerLink>(e.Killer);
         var runtimeKillerPlayer = f.GetPlayerData(killerPlayerLink.PlayerRef);
+
+        fixPopup.Levelup(e.Killer);
+        UpdateLevelHUD(e.Killer);
 
         killLog.GetKillLogUI().Show(runtimeKilledPlayer.PlayerNickname, runtimeKillerPlayer.PlayerNickname);
     }

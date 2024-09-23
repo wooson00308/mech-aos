@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 2729193265069369694}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8612441329212161280}
@@ -116,11 +116,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 4497455256618811265}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 832261943877600555}
+        m_TargetAssemblyTypeName: SkillButton, Assembly-CSharp
+        m_MethodName: OnEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &832261943877600555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,7 +521,7 @@ MonoBehaviour:
     description: {fileID: 5835236783450054876}
     icon: {fileID: 761160803558433555}
     selectFx: {fileID: 3383752588200727008}
-  button: {fileID: 178045777060124524}
+  button: {fileID: 832261943877600555}
 --- !u!1 &6328145519199076761
 GameObject:
   m_ObjectHideFlags: 0
