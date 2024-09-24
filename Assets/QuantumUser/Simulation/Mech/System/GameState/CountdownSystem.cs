@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Photon.Deterministic;
 using Quantum.Mech;
+using UnityEngine;
 
 namespace Quantum
 {
@@ -22,7 +23,6 @@ namespace Quantum
                 foreach (var entityComponentPointerPair in nexusBlockIterator)
                 {
                     if (entityComponentPointerPair.Component->IsDestroy) continue;
-
                     var nexus = f.Get<Nexus>(entityComponentPointerPair.Entity);
                     
                     if (nexus.CurrentHealth > maxCurrentHealth)
