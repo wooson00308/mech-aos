@@ -3,6 +3,7 @@ using Quantum.Mech;
 using QuantumUser;
 using System;
 using System.Collections.Generic;
+using Photon.Deterministic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -66,7 +67,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public List<SkillAudioData> weaponSkillAudioDatas;
 
     [Header("Popup")]
-    public GameObject resultPopup;
+    public ResultUI resultPopup;
     public FixPopupUI fixPopup;
 
     [Header("----------Setting Screen-----------")]
@@ -221,8 +222,24 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
 
         if(e.NewState == GameState.Outro)
         {
+            
             resultPopup.GetComponent<CanvasGroup>().alpha = 1;
             resultPopup.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            
+            var nexusBlockIterator = f.Unsafe.GetComponentBlockIterator<Nexus>();
+            FP maxCurrentHealth = 0;
+            Team team = Team.Blue;
+            foreach (var entityComponentPointerPair in nexusBlockIterator)
+            {
+                if (entityComponentPointerPair.Component->IsDestroy) continue;
+                var nexus = f.Get<Nexus>(entityComponentPointerPair.Entity);
+                if (nexus.CurrentHealth > maxCurrentHealth)
+                {
+                    maxCurrentHealth = nexus.CurrentHealth;
+                    team = nexus.Team;
+                }
+            }
+            resultPopup.OnPlayerTeamWin(team);
             timer.timerText = ResultNotiText;
         }
     } 
@@ -335,11 +352,11 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     {
         foreach (var entity in entityRefs)
         {
-            // entity°¡ À¯È¿ÇÑÁö ¸ÕÀú È®ÀÎ
+            // entityï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (!f.Exists(entity))
             {
-                Debug.LogWarning($"Entity {entity}°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
-                continue; // À¯È¿ÇÏÁö ¾ÊÀ¸¸é ´ÙÀ½ entity·Î ³Ñ¾î°¨
+                Debug.LogWarning($"Entity {entity}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
+                continue; // ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ entityï¿½ï¿½ ï¿½Ñ¾î°¨
             }
 
             var transform3D = f.Get<Transform3D>(entity);
