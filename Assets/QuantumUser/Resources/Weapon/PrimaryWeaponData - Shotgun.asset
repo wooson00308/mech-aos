@@ -23,7 +23,7 @@ MonoBehaviour:
     RawValue: 196608
   ShootForce:
     RawValue: 16384000
-  MaxAmmo: 20
+  MaxAmmo: 18
   RechargeTimer:
     RawValue: 131072
   TimeToRecharge:
