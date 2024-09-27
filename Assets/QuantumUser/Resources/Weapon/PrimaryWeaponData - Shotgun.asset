@@ -20,14 +20,14 @@ MonoBehaviour:
   Prefab: {fileID: 0}
   RootName: SM_Wep_Shotgun_01
   FireRate:
-    RawValue: 1310720
+    RawValue: 196608
   ShootForce:
-    RawValue: 6553600
+    RawValue: 16384000
   MaxAmmo: 20
   RechargeTimer:
-    RawValue: 65536
+    RawValue: 131072
   TimeToRecharge:
-    RawValue: 65536
+    RawValue: 131072
   FireSpotOffset:
     X:
       RawValue: 0
