@@ -520,4 +520,9 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         else
             Matchmaker.Instance.OnDisconnected(default);
     }
+
+    public void OnExitButton()
+    {
+        Application.Quit();
+    }
 }

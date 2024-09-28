@@ -204,6 +204,11 @@ namespace QuantumUser
         {
             QualitySettings.SetQualityLevel(graphicQualityDropdown.value);
         }
+
+        public void OnExitButton()
+        {
+            Application.Quit();
+        }
         #endregion
 
 
