@@ -68,7 +68,7 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
 
         // 위와 동일
         increaseAttackPercentValue += 10;
-        increaseHpPercent.text = $"{increaseAttackPercentValue}%";
+        increaseAttackPercent.text = $"{increaseAttackPercentValue}%";
         levelPoint.text = $"{--levelPointValue}";
     }
 
