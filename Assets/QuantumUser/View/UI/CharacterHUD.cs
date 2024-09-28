@@ -20,8 +20,6 @@ public class CharacterHUD : QuantumMonoBehaviour
 
     public void UpdateHealth(float health, float maxHealth = 100)
     {
-        float healthPercentage = (health / maxHealth) * 100f;
-
         float normalized = Mathf.Clamp01(health / maxHealth);
         healthImage.fillAmount = normalized;
     }

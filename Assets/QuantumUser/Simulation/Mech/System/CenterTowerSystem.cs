@@ -75,10 +75,14 @@ namespace Quantum.Mech
             }
             else
             {
+                if(f.Global->CenterTowerLatencyElapsedTime >= 0)
+                {
+                    f.Global->CenterTowerLatencyElapsedTime -= f.DeltaTime;
+                    f.Events.TowerActivate(Team.None, false);
+                }
                 if (f.Global->CenterTowerIsUpdatedOccupy)
                 {
                     f.Global->CenterTowerIsUpdatedOccupy = false;
-                    f.Events.TowerActivate(Team.None, false);
                 }
             }
         }
@@ -97,7 +101,7 @@ namespace Quantum.Mech
 
             if (enterEntityRefs.Count <= 0)
             {
-                f.Global->CenterTowerLatencyElapsedTime = 0;
+                //f.Global->CenterTowerLatencyElapsedTime = 0;
                 f.Global->CenterTowerRunningElapsedTime = 0;
                 f.Global->TeamsHitByCentreTower = Team.None;
                 f.Global->CenterTowerIsOccupy = false;
@@ -106,7 +110,7 @@ namespace Quantum.Mech
 
             if (zero == enterEntityRefs[0].ToString()) return f.Unsafe.GetPointer<PlayableMechanic>(enterEntityRefs[0]);
             
-            f.Global->CenterTowerLatencyElapsedTime = 0;
+            //f.Global->CenterTowerLatencyElapsedTime = 0;
             f.Global->CenterTowerRunningElapsedTime = 0;
             f.Global->TeamsHitByCentreTower = Team.None;
             return f.Unsafe.GetPointer<PlayableMechanic>(enterEntityRefs[0]);
@@ -155,7 +159,7 @@ namespace Quantum.Mech
                 if (!enterEntityRefs.Contains(info.Other)) return;
                 if (enterEntityRefs[0] == info.Other)
                 {
-                    f.Global->CenterTowerLatencyElapsedTime = 0;
+                    //f.Global->CenterTowerLatencyElapsedTime = 0;
                     f.Global->CenterTowerRunningElapsedTime = 0;
                     f.Global->TeamsHitByCentreTower = Team.None;
                     Debug.Log("CenterTower Changed!");
@@ -176,7 +180,7 @@ namespace Quantum.Mech
                 if (!enterEntityRefs.Contains(info.Entity)) return;
                 if (enterEntityRefs[0] == info.Entity)
                 {
-                    f.Global->CenterTowerLatencyElapsedTime = 0;
+                    //f.Global->CenterTowerLatencyElapsedTime = 0;
                     f.Global->CenterTowerRunningElapsedTime = 0;
                     f.Global->TeamsHitByCentreTower = Team.None;
                     Debug.Log("CenterTower Changed!");

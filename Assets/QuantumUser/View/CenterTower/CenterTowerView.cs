@@ -4,8 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CenterTowerView : QuantumEntityViewComponent
+public unsafe class CenterTowerView : QuantumEntityViewComponent
 {
+    public Camera camera;
+    public Transform beacon;
+    public BeaconHUD beaconHUD;
+    public Vector3 beaconOffset;
+
     public Transform Model;
     public Animator Animator;
     public Animator BeaconAnimator;
@@ -66,12 +71,20 @@ public class CenterTowerView : QuantumEntityViewComponent
         }));
     }
 
+    private void FixedUpdate()
+    {
+        beaconHUD.UpdatePosition(camera, beacon, beaconOffset);
+
+        var config = f.FindAsset(f.RuntimeConfig.MechGameConfig);
+        beaconHUD.UpdateHUD(Team.None, f.Global->CenterTowerLatencyElapsedTime.AsFloat, config.centerTowerLatency.AsFloat);
+    }
+
     private void TowerActivate(EventTowerActivate e)
     {
         _isAcitve = e.isActive;
         Animator.SetBool("Activate", _isAcitve);
-        //BeaconAnimator.SetTrigger($"{e.team}");
-        
+        BeaconAnimator.SetTrigger($"{e.team}");
+
         if (_isAcitve)
         {
             AudioManager.Instance.PlaySfx(activeClip);
