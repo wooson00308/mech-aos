@@ -533,10 +533,11 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
         
         base.OnLateUpdateView();
         var frame = QuantumRunner.DefaultGame.Frames.Predicted;
-        if (ViewContext?.LocalEntityRef != null)
+        if (ViewContext != null && ViewContext?.LocalEntityRef != null)
         {
-            ammo.enabled = true;
-            var weaponInventory = f.Unsafe.GetPointer<WeaponInventory>(ViewContext.LocalEntityRef);
+            ammo.enabled = f.Unsafe.TryGetPointer<WeaponInventory>(ViewContext.LocalEntityRef, out var weaponInventory);
+            if (!ammo.enabled) return;
+            
             var weapons = frame.ResolveList(weaponInventory->Weapons);
             var currentWeapon = weapons.GetPointer(weaponInventory->CurrentWeaponIndex);
             var weaponData = frame.FindAsset<WeaponData>(currentWeapon->WeaponData.Id);

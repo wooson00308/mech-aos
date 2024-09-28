@@ -39,6 +39,10 @@ namespace Quantum
 
         public virtual unsafe void SpawnBullet(Frame frame, WeaponData weaponData, EntityRef mechanic, FPVector3 direction)
         {
+
+
+            frame.Events.OnWeaponShoot(mechanic);
+            
             var prototypeAsset = frame.FindAsset<EntityPrototype>(new AssetGuid(BulletPrototype.Id.Value));
             var bullet = frame.Create(prototypeAsset);
 

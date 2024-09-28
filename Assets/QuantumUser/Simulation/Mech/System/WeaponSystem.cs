@@ -70,6 +70,15 @@ namespace Quantum.Mech
                 {
                     var transform3D = frame.Unsafe.GetPointer<Transform3D>(mechanic);
                     BulletData bulletData = frame.FindAsset<BulletData>(weaponData.BulletData.Id);
+                    
+                    currentWeapon->CurrentAmmo -= 1;
+                    if (currentWeapon->CurrentAmmo == 0)
+                    {
+                        currentWeapon->IsRecharging = true;
+                        currentWeapon->DelayToStartRechargeTimer = -1;
+                    }
+                    currentWeapon->DelayToStartRechargeTimer = weaponData.TimeToRecharge;
+                    
                     bulletData.SpawnBullet(frame, weaponData, mechanic, transform3D->Forward);
                     // SpawnBullet(frame, mechanic, currentWeapon, transform3D->Forward);
                     currentWeapon->FireRateTimer = FP._1 / weaponData.FireRate;
