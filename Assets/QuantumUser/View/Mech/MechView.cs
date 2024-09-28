@@ -11,7 +11,7 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
     public Nexus* Nexus;
     public Transform Body;
     public Animator CharacterAnimator;
-    public List<GameObject> HitFxs;
+    public List<ParticleSystem> HitFxs;
 
     public AudioClip hitSfxClip;
     
@@ -21,7 +21,7 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
         if (Game.PlayerIsLocal(playerLink.PlayerRef))
         {
             ViewContext.LocalPlayerView = this;
-            ViewContext.EntityRef = EntityRef;
+            ViewContext.LocalEntityRef = EntityRef;
         }
         QuantumEvent.Subscribe<EventOnMechanicDeath>(this, Death);
         QuantumEvent.Subscribe<EventOnMechanicRespawn>(this, Respawn);
@@ -32,9 +32,7 @@ public unsafe class MechView : QuantumEntityViewComponent<CustomViewContext>
     {
         if (e.Mechanic.ToString() != gameObject.name) return;
         int randomIndex = Random.Range(0, HitFxs.Count);
-        HitFxs[randomIndex].SetActive(false);
-        HitFxs[randomIndex].SetActive(true);
-
+        HitFxs[randomIndex].Play();
         AudioManager.Instance.PlaySfx(hitSfxClip, gameObject);
     }
 

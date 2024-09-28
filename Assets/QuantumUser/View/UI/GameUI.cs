@@ -42,7 +42,7 @@ public class SkillIcon
 }
 
 [Preserve]
-public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
+public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 {
     [SerializeField] private List<StateObjectPair> _stateObjectPairs = new();
     private Dictionary<UIState, GameObject> _stateObjectDictionary = new();
@@ -65,7 +65,8 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     [Header("Controller")]
     public List<SkillButton> weaponSkillButtons;
     public List<SkillAudioData> weaponSkillAudioDatas;
-
+    public TextMeshProUGUI ammo;
+    
     [Header("Popup")]
     public ResultUI resultPopup;
     public FixPopupUI fixPopup;
@@ -497,7 +498,7 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
         graphicQualityDropdown.value = graphicQualityDropdown.options.Count - 1;
     }
 
-
+    
     public void SetGraphicsQuality()
     {
         QualitySettings.SetQualityLevel(graphicQualityDropdown.value);
@@ -524,5 +525,28 @@ public unsafe class GameUI : QuantumViewComponent<CustomViewContext>
     public void OnExitButton()
     {
         Application.Quit();
+    }
+
+
+    public override unsafe void OnLateUpdateView()
+    {
+        
+        base.OnLateUpdateView();
+        var frame = QuantumRunner.DefaultGame.Frames.Predicted;
+        if (ViewContext?.LocalEntityRef != null)
+        {
+            ammo.enabled = true;
+            var weaponInventory = f.Unsafe.GetPointer<WeaponInventory>(ViewContext.LocalEntityRef);
+            var weapons = frame.ResolveList(weaponInventory->Weapons);
+            var currentWeapon = weapons.GetPointer(weaponInventory->CurrentWeaponIndex);
+            var weaponData = frame.FindAsset<WeaponData>(currentWeapon->WeaponData.Id);
+            ammo.SetText($"{currentWeapon->CurrentAmmo} / {weaponData.MaxAmmo}");
+        }
+        else
+        {
+            ammo.enabled = false;
+        }
+
+        
     }
 }

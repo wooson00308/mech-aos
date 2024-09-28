@@ -69,7 +69,9 @@ namespace Quantum.Mech
                 if (i->MainWeaponFire.IsDown)
                 {
                     var transform3D = frame.Unsafe.GetPointer<Transform3D>(mechanic);
-                    SpawnBullet(frame, mechanic, currentWeapon, transform3D->Forward);
+                    BulletData bulletData = frame.FindAsset<BulletData>(weaponData.BulletData.Id);
+                    bulletData.SpawnBullet(frame, weaponData, mechanic, transform3D->Forward);
+                    // SpawnBullet(frame, mechanic, currentWeapon, transform3D->Forward);
                     currentWeapon->FireRateTimer = FP._1 / weaponData.FireRate;
                     currentWeapon->ChargeTime = FP._0;
                     frame.Events.WeaponFire(filter.Entity, weaponData);

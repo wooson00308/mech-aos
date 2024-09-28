@@ -45,7 +45,7 @@ namespace Quantum.Mech
         }
         public void OnMechanicOrbitalSupport(EventOnMechanicOrbitalSupport e)
         {
-            if (e.Mechanic != ViewContext.EntityRef) return;
+            if (e.Mechanic != ViewContext.LocalEntityRef) return;
             _introCamera.gameObject.SetActive(false);
             _localCamera.gameObject.SetActive(false);
             _orbitalSupportCamera.gameObject.SetActive(true);
@@ -53,7 +53,7 @@ namespace Quantum.Mech
         }
         public void OnMechanicOrbitalSupportEnd(EventOnMechanicOrbitalSupportEnd e)
         {
-            if (e.Mechanic != ViewContext.EntityRef) return;
+            if (e.Mechanic != ViewContext.LocalEntityRef) return;
             _introCamera.gameObject.SetActive(false);
             _localCamera.gameObject.SetActive(true);
             _orbitalSupportCamera.gameObject.SetActive(false);
