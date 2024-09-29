@@ -53,7 +53,10 @@ namespace Quantum.Mech
             
             if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<MeleeAttackSkillData>(skill.SkillData.Id, out var meleeAttackData))
             {
-                Aniamtor.SetTrigger("Slash");
+                if (skill.Status == SkillStatus.CoolTime)
+                {
+                    Aniamtor.SetTrigger("Slash");
+                }
             } 
             else if (QuantumRunner.DefaultGame.Frames.Predicted.TryFindAsset<AbilitySkillData>(skill.SkillData.Id, out var dashAbilityData))
             {

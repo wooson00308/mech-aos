@@ -56,13 +56,9 @@ public unsafe class PipUI : QuantumMonoBehaviour
                     break;
                 case ItemType.Weapon:
                     selector.fixUI.weapon.Setup(itemData);
+                    button.OnEvent();
                     break;
             }
-
-            var playerRef = selector.fixUI.gameUI.GetPlayerRef();
-            var input = f.GetPlayerInput(playerRef);
-
-            button.OnEvent();
         }
 
         selector.Close();
