@@ -2426,7 +2426,7 @@ MonoBehaviour:
         RawValue: 65536
     Position:
       X:
-        RawValue: -10745938
+        RawValue: -10670572
       Y:
         RawValue: 511150
       Z:
@@ -2443,7 +2443,7 @@ MonoBehaviour:
       RawValue: 0
     BoxExtents:
       X:
-        RawValue: 1082841
+        RawValue: 1310720
       Y:
         RawValue: 539407
       Z:

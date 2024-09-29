@@ -3083,6 +3083,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main_PlatForm
       objectReference: {fileID: 0}
+    - target: {fileID: 6757312054366020091, guid: 46b0019ad30726a4baeff4d212fde568, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757312054366020091, guid: 46b0019ad30726a4baeff4d212fde568, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -62.64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3882589806606712714, guid: 46b0019ad30726a4baeff4d212fde568, type: 3}
