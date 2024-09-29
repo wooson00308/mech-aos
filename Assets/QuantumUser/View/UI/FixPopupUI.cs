@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UI;
 [Preserve]
-public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
+public unsafe class FixPopupUI : QuantumSceneViewComponent<CustomViewContext>
 {
     public GameUI gameUI;
     public CanvasGroup canvasGroup;
@@ -38,7 +38,7 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
 
     public void Levelup(EntityRef entity)
     {
-        if (gameUI.LocalEntityRef.ToString() != entity.ToString()) return;
+        if (ViewContext.LocalEntityRef != entity) return;
 
         level.text = $"{int.Parse(level.text) + 1}";
 
@@ -50,7 +50,7 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
     {
         if (levelPointValue <= 0) return;
 
-        // ¿©±â¿¡ ¼­¹ö¿¡ ´É·ÂÄ¡°¡ ¿À¸¥ °ÍÀ» È£ÃâÇØ¾ßÇÔ
+        // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
         increaseHpPercentValue += 10;
         increaseHpPercent.text = $"{increaseHpPercentValue}%";
         levelPoint.text = $"{--levelPointValue}";
@@ -60,7 +60,7 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
     {
         if (levelPointValue <= 0) return;
 
-        // À§¿Í µ¿ÀÏ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         increaseAttackPercentValue += 10;
         increaseAttackPercent.text = $"{increaseAttackPercentValue}%";
         levelPoint.text = $"{--levelPointValue}";

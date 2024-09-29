@@ -79,53 +79,18 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
     [Header("Test")]
     public float testTime;
-    private float timeRemaining; 
-
-    private Frame f;
-
+    private float timeRemaining;
     private List<EntityRef> entityRefs = new();
 
+    private PlayerRef _localPlayerRef;
     private Camera _camera;
 
     public Vector3 hudOffset;
-
-    private PlayerRef _localPlayerRef;
-    private EntityRef _localEntityRef = default;
-
     private Dictionary<string, GameObject> _entityObjDic = new();
-
-    public PlayerRef GetPlayerRef()
-    {
-        return _localPlayerRef;
-    }
-
-    public EntityRef LocalEntityRef => _localEntityRef;
-
-    private void Awake()
-    {
-        _camera = FindObjectOfType<Camera>();
-        QuantumEvent.Subscribe(this, (EventOnMechanicCreated e) => OnMechanicCreated(e));
-        QuantumEvent.Subscribe(this, (EventOnNexusTakeDamage e) => OnNexusTakeDamage(e));
-        QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
-        QuantumEvent.Subscribe(this, (EventOnMechanicRespawn e) => OnMechanicRespawn(e));
-        QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
-        QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
-        QuantumEvent.Subscribe(this, (EventUseSkill e) => OnUseSkill(e));
-        QuantumEvent.Subscribe(this, (EventOnChangeWeapon e) => OnChangeWeapon(e));
-        QuantumEvent.Subscribe(this, (EventOnEnableFix e) => OnEnableFix(e));
-        QuantumEvent.Subscribe(this, (EventFix e) => { Fix(e); });
-
-
-        foreach (var pair in _stateObjectPairs)
-        {
-            _stateObjectDictionary.Add(pair.State, pair.Object);
-        }
-        f = QuantumRunner.DefaultGame.Frames.Predicted;
-    }
 
     private void Fix(EventFix e)
     {
-        if(e.Owner.ToString() == _localEntityRef.ToString())
+        if(e.Owner == ViewContext.LocalEntityRef)
         {
             fixPopup.ShowAndClose();
         }
@@ -133,10 +98,10 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
     private void OnEnableFix(EventOnEnableFix e)
     {
-        if (e.mechanic.ToString() != _localEntityRef.ToString()) return;
+        if (e.mechanic!= ViewContext.LocalEntityRef) return;
 
-        var mechanic = f.Get<PlayableMechanic>(e.mechanic);
-        var nexusIndentifier = f.Get<NexusIdentifier>(e.nexusIndentifier);
+        var mechanic = PredictedFrame.Get<PlayableMechanic>(e.mechanic);
+        var nexusIndentifier = PredictedFrame.Get<NexusIdentifier>(e.nexusIndentifier);
         if (mechanic.Team != nexusIndentifier.Team) return;
 
         fixButton.gameObject.SetActive(e.isEnabled);
@@ -150,8 +115,8 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
     private void OnChangeWeapon(EventOnChangeWeapon e)
     {
-        if (e.Mechanic.ToString() != _localEntityRef.ToString()) return;
-        var weaponData = f.FindAsset<PrimaryWeaponData>(e.weapon.WeaponData.Id);
+        if (e.Mechanic != ViewContext.LocalEntityRef) return;
+        var weaponData = PredictedFrame.FindAsset<PrimaryWeaponData>(e.weapon.WeaponData.Id);
         var skills = weaponData.Skills;
 
         int index = 0;
@@ -183,7 +148,7 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
         int level = int.Parse(hud.level.text);
         hud.level.text = $"{++level}";
 
-        if (entity.ToString() != _localEntityRef.ToString()) return;
+        if (entity!= ViewContext.LocalEntityRef) return;
 
         if (level == 2)
         {
@@ -208,9 +173,9 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
         hud.gameObject.SetActive(true);
         
-        Status* playerStatus = f.Unsafe.GetPointer<Status>(Mechanic);
+        Status* playerStatus = PredictedFrame.Unsafe.GetPointer<Status>(Mechanic);
         float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
-        float maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
+        float maxHealthPlayer = PredictedFrame.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
 
         hud.UpdateHealth(currentHealthPlayer, maxHealthPlayer);
         
@@ -237,13 +202,13 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
             resultPopup.GetComponent<CanvasGroup>().alpha = 1;
             resultPopup.GetComponent<CanvasGroup>().blocksRaycasts = true;
             
-            var nexusBlockIterator = f.Unsafe.GetComponentBlockIterator<Nexus>();
+            var nexusBlockIterator = PredictedFrame.Unsafe.GetComponentBlockIterator<Nexus>();
             FP maxCurrentHealth = 0;
             Team team = Team.Blue;
             foreach (var entityComponentPointerPair in nexusBlockIterator)
             {
                 if (entityComponentPointerPair.Component->IsDestroy) continue;
-                var nexus = f.Get<Nexus>(entityComponentPointerPair.Entity);
+                var nexus = PredictedFrame.Get<Nexus>(entityComponentPointerPair.Entity);
                 if (nexus.CurrentHealth > maxCurrentHealth)
                 {
                     maxCurrentHealth = nexus.CurrentHealth;
@@ -259,10 +224,10 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
     {
         entityRefs.Add(e.Mechanic);
         
-        var playerLink = f.Unsafe.GetPointer<PlayerLink>(e.Mechanic);
-        Status* playerStatus = f.Unsafe.GetPointer<Status>(e.Mechanic);
+        var playerLink = PredictedFrame.Unsafe.GetPointer<PlayerLink>(e.Mechanic);
+        Status* playerStatus = PredictedFrame.Unsafe.GetPointer<Status>(e.Mechanic);
         var currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
-        var maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
+        var maxHealthPlayer = PredictedFrame.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
 
         var playerIndex = playerLink->PlayerRef._index - 1;
         playerHUDs[playerIndex].UpdateHealth(currentHealthPlayer, maxHealthPlayer);
@@ -272,13 +237,13 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
     {
         UpdateHUD(e.Mechanic, true);
 
-        var killedPlayerLink = f.Get<PlayerLink>(e.Mechanic);
-        var runtimeKilledPlayer = f.GetPlayerData(killedPlayerLink.PlayerRef);
+        var killedPlayerLink = PredictedFrame.Get<PlayerLink>(e.Mechanic);
+        var runtimeKilledPlayer = PredictedFrame.GetPlayerData(killedPlayerLink.PlayerRef);
 
         entityRefs.Remove(e.Mechanic);
 
-        var killerPlayerLink = f.Get<PlayerLink>(e.Killer);
-        var runtimeKillerPlayer = f.GetPlayerData(killerPlayerLink.PlayerRef);
+        var killerPlayerLink = PredictedFrame.Get<PlayerLink>(e.Killer);
+        var runtimeKillerPlayer = PredictedFrame.GetPlayerData(killerPlayerLink.PlayerRef);
 
         fixPopup.Levelup(e.Killer);
         UpdateLevelHUD(e.Killer);
@@ -288,21 +253,20 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
     private void OnMechanicCreated(EventOnMechanicCreated e)
     {
-        var playerLink = f.Get<PlayerLink>(e.Mechanic);
-        var runtimePlayer = f.GetPlayerData(playerLink.PlayerRef);
+        var playerLink = PredictedFrame.Get<PlayerLink>(e.Mechanic);
+        var runtimePlayer = PredictedFrame.GetPlayerData(playerLink.PlayerRef);
 
-        if (!_localEntityRef.IsValid && QuantumRunner.DefaultGame.PlayerIsLocal(playerLink.PlayerRef))
+        if (!ViewContext.LocalEntityRef.IsValid && QuantumRunner.DefaultGame.PlayerIsLocal(playerLink.PlayerRef))
         {
             _localPlayerRef = playerLink.PlayerRef;
-            _localEntityRef = e.Mechanic;
             ChatUI.Connect(runtimePlayer.PlayerNickname);
         }
 
         var players = QuantumRunner.DefaultGame.GetLocalPlayers(); 
-        Status* playerStatus = f.Unsafe.GetPointer<Status>(e.Mechanic);
+        Status* playerStatus = PredictedFrame.Unsafe.GetPointer<Status>(e.Mechanic);
 
         float currentHealthPlayer = playerStatus->CurrentHealth.AsFloat;
-        float maxHealthPlayer = f.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
+        float maxHealthPlayer = PredictedFrame.FindAsset<StatusData>(playerStatus->StatusData.Id).MaxHealth.AsFloat;
 
         int playerIndex = playerLink.PlayerRef._index - 1;
         var playerInfoUI = playerInfoUIs[playerIndex];
@@ -314,11 +278,11 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
         playerInfoUI.SetPlayer(runtimePlayer.PlayerNickname);
 
-        var playableMechanic = f.Get<PlayableMechanic>(e.Mechanic);
+        var playableMechanic = PredictedFrame.Get<PlayableMechanic>(e.Mechanic);
 
         Nexus* Nexus = null;
 
-        var nexusComponents = f.Unsafe.GetComponentBlockIterator<Nexus>();
+        var nexusComponents = PredictedFrame.Unsafe.GetComponentBlockIterator<Nexus>();
 
         foreach (var nexus in nexusComponents)
         {
@@ -334,7 +298,7 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
 
     private void OnNexusTakeDamage(EventOnNexusTakeDamage e)
     {
-        var nexus = f.Get<Nexus>(e.Nexus);
+        var nexus = PredictedFrame.Get<Nexus>(e.Nexus);
 
         foreach (var ui in playerInfoUIs)
         {
@@ -346,8 +310,31 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
         }
     }
 
-    private void Start()
+    public override void OnInitialize()
     {
+        base.OnInitialize();
+        _camera = FindObjectOfType<Camera>();
+        QuantumEvent.Subscribe(this, (EventOnMechanicCreated e) => OnMechanicCreated(e));
+        QuantumEvent.Subscribe(this, (EventOnNexusTakeDamage e) => OnNexusTakeDamage(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicDeath e) => OnMechanicDeath(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicRespawn e) => OnMechanicRespawn(e));
+        QuantumEvent.Subscribe(this, (EventGameStateChanged e) => OnGameStateChanged(e));
+        QuantumEvent.Subscribe(this, (EventOnMechanicTakeDamage e) => OnMechanicTakeDamage(e));
+        QuantumEvent.Subscribe(this, (EventUseSkill e) => OnUseSkill(e));
+        QuantumEvent.Subscribe(this, (EventOnChangeWeapon e) => OnChangeWeapon(e));
+        QuantumEvent.Subscribe(this, (EventOnEnableFix e) => OnEnableFix(e));
+        QuantumEvent.Subscribe(this, (EventFix e) => { Fix(e); });
+
+
+        foreach (var pair in _stateObjectPairs)
+        {
+            _stateObjectDictionary.Add(pair.State, pair.Object);
+        }
+    }
+
+    public override void OnActivate(Frame frame)
+    {
+        base.OnActivate(frame);
         InitGraphicsDropdown();
         bgmSlider.SetValueWithoutNotify(AudioManager.Instance.bgmVol);
         sfxSlider.SetValueWithoutNotify(AudioManager.Instance.sfxVol);
@@ -358,61 +345,20 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
         settingButton.onClick.AddListener(OnSettingButtonClicked);
         settingPopupCloseButton.onClick.AddListener(OnSettingButtonClicked);
     }
-
-    private void FixedUpdate()
-    {
-        foreach (var entity in entityRefs)
-        {
-            // entity�� ��ȿ���� ���� Ȯ��
-            if (!f.Exists(entity))
-            {
-                Debug.LogWarning($"Entity {entity}�� �������� �ʽ��ϴ�.");
-                continue; // ��ȿ���� ������ ���� entity�� �Ѿ
-            }
-
-            var transform3D = f.Get<Transform3D>(entity);
-            var mechPosition = transform3D.Position.ToUnityVector3();
-
-            var hud = playerHUDs.Find(x => entity == x.entityRef);
-
-            if (hud == null) return;
-
-            var hudRect = hud.GetComponent<RectTransform>();
-
-            var screenPosition = _camera.WorldToScreenPoint(mechPosition);
-
-            if (screenPosition.z > 0 && screenPosition.x > 0 && screenPosition.x < Screen.width && screenPosition.y > 0 && screenPosition.y < Screen.height)
-            {
-                hudRect.gameObject.SetActive(true);
-                hudRect.position = screenPosition + hudOffset;
-            }
-            else
-            {
-                hudRect.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void Update()
-    {
-        UpdateLocalSkill();
-        //UpdateSkillSFX();
-    }
-
+    
     private void UpdateLocalSkill()
     {
-        if (_localEntityRef.IsValid)
+        if (ViewContext.LocalEntityRef.IsValid)
         {
-            if (_localEntityRef == EntityRef.None || !f.Has<Status>(_localEntityRef)) return;
-            var skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
-            if (skillInventory->Skills == null) return;
-            if (f == null) return;
-            var skills = f.ResolveList(skillInventory->Skills);
+            if (ViewContext.LocalEntityRef == EntityRef.None || !PredictedFrame.Has<Status>(ViewContext.LocalEntityRef)) return;
+            var skillInventory = PredictedFrame.Unsafe.GetPointer<SkillInventory>(ViewContext.LocalEntityRef);
+            if (skillInventory == null) return;
+            var skills = PredictedFrame.ResolveList(skillInventory->Skills);
             for (int i = 0; i < skills.Count; i++)
             {
                 int buttonIndex = i;
                 var skill = skills.GetPointer(i);
-                var skillData = f.FindAsset(skill->SkillData);
+                var skillData = PredictedFrame.FindAsset(skill->SkillData);
 
                 if (buttonIndex == 0 || buttonIndex == 3)
                 {
@@ -545,10 +491,12 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
     {
         
         base.OnLateUpdateView();
+        UpdateLocalSkill();
+
         var frame = QuantumRunner.DefaultGame.Frames.Predicted;
         if (ViewContext != null && ViewContext?.LocalEntityRef != null)
         {
-            ammo.enabled = f.Unsafe.TryGetPointer<WeaponInventory>(ViewContext.LocalEntityRef, out var weaponInventory);
+            ammo.enabled = PredictedFrame.Unsafe.TryGetPointer<WeaponInventory>(ViewContext.LocalEntityRef, out var weaponInventory);
             if (!ammo.enabled) return;
             
             var weapons = frame.ResolveList(weaponInventory->Weapons);
@@ -561,6 +509,36 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
             ammo.enabled = false;
         }
 
+        foreach (var entity in entityRefs)
+        {
+            // entity�� ��ȿ���� ���� Ȯ��
+            if (!PredictedFrame.Exists(entity))
+            {
+                Debug.LogWarning($"Entity {entity}�� �������� �ʽ��ϴ�.");
+                continue; // ��ȿ���� ������ ���� entity�� �Ѿ
+            }
+
+            var transform3D = PredictedFrame.Get<Transform3D>(entity);
+            var mechPosition = transform3D.Position.ToUnityVector3();
+
+            var hud = playerHUDs.Find(x => entity == x.entityRef);
+
+            if (hud == null) return;
+
+            var hudRect = hud.GetComponent<RectTransform>();
+
+            var screenPosition = _camera.WorldToScreenPoint(mechPosition);
+
+            if (screenPosition.z > 0 && screenPosition.x > 0 && screenPosition.x < Screen.width && screenPosition.y > 0 && screenPosition.y < Screen.height)
+            {
+                hudRect.gameObject.SetActive(true);
+                hudRect.position = screenPosition + hudOffset;
+            }
+            else
+            {
+                hudRect.gameObject.SetActive(false);
+            }
+        }
         
     }
 }
