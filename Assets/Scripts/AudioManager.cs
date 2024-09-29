@@ -83,7 +83,7 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(source.clip.length + .5f);
         sfxSources.Remove(source);
-        Destroy(source.gameObject);
+        if(source != null && source.gameObject != null) Destroy(source.gameObject);
     }
 
     public void SfxVol(float vol)
