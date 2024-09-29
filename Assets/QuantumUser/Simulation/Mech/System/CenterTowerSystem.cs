@@ -5,6 +5,7 @@ using Quantum.Core;
 using Quantum.Physics3D;
 using UnityEngine;
 using UnityEngine.Scripting;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Quantum.Mech
 {
@@ -95,6 +96,7 @@ namespace Quantum.Mech
             for (int i = enterEntityRefs.Count - 1; i >= 0; i--)
             {
                 Debug.Log($"{enterEntityRefs.Count}/ {enterEntityRefs[i]}");
+                if (enterEntityRefs[i] == EntityRef.None || !f.Has<Status>(enterEntityRefs[i])) continue;
                 var status =  f.Unsafe.GetPointer<Status>(enterEntityRefs[i]);
                 if(status->IsDead || status->IsDisconnect) enterEntityRefs.RemoveAt(i);
             }
