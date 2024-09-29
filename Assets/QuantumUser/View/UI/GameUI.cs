@@ -113,12 +113,22 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
         QuantumEvent.Subscribe(this, (EventUseSkill e) => OnUseSkill(e));
         QuantumEvent.Subscribe(this, (EventOnChangeWeapon e) => OnChangeWeapon(e));
         QuantumEvent.Subscribe(this, (EventOnEnableFix e) => OnEnableFix(e));
+        QuantumEvent.Subscribe(this, (EventFix e) => { Fix(e); });
+
 
         foreach (var pair in _stateObjectPairs)
         {
             _stateObjectDictionary.Add(pair.State, pair.Object);
         }
         f = QuantumRunner.DefaultGame.Frames.Predicted;
+    }
+
+    private void Fix(EventFix e)
+    {
+        if(e.Owner.ToString() == _localEntityRef.ToString())
+        {
+            fixPopup.ShowAndClose();
+        }
     }
 
     private void OnEnableFix(EventOnEnableFix e)

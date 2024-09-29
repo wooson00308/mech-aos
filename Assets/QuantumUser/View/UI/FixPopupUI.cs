@@ -36,12 +36,6 @@ public unsafe class FixPopupUI : QuantumViewComponent<CustomViewContext>
     private float increaseAttackPercentValue;
     private int levelPointValue;
 
-    private void Awake()
-    {
-        f = QuantumRunner.DefaultGame.Frames.Predicted;
-        QuantumEvent.Subscribe(this, (EventFix e) => { ShowAndClose(); });
-    }
-
     public void Levelup(EntityRef entity)
     {
         if (gameUI.LocalEntityRef.ToString() != entity.ToString()) return;

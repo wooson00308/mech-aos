@@ -280,8 +280,9 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventFix Fix() {
+      public EventFix Fix(EntityRef Owner) {
         var ev = _f.Context.AcquireEvent<EventFix>(EventFix.ID);
+        ev.Owner = Owner;
         _f.AddEvent(ev);
         return ev;
       }
@@ -935,6 +936,7 @@ namespace Quantum {
   }
   public unsafe partial class EventFix : EventBase {
     public new const Int32 ID = 26;
+    public EntityRef Owner;
     protected EventFix(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
@@ -952,6 +954,7 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 163;
+        hash = hash * 31 + Owner.GetHashCode();
         return hash;
       }
     }

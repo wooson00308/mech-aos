@@ -116,7 +116,7 @@ namespace Quantum.Mech
             }
             if(input->Fix.WasPressed && isEnabled)
             {
-                frame.Events.Fix();
+                frame.Events.Fix(entity);
             }
 
             if (input->Return.WasPressed)
