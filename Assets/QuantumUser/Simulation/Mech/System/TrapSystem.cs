@@ -35,7 +35,7 @@ namespace Quantum.Mech
         {
             Transform3D* trapTransform = frame.Unsafe.GetPointer<Transform3D>(trap);
             TrapData data = frame.FindAsset<TrapData>(trapFields.TrapData.Id);
-            var shooter = frame.Unsafe.GetPointer<PlayableMechanic>(trapFields.Source);
+            // var shooter = frame.Unsafe.GetPointer<PlayableMechanic>(trapFields.Source);
             
                 
             var hits = frame.Physics3D.OverlapShape(*trapTransform, data.ShapeConfig.CreateShape(frame));
@@ -46,7 +46,7 @@ namespace Quantum.Mech
                 // if (entity == trapFields.Source) continue;
                 if (entity == EntityRef.None || !frame.Has<Status>(entity)) continue;
                 
-                var playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(entity);
+                // var playableMechanic = frame.Unsafe.GetPointer<PlayableMechanic>(entity);
                 
                 if (frame.Get<Status>(entity).IsDead)
                 {
