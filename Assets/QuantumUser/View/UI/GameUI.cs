@@ -405,6 +405,7 @@ public unsafe class GameUI : QuantumSceneViewComponent<CustomViewContext>
         {
             if (_localEntityRef == EntityRef.None || !f.Has<Status>(_localEntityRef)) return;
             SkillInventory* skillInventory = f.Unsafe.GetPointer<SkillInventory>(_localEntityRef);
+            if (skillInventory->Skills == null) return;
             var skills = f.ResolveList(skillInventory->Skills);
             for (int i = 0; i < skills.Count; i++)
             {
