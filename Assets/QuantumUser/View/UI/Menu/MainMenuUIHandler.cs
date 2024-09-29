@@ -36,6 +36,9 @@ namespace QuantumUser
         [SerializeField] private Slider bgmSlider;
         [SerializeField] private Slider sfxSlider;
 
+        [Header("----------Setting Screen-----------")]
+        public UnityEngine.UI.Button disconnectButton;
+
         public void Start()
         {
             InitGraphicsDropdown();
@@ -153,11 +156,11 @@ namespace QuantumUser
 
                 if (status.State == Matchmaker.State.ConnectingToServer)
                 {
-
+                    disconnectButton.gameObject.SetActive(true);
                 }
                 else if (status.State == Matchmaker.State.ConnectingToRoom)
                 {
-
+                    
                 }
                 else if (status.State == Matchmaker.State.JoinedRoom)
                 {
@@ -167,7 +170,7 @@ namespace QuantumUser
                 }
                 else if (status.State == Matchmaker.State.GameStarted)
                 {
-
+                    disconnectButton.gameObject.SetActive(false);
                 }
                 else if (status.State == Matchmaker.State.Failed)
                 {
@@ -203,6 +206,12 @@ namespace QuantumUser
         public void SetGraphicsQuality()
         {
             QualitySettings.SetQualityLevel(graphicQualityDropdown.value);
+        }
+
+        public void OnDisconnectButton()
+        {
+            if (Matchmaker.Client.IsConnected)
+                Matchmaker.Client.Disconnect();
         }
 
         public void OnExitButton()

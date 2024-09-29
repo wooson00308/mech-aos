@@ -83,6 +83,7 @@ public unsafe class CenterTowerView : QuantumEntityViewComponent
     {
         _isAcitve = e.isActive;
         Animator.SetBool("Activate", _isAcitve);
+        BeaconAnimator.SetBool("Activate", _isAcitve);
         BeaconAnimator.SetTrigger($"{e.team}");
 
         if (_isAcitve)

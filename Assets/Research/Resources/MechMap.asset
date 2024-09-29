@@ -12871,11 +12871,11 @@ MonoBehaviour:
       type: {class: CenterTowerFieldsPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         Time:
-          RawValue: 163840
+          RawValue: 131072
         FirstDelayTime:
           RawValue: 65536
         Damage:
-          RawValue: 32768000
+          RawValue: 39321600
     - rid: 7038552740661821440
       type: {class: Transform3DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:

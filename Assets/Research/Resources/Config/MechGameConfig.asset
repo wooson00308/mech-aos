@@ -25,3 +25,5 @@ MonoBehaviour:
     RawValue: 655360
   postgameDuration:
     RawValue: 1966080
+  centerTowerLatency:
+    RawValue: 262144

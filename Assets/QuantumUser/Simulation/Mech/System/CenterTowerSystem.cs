@@ -78,11 +78,11 @@ namespace Quantum.Mech
                 if(f.Global->CenterTowerLatencyElapsedTime >= 0)
                 {
                     f.Global->CenterTowerLatencyElapsedTime -= f.DeltaTime;
-                    f.Events.TowerActivate(Team.None, false);
                 }
                 if (f.Global->CenterTowerIsUpdatedOccupy)
                 {
                     f.Global->CenterTowerIsUpdatedOccupy = false;
+                    f.Events.TowerActivate(Team.None, false);
                 }
             }
         }
